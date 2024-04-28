@@ -63,6 +63,9 @@ onMounted(() => {
 
 <template>
   <title>Kunal Jaglan - h00dy</title>
+  <meta name="author" content="Kunal Jaglan">
+  <meta name="description" content="Kunal Jaglan, also know by his alias h00dy, is a seasoned expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. He brings a blend of experience, wisdom, and adaptability to the work, ethics making him a valuable asset in any cybersecurity endeavor.
+">
   <div id="app">
     <div class="screen" id="screen" @click="deinitWindows">
       <div 
@@ -183,7 +186,7 @@ export default {
       "@context": "http://schema.org",
       "@type": "Person",
       "name": ["Kunal Jaglan", "h00dy", "hoodietramp", "Kunal Jaglan h00dy"],
-      "image": "@/assets/avatar.png",
+      "image": "img/avatar.png",
       "jobTitle": ["Pentester", "Red Teamer", "Cyber Security"],
       "description": "Kunal Jaglan, also know by his alias h00dy, is a seasoned expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. He brings a blend of experience, wisdom, and adaptability to the work, ethics making him a valuable asset in any cybersecurity endeavor.",
       "url": "https://h00dy.me",
