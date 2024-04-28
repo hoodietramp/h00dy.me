@@ -1,0 +1,202 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/views/Bio.vue",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "<template>\r\n<div>\r\n    <img class=\"w-full h-auto\" src=\"@/assets/Biography/self.jpeg\" />\r\n    <h2 class=\"font-bold text-2xl py-5\">Kunal Jaglan aka (h00dy)</h2>\r\n    <h4 class=\"text-gray-600 font-medium text-xs\" style=\"padding-bottom: 10px\">\r\n        Penetration Tester / Red Teamer / CyberSecurity Engineer 🚀 \r\n    </h4>\r\n    <h4 class=\"text-gray-600 font-medium text-xs\">postponing-sleep, it's a hacker life for me...★</h4>\r\n\r\n    <div class=\"pt-7\">\r\n        <h3 class=\"underline font-bold text-md pb-1\">About Me</h3>\r\n        <p class=\"font-thin text-sm pb-2.5\">\r\n            I’m a {{ new Date().getFullYear() - 2004 }} year old hacker in the making, With each keystroke, I strive further to the Dark Arts of Computing, devoting the better part of my life oscillating between Individual Contribution and maintaining a versatile skillset spanning the breadth of contemporary security practices, from to AppSec to NetSec to DevSecOps, with a firm emphasis on OffSec ensuring the ethos of hacking space and cyber world remain in me so that i may never lose sight of its inherent struggles. \r\n\r\n        </p>\r\n        <p class=\"font-thin text-sm pb-2.5\">\r\n            I am my own worst critic. As a result, I allow myself the space to navigate burnouts and re-writing internet privacy rights when they're still left, and recently, probing the whimsy of the IoT Sphere, all from the comfort of my cubicle.\r\n        </p>\r\n    </div>\r\n\r\n    <div class=\"pt-7\">\r\n        <h3 class=\"pb-1\"><b>Résumé</b></h3>\r\n        <a style=\"color: #ff5733\" href=\"/files/Kunal_SecurityEngineer_Apr.pdf\" class=\"font-thin text-sm pb-2.5\">Check out my résumé here.</a>\r\n    </div>\r\n</div>\r\n</template>\r\n",
+      "start": 1714315493237,
+      "end": 1714315493341,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493342,
+      "end": 1714315493342,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": "const _sfc_main = {}\nimport { createElementVNode as _createElementVNode, toDisplayString as _toDisplayString, openBlock as _openBlock, createElementBlock as _createElementBlock } from \"vue\"\nimport _imports_0 from '@/assets/Biography/self.jpeg'\n\n\nconst _hoisted_1 = /*#__PURE__*/_createElementVNode(\"img\", {\n  class: \"w-full h-auto\",\n  src: _imports_0\n}, null, -1)\nconst _hoisted_2 = /*#__PURE__*/_createElementVNode(\"h2\", { class: \"font-bold text-2xl py-5\" }, \"Kunal Jaglan aka (h00dy)\", -1)\nconst _hoisted_3 = /*#__PURE__*/_createElementVNode(\"h4\", {\n  class: \"text-gray-600 font-medium text-xs\",\n  style: {\"padding-bottom\":\"10px\"}\n}, \" Penetration Tester / Red Teamer / CyberSecurity Engineer 🚀 \", -1)\nconst _hoisted_4 = /*#__PURE__*/_createElementVNode(\"h4\", { class: \"text-gray-600 font-medium text-xs\" }, \"postponing-sleep, it's a hacker life for me...★\", -1)\nconst _hoisted_5 = { class: \"pt-7\" }\nconst _hoisted_6 = /*#__PURE__*/_createElementVNode(\"h3\", { class: \"underline font-bold text-md pb-1\" }, \"About Me\", -1)\nconst _hoisted_7 = { class: \"font-thin text-sm pb-2.5\" }\nconst _hoisted_8 = /*#__PURE__*/_createElementVNode(\"p\", { class: \"font-thin text-sm pb-2.5\" }, \" I am my own worst critic. As a result, I allow myself the space to navigate burnouts and re-writing internet privacy rights when they're still left, and recently, probing the whimsy of the IoT Sphere, all from the comfort of my cubicle. \", -1)\nconst _hoisted_9 = /*#__PURE__*/_createElementVNode(\"div\", { class: \"pt-7\" }, [\n  /*#__PURE__*/_createElementVNode(\"h3\", { class: \"pb-1\" }, [\n    /*#__PURE__*/_createElementVNode(\"b\", null, \"Résumé\")\n  ]),\n  /*#__PURE__*/_createElementVNode(\"a\", {\n    style: {\"color\":\"#ff5733\"},\n    href: \"/files/Kunal_SecurityEngineer_Apr.pdf\",\n    class: \"font-thin text-sm pb-2.5\"\n  }, \"Check out my résumé here.\")\n], -1)\n\nfunction _sfc_render(_ctx, _cache) {\n  return (_openBlock(), _createElementBlock(\"div\", null, [\n    _hoisted_1,\n    _hoisted_2,\n    _hoisted_3,\n    _hoisted_4,\n    _createElementVNode(\"div\", _hoisted_5, [\n      _hoisted_6,\n      _createElementVNode(\"p\", _hoisted_7, \" I’m a \" + _toDisplayString(new Date().getFullYear() - 2004) + \" year old hacker in the making, With each keystroke, I strive further to the Dark Arts of Computing, devoting the better part of my life oscillating between Individual Contribution and maintaining a versatile skillset spanning the breadth of contemporary security practices, from to AppSec to NetSec to DevSecOps, with a firm emphasis on OffSec ensuring the ethos of hacking space and cyber world remain in me so that i may never lose sight of its inherent struggles. \", 1),\n      _hoisted_8\n    ]),\n    _hoisted_9\n  ]))\n}\n\n\nimport _export_sfc from '\u0000plugin-vue:export-helper'\nexport default /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render]])",
+      "start": 1714315493342,
+      "end": 1714315493345,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493345,
+      "end": 1714315493345,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493345,
+      "end": 1714315493345,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493345,
+      "end": 1714315493345,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493345,
+      "end": 1714315493345,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493345,
+      "end": 1714315493345,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493345,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493346,
+      "end": 1714315493346,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493347,
+      "end": 1714315493347,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493347,
+      "end": 1714315493347,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493347,
+      "end": 1714315493347,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493347,
+      "end": 1714315493347,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493347,
+      "end": 1714315493347,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493347,
+      "end": 1714315493347,
+      "order": "normal"
+    }
+  ]
+}

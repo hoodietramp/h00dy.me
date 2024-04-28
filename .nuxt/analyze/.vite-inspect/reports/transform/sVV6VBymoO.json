@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unenv/runtime/node/stream/readable.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { createNotImplementedError } from \"../../_internal/utils.mjs\";\r\nimport { EventEmitter } from \"../events/index.mjs\";\r\nexport class _Readable extends EventEmitter {\r\n  __unenv__ = true;\r\n  readableEncoding = null;\r\n  readableEnded = true;\r\n  readableFlowing = false;\r\n  readableHighWaterMark = 0;\r\n  readableLength = 0;\r\n  readableObjectMode = false;\r\n  readableAborted = false;\r\n  readableDidRead = false;\r\n  closed = false;\r\n  errored = null;\r\n  readable = false;\r\n  destroyed = false;\r\n  static from(_iterable, options) {\r\n    return new _Readable(options);\r\n  }\r\n  constructor(_opts) {\r\n    super();\r\n  }\r\n  _read(_size) {\r\n  }\r\n  read(_size) {\r\n  }\r\n  setEncoding(_encoding) {\r\n    return this;\r\n  }\r\n  pause() {\r\n    return this;\r\n  }\r\n  resume() {\r\n    return this;\r\n  }\r\n  isPaused() {\r\n    return true;\r\n  }\r\n  unpipe(_destination) {\r\n    return this;\r\n  }\r\n  unshift(_chunk, _encoding) {\r\n  }\r\n  wrap(_oldStream) {\r\n    return this;\r\n  }\r\n  push(_chunk, _encoding) {\r\n    return false;\r\n  }\r\n  _destroy(_error, _callback) {\r\n    this.removeAllListeners();\r\n  }\r\n  destroy(error) {\r\n    this.destroyed = true;\r\n    this._destroy(error);\r\n    return this;\r\n  }\r\n  pipe(_destenition, _options) {\r\n    return {};\r\n  }\r\n  compose(stream, options) {\r\n    throw new Error(\"[unenv] Method not implemented.\");\r\n  }\r\n  [Symbol.asyncDispose]() {\r\n    this.destroy();\r\n    return Promise.resolve();\r\n  }\r\n  async *[Symbol.asyncIterator]() {\r\n    throw createNotImplementedError(\"Readable.asyncIterator\");\r\n  }\r\n  iterator(options) {\r\n    throw createNotImplementedError(\"Readable.iterator\");\r\n  }\r\n  map(fn, options) {\r\n    throw createNotImplementedError(\"Readable.map\");\r\n  }\r\n  filter(fn, options) {\r\n    throw createNotImplementedError(\"Readable.filter\");\r\n  }\r\n  forEach(fn, options) {\r\n    throw createNotImplementedError(\"Readable.forEach\");\r\n  }\r\n  reduce(fn, initialValue, options) {\r\n    throw createNotImplementedError(\"Readable.reduce\");\r\n  }\r\n  find(fn, options) {\r\n    throw createNotImplementedError(\"Readable.find\");\r\n  }\r\n  findIndex(fn, options) {\r\n    throw createNotImplementedError(\"Readable.findIndex\");\r\n  }\r\n  some(fn, options) {\r\n    throw createNotImplementedError(\"Readable.some\");\r\n  }\r\n  toArray(options) {\r\n    throw createNotImplementedError(\"Readable.toArray\");\r\n  }\r\n  every(fn, options) {\r\n    throw createNotImplementedError(\"Readable.every\");\r\n  }\r\n  flatMap(fn, options) {\r\n    throw createNotImplementedError(\"Readable.flatMap\");\r\n  }\r\n  drop(limit, options) {\r\n    throw createNotImplementedError(\"Readable.drop\");\r\n  }\r\n  take(limit, options) {\r\n    throw createNotImplementedError(\"Readable.take\");\r\n  }\r\n  asIndexedPairs(options) {\r\n    throw createNotImplementedError(\"Readable.asIndexedPairs\");\r\n  }\r\n}\r\nexport const Readable = globalThis.Readable || _Readable;\r\n",
+      "start": 1714315493291,
+      "end": 1714315493497,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493497,
+      "end": 1714315493497,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493502,
+      "end": 1714315493504,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493506,
+      "end": 1714315493506,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493508,
+      "end": 1714315493508,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493510,
+      "end": 1714315493510,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493512,
+      "end": 1714315493512,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493512,
+      "end": 1714315493512,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493512,
+      "end": 1714315493512,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493515,
+      "end": 1714315493515,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493516,
+      "end": 1714315493517,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493522,
+      "end": 1714315493522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493524,
+      "end": 1714315493524,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493525,
+      "end": 1714315493525,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493526,
+      "end": 1714315493526,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493526,
+      "end": 1714315493526,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493528,
+      "end": 1714315493528,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493529,
+      "end": 1714315493529,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493532,
+      "end": 1714315493533,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493533,
+      "end": 1714315493533,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493537,
+      "end": 1714315493537,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493537,
+      "end": 1714315493537,
+      "order": "normal"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/@vue/devtools-api/lib/esm/proxy.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { HOOK_PLUGIN_SETTINGS_SET } from './const.js';\r\nimport { now } from './time.js';\r\nexport class ApiProxy {\r\n    constructor(plugin, hook) {\r\n        this.target = null;\r\n        this.targetQueue = [];\r\n        this.onQueue = [];\r\n        this.plugin = plugin;\r\n        this.hook = hook;\r\n        const defaultSettings = {};\r\n        if (plugin.settings) {\r\n            for (const id in plugin.settings) {\r\n                const item = plugin.settings[id];\r\n                defaultSettings[id] = item.defaultValue;\r\n            }\r\n        }\r\n        const localSettingsSaveId = `__vue-devtools-plugin-settings__${plugin.id}`;\r\n        let currentSettings = Object.assign({}, defaultSettings);\r\n        try {\r\n            const raw = localStorage.getItem(localSettingsSaveId);\r\n            const data = JSON.parse(raw);\r\n            Object.assign(currentSettings, data);\r\n        }\r\n        catch (e) {\r\n            // noop\r\n        }\r\n        this.fallbacks = {\r\n            getSettings() {\r\n                return currentSettings;\r\n            },\r\n            setSettings(value) {\r\n                try {\r\n                    localStorage.setItem(localSettingsSaveId, JSON.stringify(value));\r\n                }\r\n                catch (e) {\r\n                    // noop\r\n                }\r\n                currentSettings = value;\r\n            },\r\n            now() {\r\n                return now();\r\n            },\r\n        };\r\n        if (hook) {\r\n            hook.on(HOOK_PLUGIN_SETTINGS_SET, (pluginId, value) => {\r\n                if (pluginId === this.plugin.id) {\r\n                    this.fallbacks.setSettings(value);\r\n                }\r\n            });\r\n        }\r\n        this.proxiedOn = new Proxy({}, {\r\n            get: (_target, prop) => {\r\n                if (this.target) {\r\n                    return this.target.on[prop];\r\n                }\r\n                else {\r\n                    return (...args) => {\r\n                        this.onQueue.push({\r\n                            method: prop,\r\n                            args,\r\n                        });\r\n                    };\r\n                }\r\n            },\r\n        });\r\n        this.proxiedTarget = new Proxy({}, {\r\n            get: (_target, prop) => {\r\n                if (this.target) {\r\n                    return this.target[prop];\r\n                }\r\n                else if (prop === 'on') {\r\n                    return this.proxiedOn;\r\n                }\r\n                else if (Object.keys(this.fallbacks).includes(prop)) {\r\n                    return (...args) => {\r\n                        this.targetQueue.push({\r\n                            method: prop,\r\n                            args,\r\n                            resolve: () => { },\r\n                        });\r\n                        return this.fallbacks[prop](...args);\r\n                    };\r\n                }\r\n                else {\r\n                    return (...args) => {\r\n                        return new Promise((resolve) => {\r\n                            this.targetQueue.push({\r\n                                method: prop,\r\n                                args,\r\n                                resolve,\r\n                            });\r\n                        });\r\n                    };\r\n                }\r\n            },\r\n        });\r\n    }\r\n    async setRealTarget(target) {\r\n        this.target = target;\r\n        for (const item of this.onQueue) {\r\n            this.target.on[item.method](...item.args);\r\n        }\r\n        for (const item of this.targetQueue) {\r\n            item.resolve(await this.target[item.method](...item.args));\r\n        }\r\n    }\r\n}\r\n",
+      "start": 1714315493888,
+      "end": 1714315493961,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493961,
+      "end": 1714315493961,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493961,
+      "end": 1714315493962,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493962,
+      "end": 1714315493962,
+      "order": "normal"
+    }
+  ]
+}

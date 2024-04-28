@@ -1,0 +1,251 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/nuxt/dist/app/composables/chunk.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import destr from \"destr\";\nimport { useNuxtApp } from \"../nuxt.js\";\nexport function reloadNuxtApp(options = {}) {\n  if (import.meta.server) {\n    return;\n  }\n  const path = options.path || window.location.pathname;\n  let handledPath = {};\n  try {\n    handledPath = destr(sessionStorage.getItem(\"nuxt:reload\") || \"{}\");\n  } catch {\n  }\n  if (options.force || handledPath?.path !== path || handledPath?.expires < Date.now()) {\n    try {\n      sessionStorage.setItem(\"nuxt:reload\", JSON.stringify({ path, expires: Date.now() + (options.ttl ?? 1e4) }));\n    } catch {\n    }\n    if (options.persistState) {\n      try {\n        sessionStorage.setItem(\"nuxt:reload:state\", JSON.stringify({ state: useNuxtApp().payload.state }));\n      } catch {\n      }\n    }\n    if (window.location.pathname !== path) {\n      window.location.href = path;\n    } else {\n      window.location.reload();\n    }\n  }\n}\n",
+      "start": 1714315495522,
+      "end": 1714315495766,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "pre"
+    },
+    {
+      "name": "server-only-component-transform",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315495766,
+      "end": 1714315495766,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "result": "import destr from \"destr\";\nimport { useNuxtApp } from \"../nuxt.js\";\nexport function reloadNuxtApp(options = {}) {\n  if (true) {\n    return;\n  }\n  const path = options.path || window.location.pathname;\n  let handledPath = {};\n  try {\n    handledPath = destr(sessionStorage.getItem(\"nuxt:reload\") || \"{}\");\n  } catch {\n  }\n  if (options.force || handledPath?.path !== path || handledPath?.expires < Date.now()) {\n    try {\n      sessionStorage.setItem(\"nuxt:reload\", JSON.stringify({ path, expires: Date.now() + (options.ttl ?? 1e4) }));\n    } catch {\n    }\n    if (options.persistState) {\n      try {\n        sessionStorage.setItem(\"nuxt:reload:state\", JSON.stringify({ state: useNuxtApp().payload.state }));\n      } catch {\n      }\n    }\n    if (window.location.pathname !== path) {\n      window.location.href = path;\n    } else {\n      window.location.reload();\n    }\n  }\n}\n",
+      "start": 1714315495766,
+      "end": 1714315495767,
+      "order": "normal",
+      "sourcemaps": {
+        "version": 3,
+        "sources": [
+          ""
+        ],
+        "names": [],
+        "mappings": "AAAA,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC1B,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACxC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC7C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,IAAkB,CAAC,CAAC,CAAC;AAC3B,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACX,CAAC,CAAC,CAAC;AACH,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACxD,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACvB,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACP,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACvE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACX,CAAC,CAAC,CAAC;AACH,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACzF,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACT,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAClH,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACb,CAAC,CAAC,CAAC,CAAC,CAAC;AACL,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC/B,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACX,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC3G,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACf,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACP,CAAC,CAAC,CAAC,CAAC,CAAC;AACL,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC5C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAClC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACZ,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC/B,CAAC,CAAC,CAAC,CAAC,CAAC;AACL,CAAC,CAAC,CAAC;AACH,CAAC;"
+      }
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315495767,
+      "end": 1714315495767,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "result": "import destr from \"destr\";\nimport { useNuxtApp } from \"../nuxt.js\";\nexport function reloadNuxtApp(options = {}) {\n  if (true) {\n    return;\n  }\n  const path = options.path || (void 0).location.pathname;\n  let handledPath = {};\n  try {\n    handledPath = destr(sessionStorage.getItem(\"nuxt:reload\") || \"{}\");\n  } catch {\n  }\n  if (options.force || handledPath?.path !== path || handledPath?.expires < Date.now()) {\n    try {\n      sessionStorage.setItem(\"nuxt:reload\", JSON.stringify({ path, expires: Date.now() + (options.ttl ?? 1e4) }));\n    } catch {\n    }\n    if (options.persistState) {\n      try {\n        sessionStorage.setItem(\"nuxt:reload:state\", JSON.stringify({ state: useNuxtApp().payload.state }));\n      } catch {\n      }\n    }\n    if ((void 0).location.pathname !== path) {\n      (void 0).location.href = path;\n    } else {\n      (void 0).location.reload();\n    }\n  }\n}\n",
+      "start": 1714315495767,
+      "end": 1714315495878,
+      "order": "normal",
+      "sourcemaps": "{\n  \"version\": 3,\n  \"sources\": [\"C:/Users/h00dy/Documents/github/h00dy.me/node_modules/nuxt/dist/app/composables/chunk.js\"],\n  \"sourcesContent\": [\"import destr from \\\"destr\\\";\\nimport { useNuxtApp } from \\\"../nuxt.js\\\";\\nexport function reloadNuxtApp(options = {}) {\\n  if (true) {\\n    return;\\n  }\\n  const path = options.path || window.location.pathname;\\n  let handledPath = {};\\n  try {\\n    handledPath = destr(sessionStorage.getItem(\\\"nuxt:reload\\\") || \\\"{}\\\");\\n  } catch {\\n  }\\n  if (options.force || handledPath?.path !== path || handledPath?.expires < Date.now()) {\\n    try {\\n      sessionStorage.setItem(\\\"nuxt:reload\\\", JSON.stringify({ path, expires: Date.now() + (options.ttl ?? 1e4) }));\\n    } catch {\\n    }\\n    if (options.persistState) {\\n      try {\\n        sessionStorage.setItem(\\\"nuxt:reload:state\\\", JSON.stringify({ state: useNuxtApp().payload.state }));\\n      } catch {\\n      }\\n    }\\n    if (window.location.pathname !== path) {\\n      window.location.href = path;\\n    } else {\\n      window.location.reload();\\n    }\\n  }\\n}\\n\"],\n  \"mappings\": \"AAAA,OAAO,WAAW;AAClB,SAAS,kBAAkB;AACpB,gBAAS,cAAc,UAAU,CAAC,GAAG;AAC1C,MAAI,MAAM;AACR;AAAA,EACF;AACA,QAAM,OAAO,QAAQ,QAAQ,SAAO,SAAS;AAC7C,MAAI,cAAc,CAAC;AACnB,MAAI;AACF,kBAAc,MAAM,eAAe,QAAQ,aAAa,KAAK,IAAI;AAAA,EACnE,QAAQ;AAAA,EACR;AACA,MAAI,QAAQ,SAAS,aAAa,SAAS,QAAQ,aAAa,UAAU,KAAK,IAAI,GAAG;AACpF,QAAI;AACF,qBAAe,QAAQ,eAAe,KAAK,UAAU,EAAE,MAAM,SAAS,KAAK,IAAI,KAAK,QAAQ,OAAO,KAAK,CAAC,CAAC;AAAA,IAC5G,QAAQ;AAAA,IACR;AACA,QAAI,QAAQ,cAAc;AACxB,UAAI;AACF,uBAAe,QAAQ,qBAAqB,KAAK,UAAU,EAAE,OAAO,WAAW,EAAE,QAAQ,MAAM,CAAC,CAAC;AAAA,MACnG,QAAQ;AAAA,MACR;AAAA,IACF;AACA,QAAI,SAAO,SAAS,aAAa,MAAM;AACrC,eAAO,SAAS,OAAO;AAAA,IACzB,OAAO;AACL,eAAO,SAAS,OAAO;AAAA,IACzB;AAAA,EACF;AACF;\",\n  \"names\": []\n}\n"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315495878,
+      "end": 1714315495878,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315495878,
+      "end": 1714315495878,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315495878,
+      "end": 1714315495878,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315495878,
+      "end": 1714315495878,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315495878,
+      "end": 1714315495879,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-template",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495879,
+      "end": 1714315495879,
+      "order": "normal"
+    }
+  ]
+}

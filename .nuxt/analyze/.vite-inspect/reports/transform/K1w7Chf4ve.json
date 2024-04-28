@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/ofetch/dist/shared/ofetch.37386b05.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import destr from 'destr';\r\nimport { withBase, withQuery } from 'ufo';\r\n\r\nclass FetchError extends Error {\r\n  constructor(message, opts) {\r\n    super(message, opts);\r\n    this.name = \"FetchError\";\r\n    if (opts?.cause && !this.cause) {\r\n      this.cause = opts.cause;\r\n    }\r\n  }\r\n}\r\nfunction createFetchError(ctx) {\r\n  const errorMessage = ctx.error?.message || ctx.error?.toString() || \"\";\r\n  const method = ctx.request?.method || ctx.options?.method || \"GET\";\r\n  const url = ctx.request?.url || String(ctx.request) || \"/\";\r\n  const requestStr = `[${method}] ${JSON.stringify(url)}`;\r\n  const statusStr = ctx.response ? `${ctx.response.status} ${ctx.response.statusText}` : \"<no response>\";\r\n  const message = `${requestStr}: ${statusStr}${errorMessage ? ` ${errorMessage}` : \"\"}`;\r\n  const fetchError = new FetchError(\r\n    message,\r\n    ctx.error ? { cause: ctx.error } : void 0\r\n  );\r\n  for (const key of [\"request\", \"options\", \"response\"]) {\r\n    Object.defineProperty(fetchError, key, {\r\n      get() {\r\n        return ctx[key];\r\n      }\r\n    });\r\n  }\r\n  for (const [key, refKey] of [\r\n    [\"data\", \"_data\"],\r\n    [\"status\", \"status\"],\r\n    [\"statusCode\", \"status\"],\r\n    [\"statusText\", \"statusText\"],\r\n    [\"statusMessage\", \"statusText\"]\r\n  ]) {\r\n    Object.defineProperty(fetchError, key, {\r\n      get() {\r\n        return ctx.response && ctx.response[refKey];\r\n      }\r\n    });\r\n  }\r\n  return fetchError;\r\n}\r\n\r\nconst payloadMethods = new Set(\r\n  Object.freeze([\"PATCH\", \"POST\", \"PUT\", \"DELETE\"])\r\n);\r\nfunction isPayloadMethod(method = \"GET\") {\r\n  return payloadMethods.has(method.toUpperCase());\r\n}\r\nfunction isJSONSerializable(value) {\r\n  if (value === void 0) {\r\n    return false;\r\n  }\r\n  const t = typeof value;\r\n  if (t === \"string\" || t === \"number\" || t === \"boolean\" || t === null) {\r\n    return true;\r\n  }\r\n  if (t !== \"object\") {\r\n    return false;\r\n  }\r\n  if (Array.isArray(value)) {\r\n    return true;\r\n  }\r\n  if (value.buffer) {\r\n    return false;\r\n  }\r\n  return value.constructor && value.constructor.name === \"Object\" || typeof value.toJSON === \"function\";\r\n}\r\nconst textTypes = /* @__PURE__ */ new Set([\r\n  \"image/svg\",\r\n  \"application/xml\",\r\n  \"application/xhtml\",\r\n  \"application/html\"\r\n]);\r\nconst JSON_RE = /^application\\/(?:[\\w!#$%&*.^`~-]*\\+)?json(;.+)?$/i;\r\nfunction detectResponseType(_contentType = \"\") {\r\n  if (!_contentType) {\r\n    return \"json\";\r\n  }\r\n  const contentType = _contentType.split(\";\").shift() || \"\";\r\n  if (JSON_RE.test(contentType)) {\r\n    return \"json\";\r\n  }\r\n  if (textTypes.has(contentType) || contentType.startsWith(\"text/\")) {\r\n    return \"text\";\r\n  }\r\n  return \"blob\";\r\n}\r\nfunction mergeFetchOptions(input, defaults, Headers = globalThis.Headers) {\r\n  const merged = {\r\n    ...defaults,\r\n    ...input\r\n  };\r\n  if (defaults?.params && input?.params) {\r\n    merged.params = {\r\n      ...defaults?.params,\r\n      ...input?.params\r\n    };\r\n  }\r\n  if (defaults?.query && input?.query) {\r\n    merged.query = {\r\n      ...defaults?.query,\r\n      ...input?.query\r\n    };\r\n  }\r\n  if (defaults?.headers && input?.headers) {\r\n    merged.headers = new Headers(defaults?.headers || {});\r\n    for (const [key, value] of new Headers(input?.headers || {})) {\r\n      merged.headers.set(key, value);\r\n    }\r\n  }\r\n  return merged;\r\n}\r\n\r\nconst retryStatusCodes = /* @__PURE__ */ new Set([\r\n  408,\r\n  // Request Timeout\r\n  409,\r\n  // Conflict\r\n  425,\r\n  // Too Early\r\n  429,\r\n  // Too Many Requests\r\n  500,\r\n  // Internal Server Error\r\n  502,\r\n  // Bad Gateway\r\n  503,\r\n  // Service Unavailable\r\n  504\r\n  //  Gateway Timeout\r\n]);\r\nconst nullBodyResponses = /* @__PURE__ */ new Set([101, 204, 205, 304]);\r\nfunction createFetch(globalOptions = {}) {\r\n  const {\r\n    fetch = globalThis.fetch,\r\n    Headers = globalThis.Headers,\r\n    AbortController = globalThis.AbortController\r\n  } = globalOptions;\r\n  async function onError(context) {\r\n    const isAbort = context.error && context.error.name === \"AbortError\" && !context.options.timeout || false;\r\n    if (context.options.retry !== false && !isAbort) {\r\n      let retries;\r\n      if (typeof context.options.retry === \"number\") {\r\n        retries = context.options.retry;\r\n      } else {\r\n        retries = isPayloadMethod(context.options.method) ? 0 : 1;\r\n      }\r\n      const responseCode = context.response && context.response.status || 500;\r\n      if (retries > 0 && (Array.isArray(context.options.retryStatusCodes) ? context.options.retryStatusCodes.includes(responseCode) : retryStatusCodes.has(responseCode))) {\r\n        const retryDelay = context.options.retryDelay || 0;\r\n        if (retryDelay > 0) {\r\n          await new Promise((resolve) => setTimeout(resolve, retryDelay));\r\n        }\r\n        return $fetchRaw(context.request, {\r\n          ...context.options,\r\n          retry: retries - 1\r\n        });\r\n      }\r\n    }\r\n    const error = createFetchError(context);\r\n    if (Error.captureStackTrace) {\r\n      Error.captureStackTrace(error, $fetchRaw);\r\n    }\r\n    throw error;\r\n  }\r\n  const $fetchRaw = async function $fetchRaw2(_request, _options = {}) {\r\n    const context = {\r\n      request: _request,\r\n      options: mergeFetchOptions(_options, globalOptions.defaults, Headers),\r\n      response: void 0,\r\n      error: void 0\r\n    };\r\n    context.options.method = context.options.method?.toUpperCase();\r\n    if (context.options.onRequest) {\r\n      await context.options.onRequest(context);\r\n    }\r\n    if (typeof context.request === \"string\") {\r\n      if (context.options.baseURL) {\r\n        context.request = withBase(context.request, context.options.baseURL);\r\n      }\r\n      if (context.options.query || context.options.params) {\r\n        context.request = withQuery(context.request, {\r\n          ...context.options.params,\r\n          ...context.options.query\r\n        });\r\n      }\r\n    }\r\n    if (context.options.body && isPayloadMethod(context.options.method)) {\r\n      if (isJSONSerializable(context.options.body)) {\r\n        context.options.body = typeof context.options.body === \"string\" ? context.options.body : JSON.stringify(context.options.body);\r\n        context.options.headers = new Headers(context.options.headers || {});\r\n        if (!context.options.headers.has(\"content-type\")) {\r\n          context.options.headers.set(\"content-type\", \"application/json\");\r\n        }\r\n        if (!context.options.headers.has(\"accept\")) {\r\n          context.options.headers.set(\"accept\", \"application/json\");\r\n        }\r\n      } else if (\r\n        // ReadableStream Body\r\n        \"pipeTo\" in context.options.body && typeof context.options.body.pipeTo === \"function\" || // Node.js Stream Body\r\n        typeof context.options.body.pipe === \"function\"\r\n      ) {\r\n        if (!(\"duplex\" in context.options)) {\r\n          context.options.duplex = \"half\";\r\n        }\r\n      }\r\n    }\r\n    let abortTimeout;\r\n    if (!context.options.signal && context.options.timeout) {\r\n      const controller = new AbortController();\r\n      abortTimeout = setTimeout(\r\n        () => controller.abort(),\r\n        context.options.timeout\r\n      );\r\n      context.options.signal = controller.signal;\r\n    }\r\n    try {\r\n      context.response = await fetch(\r\n        context.request,\r\n        context.options\r\n      );\r\n    } catch (error) {\r\n      context.error = error;\r\n      if (context.options.onRequestError) {\r\n        await context.options.onRequestError(context);\r\n      }\r\n      return await onError(context);\r\n    } finally {\r\n      if (abortTimeout) {\r\n        clearTimeout(abortTimeout);\r\n      }\r\n    }\r\n    const hasBody = context.response.body && !nullBodyResponses.has(context.response.status) && context.options.method !== \"HEAD\";\r\n    if (hasBody) {\r\n      const responseType = (context.options.parseResponse ? \"json\" : context.options.responseType) || detectResponseType(context.response.headers.get(\"content-type\") || \"\");\r\n      switch (responseType) {\r\n        case \"json\": {\r\n          const data = await context.response.text();\r\n          const parseFunction = context.options.parseResponse || destr;\r\n          context.response._data = parseFunction(data);\r\n          break;\r\n        }\r\n        case \"stream\": {\r\n          context.response._data = context.response.body;\r\n          break;\r\n        }\r\n        default: {\r\n          context.response._data = await context.response[responseType]();\r\n        }\r\n      }\r\n    }\r\n    if (context.options.onResponse) {\r\n      await context.options.onResponse(context);\r\n    }\r\n    if (!context.options.ignoreResponseError && context.response.status >= 400 && context.response.status < 600) {\r\n      if (context.options.onResponseError) {\r\n        await context.options.onResponseError(context);\r\n      }\r\n      return await onError(context);\r\n    }\r\n    return context.response;\r\n  };\r\n  const $fetch = async function $fetch2(request, options) {\r\n    const r = await $fetchRaw(request, options);\r\n    return r._data;\r\n  };\r\n  $fetch.raw = $fetchRaw;\r\n  $fetch.native = (...args) => fetch(...args);\r\n  $fetch.create = (defaultOptions = {}) => createFetch({\r\n    ...globalOptions,\r\n    defaults: {\r\n      ...globalOptions.defaults,\r\n      ...defaultOptions\r\n    }\r\n  });\r\n  return $fetch;\r\n}\r\n\r\nexport { FetchError as F, createFetchError as a, createFetch as c };\r\n",
+      "start": 1714315492767,
+      "end": 1714315493004,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493004,
+      "end": 1714315493004,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493004,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493005,
+      "end": 1714315493005,
+      "order": "normal"
+    }
+  ]
+}

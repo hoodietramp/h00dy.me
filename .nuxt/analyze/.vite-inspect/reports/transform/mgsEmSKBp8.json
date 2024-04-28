@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unenv/runtime/node/stream/writable.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { EventEmitter } from \"../events/index.mjs\";\r\nclass _Writable extends EventEmitter {\r\n  __unenv__ = true;\r\n  writable = true;\r\n  writableEnded = false;\r\n  writableFinished = false;\r\n  writableHighWaterMark = 0;\r\n  writableLength = 0;\r\n  writableObjectMode = false;\r\n  writableCorked = 0;\r\n  closed = false;\r\n  errored = null;\r\n  writableNeedDrain = false;\r\n  destroyed = false;\r\n  _data;\r\n  _encoding = \"utf-8\";\r\n  constructor(_opts) {\r\n    super();\r\n  }\r\n  pipe(_destenition, _options) {\r\n    return {};\r\n  }\r\n  _write(chunk, encoding, callback) {\r\n    if (this.writableEnded) {\r\n      if (callback) {\r\n        callback();\r\n      }\r\n      return;\r\n    }\r\n    if (this._data === void 0) {\r\n      this._data = chunk;\r\n    } else {\r\n      const a = typeof this._data === \"string\" ? Buffer.from(this._data, this._encoding || encoding || \"utf8\") : this._data;\r\n      const b = typeof chunk === \"string\" ? Buffer.from(chunk, encoding || this._encoding || \"utf8\") : chunk;\r\n      this._data = Buffer.concat([a, b]);\r\n    }\r\n    this._encoding = encoding;\r\n    if (callback) {\r\n      callback();\r\n    }\r\n  }\r\n  _writev(_chunks, _callback) {\r\n  }\r\n  _destroy(_error, _callback) {\r\n  }\r\n  _final(_callback) {\r\n  }\r\n  write(chunk, arg2, arg3) {\r\n    const encoding = typeof arg2 === \"string\" ? this._encoding : \"utf-8\";\r\n    const cb = typeof arg2 === \"function\" ? arg2 : typeof arg3 === \"function\" ? arg3 : void 0;\r\n    this._write(chunk, encoding, cb);\r\n    return true;\r\n  }\r\n  setDefaultEncoding(_encoding) {\r\n    return this;\r\n  }\r\n  end(arg1, arg2, arg3) {\r\n    const callback = typeof arg1 === \"function\" ? arg1 : typeof arg2 === \"function\" ? arg2 : typeof arg3 === \"function\" ? arg3 : void 0;\r\n    if (this.writableEnded) {\r\n      if (callback) {\r\n        callback();\r\n      }\r\n      return this;\r\n    }\r\n    const data = arg1 === callback ? void 0 : arg1;\r\n    if (data) {\r\n      const encoding = arg2 === callback ? void 0 : arg2;\r\n      this.write(data, encoding, callback);\r\n    }\r\n    this.writableEnded = true;\r\n    this.writableFinished = true;\r\n    this.emit(\"close\");\r\n    this.emit(\"finish\");\r\n    return this;\r\n  }\r\n  cork() {\r\n  }\r\n  uncork() {\r\n  }\r\n  destroy(_error) {\r\n    this.destroyed = true;\r\n    delete this._data;\r\n    this.removeAllListeners();\r\n    return this;\r\n  }\r\n  compose(stream, options) {\r\n    throw new Error(\"[h3] Method not implemented.\");\r\n  }\r\n}\r\nexport const Writable = globalThis.Writable || _Writable;\r\n",
+      "start": 1714315493264,
+      "end": 1714315493476,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493476,
+      "end": 1714315493476,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493476,
+      "end": 1714315493477,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493477,
+      "end": 1714315493477,
+      "order": "normal"
+    }
+  ]
+}

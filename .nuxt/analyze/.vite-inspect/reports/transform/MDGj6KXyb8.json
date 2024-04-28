@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/ofetch/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { c as createFetch } from './shared/ofetch.37386b05.mjs';\r\nexport { F as FetchError, a as createFetchError } from './shared/ofetch.37386b05.mjs';\r\nimport 'destr';\r\nimport 'ufo';\r\n\r\nconst _globalThis = function() {\r\n  if (typeof globalThis !== \"undefined\") {\r\n    return globalThis;\r\n  }\r\n  if (typeof self !== \"undefined\") {\r\n    return self;\r\n  }\r\n  if (typeof window !== \"undefined\") {\r\n    return window;\r\n  }\r\n  if (typeof global !== \"undefined\") {\r\n    return global;\r\n  }\r\n  throw new Error(\"unable to locate global object\");\r\n}();\r\nconst fetch = _globalThis.fetch || (() => Promise.reject(new Error(\"[ofetch] global.fetch is not supported!\")));\r\nconst Headers = _globalThis.Headers;\r\nconst AbortController = _globalThis.AbortController;\r\nconst ofetch = createFetch({ fetch, Headers, AbortController });\r\nconst $fetch = ofetch;\r\n\r\nexport { $fetch, AbortController, Headers, createFetch, fetch, ofetch };\r\n",
+      "start": 1714315492646,
+      "end": 1714315492680,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315492680,
+      "end": 1714315492680,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315492681,
+      "end": 1714315492681,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315492681,
+      "end": 1714315492681,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315492681,
+      "end": 1714315492681,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315492681,
+      "end": 1714315492681,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315492681,
+      "end": 1714315492681,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315492681,
+      "end": 1714315492681,
+      "order": "normal"
+    }
+  ]
+}

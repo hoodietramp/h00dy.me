@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/cookie-es/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "const fieldContentRegExp = /^[\\u0009\\u0020-\\u007E\\u0080-\\u00FF]+$/;\r\nfunction parse(str, options) {\r\n  if (typeof str !== \"string\") {\r\n    throw new TypeError(\"argument str must be a string\");\r\n  }\r\n  const obj = {};\r\n  const opt = options || {};\r\n  const dec = opt.decode || decode;\r\n  let index = 0;\r\n  while (index < str.length) {\r\n    const eqIdx = str.indexOf(\"=\", index);\r\n    if (eqIdx === -1) {\r\n      break;\r\n    }\r\n    let endIdx = str.indexOf(\";\", index);\r\n    if (endIdx === -1) {\r\n      endIdx = str.length;\r\n    } else if (endIdx < eqIdx) {\r\n      index = str.lastIndexOf(\";\", eqIdx - 1) + 1;\r\n      continue;\r\n    }\r\n    const key = str.slice(index, eqIdx).trim();\r\n    if (void 0 === obj[key]) {\r\n      let val = str.slice(eqIdx + 1, endIdx).trim();\r\n      if (val.codePointAt(0) === 34) {\r\n        val = val.slice(1, -1);\r\n      }\r\n      obj[key] = tryDecode(val, dec);\r\n    }\r\n    index = endIdx + 1;\r\n  }\r\n  return obj;\r\n}\r\nfunction serialize(name, value, options) {\r\n  const opt = options || {};\r\n  const enc = opt.encode || encode;\r\n  if (typeof enc !== \"function\") {\r\n    throw new TypeError(\"option encode is invalid\");\r\n  }\r\n  if (!fieldContentRegExp.test(name)) {\r\n    throw new TypeError(\"argument name is invalid\");\r\n  }\r\n  const encodedValue = enc(value);\r\n  if (encodedValue && !fieldContentRegExp.test(encodedValue)) {\r\n    throw new TypeError(\"argument val is invalid\");\r\n  }\r\n  let str = name + \"=\" + encodedValue;\r\n  if (void 0 !== opt.maxAge && opt.maxAge !== null) {\r\n    const maxAge = opt.maxAge - 0;\r\n    if (Number.isNaN(maxAge) || !Number.isFinite(maxAge)) {\r\n      throw new TypeError(\"option maxAge is invalid\");\r\n    }\r\n    str += \"; Max-Age=\" + Math.floor(maxAge);\r\n  }\r\n  if (opt.domain) {\r\n    if (!fieldContentRegExp.test(opt.domain)) {\r\n      throw new TypeError(\"option domain is invalid\");\r\n    }\r\n    str += \"; Domain=\" + opt.domain;\r\n  }\r\n  if (opt.path) {\r\n    if (!fieldContentRegExp.test(opt.path)) {\r\n      throw new TypeError(\"option path is invalid\");\r\n    }\r\n    str += \"; Path=\" + opt.path;\r\n  }\r\n  if (opt.expires) {\r\n    if (!isDate(opt.expires) || Number.isNaN(opt.expires.valueOf())) {\r\n      throw new TypeError(\"option expires is invalid\");\r\n    }\r\n    str += \"; Expires=\" + opt.expires.toUTCString();\r\n  }\r\n  if (opt.httpOnly) {\r\n    str += \"; HttpOnly\";\r\n  }\r\n  if (opt.secure) {\r\n    str += \"; Secure\";\r\n  }\r\n  if (opt.priority) {\r\n    const priority = typeof opt.priority === \"string\" ? opt.priority.toLowerCase() : opt.priority;\r\n    switch (priority) {\r\n      case \"low\": {\r\n        str += \"; Priority=Low\";\r\n        break;\r\n      }\r\n      case \"medium\": {\r\n        str += \"; Priority=Medium\";\r\n        break;\r\n      }\r\n      case \"high\": {\r\n        str += \"; Priority=High\";\r\n        break;\r\n      }\r\n      default: {\r\n        throw new TypeError(\"option priority is invalid\");\r\n      }\r\n    }\r\n  }\r\n  if (opt.sameSite) {\r\n    const sameSite = typeof opt.sameSite === \"string\" ? opt.sameSite.toLowerCase() : opt.sameSite;\r\n    switch (sameSite) {\r\n      case true: {\r\n        str += \"; SameSite=Strict\";\r\n        break;\r\n      }\r\n      case \"lax\": {\r\n        str += \"; SameSite=Lax\";\r\n        break;\r\n      }\r\n      case \"strict\": {\r\n        str += \"; SameSite=Strict\";\r\n        break;\r\n      }\r\n      case \"none\": {\r\n        str += \"; SameSite=None\";\r\n        break;\r\n      }\r\n      default: {\r\n        throw new TypeError(\"option sameSite is invalid\");\r\n      }\r\n    }\r\n  }\r\n  if (opt.partitioned) {\r\n    str += \"; Partitioned\";\r\n  }\r\n  return str;\r\n}\r\nfunction isDate(val) {\r\n  return Object.prototype.toString.call(val) === \"[object Date]\" || val instanceof Date;\r\n}\r\nfunction tryDecode(str, decode2) {\r\n  try {\r\n    return decode2(str);\r\n  } catch {\r\n    return str;\r\n  }\r\n}\r\nfunction decode(str) {\r\n  return str.includes(\"%\") ? decodeURIComponent(str) : str;\r\n}\r\nfunction encode(val) {\r\n  return encodeURIComponent(val);\r\n}\r\n\r\nexport { parse, serialize };\r\n",
+      "start": 1714315493005,
+      "end": 1714315493240,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493240,
+      "end": 1714315493240,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    }
+  ]
+}

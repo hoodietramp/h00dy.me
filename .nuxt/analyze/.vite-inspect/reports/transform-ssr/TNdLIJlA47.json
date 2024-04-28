@@ -1,0 +1,242 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/stores/windows.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { defineStore } from \"pinia\";\r\n\r\nexport const useWindowsStore = defineStore(\"windows\", {\r\n  state: () => ({\r\n    // Height of Fullscreen Window\r\n    // fullscreenWindowHeight: window.innerHeight + \"px\",\r\n\r\n    activeWindow: \"\",\r\n\r\n    // Active Windows Array State\r\n    activeWindows: [],\r\n\r\n    // Z-index State\r\n    zIndex: 2,\r\n\r\n    windows: [\r\n      {\r\n        windowId: \"BiographyWindow\", // Unique ID\r\n        windowState: \"close\", // Window State [open, close, minimize]\r\n        displayName: \"Biography\", // Display Name (title under icon)\r\n        windowComponent: \"window\", // Window Component (can be changed to use modified windows)\r\n        windowContent: \"bio\", // Window Content (used under slots)\r\n        windowContentPadding: {\r\n          top: null,\r\n          right: null,\r\n          bottom: null,\r\n          left: null,\r\n        }, // Window Content Padding\r\n        position: \"absolute\", // Window Position\r\n        positionX: \"5vw\", // Window Position X (when first opened)\r\n        positionY: \"5%\", // Window Position Y (when first opened)\r\n        iconImage: \"bio.png\", // Window Icon Image\r\n        altText: \"Biography\", // Window Icon Alt Text\r\n        fullscreen: false, // Window Fullscreen State [true, false]\r\n        showInAppGrid: true,\r\n        showInNavbar: true,\r\n      },\r\n      {\r\n        windowId: \"ResumeWindow\", // Unique ID\r\n        windowState: \"close\", // Window State [open, close, minimize]\r\n        displayName: \"Résumé\", // Display Name (title under icon)\r\n        windowComponent: \"window\", // Window Component (can be changed to use modified windows)\r\n        windowContent: \"resume\", // Window Content (used under slots)\r\n        windowContentPadding: {\r\n          top: \"0\",\r\n          right: \"0\",\r\n          bottom: \"0\",\r\n          left: \"0\",\r\n        }, // Window Content Padding\r\n        position: \"absolute\", // Window Position\r\n        positionX: \"10vw\", // Window Position X (when first opened)\r\n        positionY: \"15vh\", // Window Position Y (when first opened)\r\n        iconImage: \"resume.png\", // Window Icon Image\r\n        altText: \"Résumé\", // Window Icon Alt Text\r\n        fullscreen: false, // Window Fullscreen State [true, false]\r\n        showInAppGrid: true,\r\n        showInNavbar: true,\r\n      },\r\n    //   {\r\n    //     windowId: \"MailWindow\",\r\n    //     windowState: \"close\",\r\n    //     displayName: \"Mail\",\r\n    //     windowComponent: \"mail\",\r\n    //     windowContent: \"\",\r\n    //     windowContentPadding: {\r\n    //       top: \"0\",\r\n    //       right: \"0\",\r\n    //       bottom: \"0\",\r\n    //       left: \"0\",\r\n    //     },\r\n    //     position: \"absolute\",\r\n    //     positionX: \"6vw\",\r\n    //     positionY: \"12vh\",\r\n    //     iconImage: \"mail.png\",\r\n    //     altText: \"Mail\",\r\n    //     fullscreen: false,\r\n    //     showInAppGrid: true,\r\n    //     showInNavbar: true,\r\n    //   },\r\n    ],\r\n  }),\r\n\r\n  getters: {\r\n    getFullscreenWindowHeight() {\r\n      let height = \"0px\";\r\n      if (typeof window !== \"undefined\") {\r\n        height = window.innerHeight + \"px\";\r\n      }\r\n      return height;\r\n    },\r\n  },\r\n\r\n  actions: {\r\n        getWindowById(windowId) {\r\n            return this.windows.find((window) => window.windowId === windowId)\r\n        },\r\n\r\n        getWindowFullscreen(windowId) {\r\n            return this.windows.find((window) => window.windowId === windowId).fullscreen\r\n        },\r\n\r\n        getActiveWindow() {\r\n            return this.activeWindow\r\n        },\r\n\r\n        setActiveWindow(windowId) {\r\n            this.activeWindow = windowId\r\n        },\r\n\r\n        setFullscreen(payload) {\r\n            const getArrItem = () => {\r\n                return this.windows.find(\r\n                    (windows) => windows.windowId === payload.windowId\r\n                );\r\n            }\r\n            const window = getArrItem();\r\n            window.fullscreen = payload.fullscreen;\r\n        },\r\n\r\n        zIndexIncrement(windowId) {\r\n            this.zIndex++\r\n            if (document.getElementById(windowId)) {\r\n                document.getElementById(windowId).style.zIndex = this.zIndex\r\n            }\r\n        },\r\n\r\n        // Push Active Window\r\n        pushActiveWindow(window) {\r\n            this.activeWindows.push(window)\r\n        },\r\n\r\n        // Pop Active Window\r\n        popActiveWindow(window) {\r\n            const windowIndex = this.activeWindows.indexOf(window)\r\n            if (windowIndex !== -1) {\r\n                this.activeWindows.splice(windowIndex, 1)\r\n            }\r\n        },\r\n\r\n        pushNewWindow(window) {\r\n            this.windows.push(window)\r\n        },\r\n\r\n        setPhotoFolderContent(payload) {\r\n            this.photoFolderContent = payload\r\n        },\r\n\r\n        setWindowState(payload) {\r\n            // payload = {'windowState': 'open', 'windowId': 'WindowOne'}\r\n\r\n            const getArrItem = () => {\r\n                return this.windows.find(\r\n                    (windows) => windows.windowId === payload.windowId\r\n                );\r\n            }\r\n\r\n            const window = getArrItem();\r\n\r\n            let preventAppendingOpenWindow = false;\r\n            if (window.windowState == \"open\" || window.windowState == \"minimize\") {\r\n                preventAppendingOpenWindow = true;\r\n            }\r\n\r\n            if (payload.windowState == \"open\") {\r\n                window.windowState = payload.windowState;\r\n                setTimeout(() => {\r\n                    this.zIndexIncrement(payload.windowId);\r\n                }, 0);\r\n                setTimeout(() => {\r\n                    this.setActiveWindow(payload.windowId);\r\n                }, 0);\r\n                if (preventAppendingOpenWindow == false) {\r\n                    this.pushActiveWindow(window);\r\n                }\r\n            } else if (payload.windowState == \"close\") {\r\n                setTimeout(() => {\r\n                    window.windowState = payload.windowState;\r\n                }, 0);\r\n                setTimeout(() => {\r\n                    this.popActiveWindow(window);\r\n                }, 0)\r\n                setTimeout(() => {\r\n                    this.setActiveWindow(\"nil\");\r\n                }, 0)\r\n            } else if (payload.windowState == \"minimize\") {\r\n                setTimeout(() => {\r\n                    window.windowState = payload.windowState;\r\n                }, 0)\r\n                setTimeout(() => {\r\n                    this.setActiveWindow(\"nil\");\r\n                }, 0)\r\n                \r\n            } else {\r\n                console.log(\"Error: windowState not found or invalid\");\r\n            }\r\n        },\r\n    }\r\n});\r\n",
+      "start": 1714315495485,
+      "end": 1714315495522,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "pre"
+    },
+    {
+      "name": "server-only-component-transform",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315495522,
+      "end": 1714315495522,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "result": "import { defineStore } from \"pinia\";\nexport const useWindowsStore = defineStore(\"windows\", {\n  state: () => ({\n    // Height of Fullscreen Window\n    // fullscreenWindowHeight: window.innerHeight + \"px\",\n    activeWindow: \"\",\n    // Active Windows Array State\n    activeWindows: [],\n    // Z-index State\n    zIndex: 2,\n    windows: [\n      {\n        windowId: \"BiographyWindow\",\n        // Unique ID\n        windowState: \"close\",\n        // Window State [open, close, minimize]\n        displayName: \"Biography\",\n        // Display Name (title under icon)\n        windowComponent: \"window\",\n        // Window Component (can be changed to use modified windows)\n        windowContent: \"bio\",\n        // Window Content (used under slots)\n        windowContentPadding: {\n          top: null,\n          right: null,\n          bottom: null,\n          left: null\n        },\n        // Window Content Padding\n        position: \"absolute\",\n        // Window Position\n        positionX: \"5vw\",\n        // Window Position X (when first opened)\n        positionY: \"5%\",\n        // Window Position Y (when first opened)\n        iconImage: \"bio.png\",\n        // Window Icon Image\n        altText: \"Biography\",\n        // Window Icon Alt Text\n        fullscreen: false,\n        // Window Fullscreen State [true, false]\n        showInAppGrid: true,\n        showInNavbar: true\n      },\n      {\n        windowId: \"ResumeWindow\",\n        // Unique ID\n        windowState: \"close\",\n        // Window State [open, close, minimize]\n        displayName: \"Résumé\",\n        // Display Name (title under icon)\n        windowComponent: \"window\",\n        // Window Component (can be changed to use modified windows)\n        windowContent: \"resume\",\n        // Window Content (used under slots)\n        windowContentPadding: {\n          top: \"0\",\n          right: \"0\",\n          bottom: \"0\",\n          left: \"0\"\n        },\n        // Window Content Padding\n        position: \"absolute\",\n        // Window Position\n        positionX: \"10vw\",\n        // Window Position X (when first opened)\n        positionY: \"15vh\",\n        // Window Position Y (when first opened)\n        iconImage: \"resume.png\",\n        // Window Icon Image\n        altText: \"Résumé\",\n        // Window Icon Alt Text\n        fullscreen: false,\n        // Window Fullscreen State [true, false]\n        showInAppGrid: true,\n        showInNavbar: true\n      }\n      //   {\n      //     windowId: \"MailWindow\",\n      //     windowState: \"close\",\n      //     displayName: \"Mail\",\n      //     windowComponent: \"mail\",\n      //     windowContent: \"\",\n      //     windowContentPadding: {\n      //       top: \"0\",\n      //       right: \"0\",\n      //       bottom: \"0\",\n      //       left: \"0\",\n      //     },\n      //     position: \"absolute\",\n      //     positionX: \"6vw\",\n      //     positionY: \"12vh\",\n      //     iconImage: \"mail.png\",\n      //     altText: \"Mail\",\n      //     fullscreen: false,\n      //     showInAppGrid: true,\n      //     showInNavbar: true,\n      //   },\n    ]\n  }),\n  getters: {\n    getFullscreenWindowHeight() {\n      let height = \"0px\";\n      if (false) {\n        height = (void 0).innerHeight + \"px\";\n      }\n      return height;\n    }\n  },\n  actions: {\n    getWindowById(windowId) {\n      return this.windows.find((window2) => window2.windowId === windowId);\n    },\n    getWindowFullscreen(windowId) {\n      return this.windows.find((window2) => window2.windowId === windowId).fullscreen;\n    },\n    getActiveWindow() {\n      return this.activeWindow;\n    },\n    setActiveWindow(windowId) {\n      this.activeWindow = windowId;\n    },\n    setFullscreen(payload) {\n      const getArrItem = () => {\n        return this.windows.find(\n          (windows) => windows.windowId === payload.windowId\n        );\n      };\n      const window2 = getArrItem();\n      window2.fullscreen = payload.fullscreen;\n    },\n    zIndexIncrement(windowId) {\n      this.zIndex++;\n      if ((void 0).getElementById(windowId)) {\n        (void 0).getElementById(windowId).style.zIndex = this.zIndex;\n      }\n    },\n    // Push Active Window\n    pushActiveWindow(window2) {\n      this.activeWindows.push(window2);\n    },\n    // Pop Active Window\n    popActiveWindow(window2) {\n      const windowIndex = this.activeWindows.indexOf(window2);\n      if (windowIndex !== -1) {\n        this.activeWindows.splice(windowIndex, 1);\n      }\n    },\n    pushNewWindow(window2) {\n      this.windows.push(window2);\n    },\n    setPhotoFolderContent(payload) {\n      this.photoFolderContent = payload;\n    },\n    setWindowState(payload) {\n      const getArrItem = () => {\n        return this.windows.find(\n          (windows) => windows.windowId === payload.windowId\n        );\n      };\n      const window2 = getArrItem();\n      let preventAppendingOpenWindow = false;\n      if (window2.windowState == \"open\" || window2.windowState == \"minimize\") {\n        preventAppendingOpenWindow = true;\n      }\n      if (payload.windowState == \"open\") {\n        window2.windowState = payload.windowState;\n        setTimeout(() => {\n          this.zIndexIncrement(payload.windowId);\n        }, 0);\n        setTimeout(() => {\n          this.setActiveWindow(payload.windowId);\n        }, 0);\n        if (preventAppendingOpenWindow == false) {\n          this.pushActiveWindow(window2);\n        }\n      } else if (payload.windowState == \"close\") {\n        setTimeout(() => {\n          window2.windowState = payload.windowState;\n        }, 0);\n        setTimeout(() => {\n          this.popActiveWindow(window2);\n        }, 0);\n        setTimeout(() => {\n          this.setActiveWindow(\"nil\");\n        }, 0);\n      } else if (payload.windowState == \"minimize\") {\n        setTimeout(() => {\n          window2.windowState = payload.windowState;\n        }, 0);\n        setTimeout(() => {\n          this.setActiveWindow(\"nil\");\n        }, 0);\n      } else {\n        console.log(\"Error: windowState not found or invalid\");\n      }\n    }\n  }\n});\n",
+      "start": 1714315495522,
+      "end": 1714315495658,
+      "order": "normal",
+      "sourcemaps": "{\n  \"version\": 3,\n  \"sources\": [\"C:/Users/h00dy/Documents/github/h00dy.me/stores/windows.js\"],\n  \"sourcesContent\": [\"import { defineStore } from \\\"pinia\\\";\\r\\n\\r\\nexport const useWindowsStore = defineStore(\\\"windows\\\", {\\r\\n  state: () => ({\\r\\n    // Height of Fullscreen Window\\r\\n    // fullscreenWindowHeight: window.innerHeight + \\\"px\\\",\\r\\n\\r\\n    activeWindow: \\\"\\\",\\r\\n\\r\\n    // Active Windows Array State\\r\\n    activeWindows: [],\\r\\n\\r\\n    // Z-index State\\r\\n    zIndex: 2,\\r\\n\\r\\n    windows: [\\r\\n      {\\r\\n        windowId: \\\"BiographyWindow\\\", // Unique ID\\r\\n        windowState: \\\"close\\\", // Window State [open, close, minimize]\\r\\n        displayName: \\\"Biography\\\", // Display Name (title under icon)\\r\\n        windowComponent: \\\"window\\\", // Window Component (can be changed to use modified windows)\\r\\n        windowContent: \\\"bio\\\", // Window Content (used under slots)\\r\\n        windowContentPadding: {\\r\\n          top: null,\\r\\n          right: null,\\r\\n          bottom: null,\\r\\n          left: null,\\r\\n        }, // Window Content Padding\\r\\n        position: \\\"absolute\\\", // Window Position\\r\\n        positionX: \\\"5vw\\\", // Window Position X (when first opened)\\r\\n        positionY: \\\"5%\\\", // Window Position Y (when first opened)\\r\\n        iconImage: \\\"bio.png\\\", // Window Icon Image\\r\\n        altText: \\\"Biography\\\", // Window Icon Alt Text\\r\\n        fullscreen: false, // Window Fullscreen State [true, false]\\r\\n        showInAppGrid: true,\\r\\n        showInNavbar: true,\\r\\n      },\\r\\n      {\\r\\n        windowId: \\\"ResumeWindow\\\", // Unique ID\\r\\n        windowState: \\\"close\\\", // Window State [open, close, minimize]\\r\\n        displayName: \\\"Résumé\\\", // Display Name (title under icon)\\r\\n        windowComponent: \\\"window\\\", // Window Component (can be changed to use modified windows)\\r\\n        windowContent: \\\"resume\\\", // Window Content (used under slots)\\r\\n        windowContentPadding: {\\r\\n          top: \\\"0\\\",\\r\\n          right: \\\"0\\\",\\r\\n          bottom: \\\"0\\\",\\r\\n          left: \\\"0\\\",\\r\\n        }, // Window Content Padding\\r\\n        position: \\\"absolute\\\", // Window Position\\r\\n        positionX: \\\"10vw\\\", // Window Position X (when first opened)\\r\\n        positionY: \\\"15vh\\\", // Window Position Y (when first opened)\\r\\n        iconImage: \\\"resume.png\\\", // Window Icon Image\\r\\n        altText: \\\"Résumé\\\", // Window Icon Alt Text\\r\\n        fullscreen: false, // Window Fullscreen State [true, false]\\r\\n        showInAppGrid: true,\\r\\n        showInNavbar: true,\\r\\n      },\\r\\n    //   {\\r\\n    //     windowId: \\\"MailWindow\\\",\\r\\n    //     windowState: \\\"close\\\",\\r\\n    //     displayName: \\\"Mail\\\",\\r\\n    //     windowComponent: \\\"mail\\\",\\r\\n    //     windowContent: \\\"\\\",\\r\\n    //     windowContentPadding: {\\r\\n    //       top: \\\"0\\\",\\r\\n    //       right: \\\"0\\\",\\r\\n    //       bottom: \\\"0\\\",\\r\\n    //       left: \\\"0\\\",\\r\\n    //     },\\r\\n    //     position: \\\"absolute\\\",\\r\\n    //     positionX: \\\"6vw\\\",\\r\\n    //     positionY: \\\"12vh\\\",\\r\\n    //     iconImage: \\\"mail.png\\\",\\r\\n    //     altText: \\\"Mail\\\",\\r\\n    //     fullscreen: false,\\r\\n    //     showInAppGrid: true,\\r\\n    //     showInNavbar: true,\\r\\n    //   },\\r\\n    ],\\r\\n  }),\\r\\n\\r\\n  getters: {\\r\\n    getFullscreenWindowHeight() {\\r\\n      let height = \\\"0px\\\";\\r\\n      if (typeof window !== \\\"undefined\\\") {\\r\\n        height = window.innerHeight + \\\"px\\\";\\r\\n      }\\r\\n      return height;\\r\\n    },\\r\\n  },\\r\\n\\r\\n  actions: {\\r\\n        getWindowById(windowId) {\\r\\n            return this.windows.find((window) => window.windowId === windowId)\\r\\n        },\\r\\n\\r\\n        getWindowFullscreen(windowId) {\\r\\n            return this.windows.find((window) => window.windowId === windowId).fullscreen\\r\\n        },\\r\\n\\r\\n        getActiveWindow() {\\r\\n            return this.activeWindow\\r\\n        },\\r\\n\\r\\n        setActiveWindow(windowId) {\\r\\n            this.activeWindow = windowId\\r\\n        },\\r\\n\\r\\n        setFullscreen(payload) {\\r\\n            const getArrItem = () => {\\r\\n                return this.windows.find(\\r\\n                    (windows) => windows.windowId === payload.windowId\\r\\n                );\\r\\n            }\\r\\n            const window = getArrItem();\\r\\n            window.fullscreen = payload.fullscreen;\\r\\n        },\\r\\n\\r\\n        zIndexIncrement(windowId) {\\r\\n            this.zIndex++\\r\\n            if (document.getElementById(windowId)) {\\r\\n                document.getElementById(windowId).style.zIndex = this.zIndex\\r\\n            }\\r\\n        },\\r\\n\\r\\n        // Push Active Window\\r\\n        pushActiveWindow(window) {\\r\\n            this.activeWindows.push(window)\\r\\n        },\\r\\n\\r\\n        // Pop Active Window\\r\\n        popActiveWindow(window) {\\r\\n            const windowIndex = this.activeWindows.indexOf(window)\\r\\n            if (windowIndex !== -1) {\\r\\n                this.activeWindows.splice(windowIndex, 1)\\r\\n            }\\r\\n        },\\r\\n\\r\\n        pushNewWindow(window) {\\r\\n            this.windows.push(window)\\r\\n        },\\r\\n\\r\\n        setPhotoFolderContent(payload) {\\r\\n            this.photoFolderContent = payload\\r\\n        },\\r\\n\\r\\n        setWindowState(payload) {\\r\\n            // payload = {'windowState': 'open', 'windowId': 'WindowOne'}\\r\\n\\r\\n            const getArrItem = () => {\\r\\n                return this.windows.find(\\r\\n                    (windows) => windows.windowId === payload.windowId\\r\\n                );\\r\\n            }\\r\\n\\r\\n            const window = getArrItem();\\r\\n\\r\\n            let preventAppendingOpenWindow = false;\\r\\n            if (window.windowState == \\\"open\\\" || window.windowState == \\\"minimize\\\") {\\r\\n                preventAppendingOpenWindow = true;\\r\\n            }\\r\\n\\r\\n            if (payload.windowState == \\\"open\\\") {\\r\\n                window.windowState = payload.windowState;\\r\\n                setTimeout(() => {\\r\\n                    this.zIndexIncrement(payload.windowId);\\r\\n                }, 0);\\r\\n                setTimeout(() => {\\r\\n                    this.setActiveWindow(payload.windowId);\\r\\n                }, 0);\\r\\n                if (preventAppendingOpenWindow == false) {\\r\\n                    this.pushActiveWindow(window);\\r\\n                }\\r\\n            } else if (payload.windowState == \\\"close\\\") {\\r\\n                setTimeout(() => {\\r\\n                    window.windowState = payload.windowState;\\r\\n                }, 0);\\r\\n                setTimeout(() => {\\r\\n                    this.popActiveWindow(window);\\r\\n                }, 0)\\r\\n                setTimeout(() => {\\r\\n                    this.setActiveWindow(\\\"nil\\\");\\r\\n                }, 0)\\r\\n            } else if (payload.windowState == \\\"minimize\\\") {\\r\\n                setTimeout(() => {\\r\\n                    window.windowState = payload.windowState;\\r\\n                }, 0)\\r\\n                setTimeout(() => {\\r\\n                    this.setActiveWindow(\\\"nil\\\");\\r\\n                }, 0)\\r\\n                \\r\\n            } else {\\r\\n                console.log(\\\"Error: windowState not found or invalid\\\");\\r\\n            }\\r\\n        },\\r\\n    }\\r\\n});\\r\\n\"],\n  \"mappings\": \"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\",\n  \"names\": [\"window\"]\n}\n"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495658,
+      "end": 1714315495658,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495658,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495658,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-template",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495660,
+      "end": 1714315495660,
+      "order": "normal"
+    }
+  ]
+}

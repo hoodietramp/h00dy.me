@@ -1,0 +1,239 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/assets/iPhone-Icons/Instagram.webp",
+  "transforms": [
+    {
+      "name": "vite:asset",
+      "result": "export default \"data:image/webp;base64,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\"",
+      "start": 1714315495667,
+      "end": 1714315495873
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495873,
+      "end": 1714315495873,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495873,
+      "end": 1714315495873,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495873,
+      "end": 1714315495873,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495873,
+      "end": 1714315495873,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315495873,
+      "end": 1714315495874,
+      "order": "pre"
+    },
+    {
+      "name": "server-only-component-transform",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-template",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495874,
+      "end": 1714315495874,
+      "order": "normal"
+    }
+  ]
+}

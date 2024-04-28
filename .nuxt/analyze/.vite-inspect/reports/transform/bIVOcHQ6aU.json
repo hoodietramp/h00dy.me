@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/radix3/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "const NODE_TYPES = {\r\n  NORMAL: 0,\r\n  WILDCARD: 1,\r\n  PLACEHOLDER: 2\r\n};\r\n\r\nfunction createRouter(options = {}) {\r\n  const ctx = {\r\n    options,\r\n    rootNode: createRadixNode(),\r\n    staticRoutesMap: {}\r\n  };\r\n  const normalizeTrailingSlash = (p) => options.strictTrailingSlash ? p : p.replace(/\\/$/, \"\") || \"/\";\r\n  if (options.routes) {\r\n    for (const path in options.routes) {\r\n      insert(ctx, normalizeTrailingSlash(path), options.routes[path]);\r\n    }\r\n  }\r\n  return {\r\n    ctx,\r\n    lookup: (path) => lookup(ctx, normalizeTrailingSlash(path)),\r\n    insert: (path, data) => insert(ctx, normalizeTrailingSlash(path), data),\r\n    remove: (path) => remove(ctx, normalizeTrailingSlash(path))\r\n  };\r\n}\r\nfunction lookup(ctx, path) {\r\n  const staticPathNode = ctx.staticRoutesMap[path];\r\n  if (staticPathNode) {\r\n    return staticPathNode.data;\r\n  }\r\n  const sections = path.split(\"/\");\r\n  const params = {};\r\n  let paramsFound = false;\r\n  let wildcardNode = null;\r\n  let node = ctx.rootNode;\r\n  let wildCardParam = null;\r\n  for (let i = 0; i < sections.length; i++) {\r\n    const section = sections[i];\r\n    if (node.wildcardChildNode !== null) {\r\n      wildcardNode = node.wildcardChildNode;\r\n      wildCardParam = sections.slice(i).join(\"/\");\r\n    }\r\n    const nextNode = node.children.get(section);\r\n    if (nextNode === void 0) {\r\n      if (node && node.placeholderChildren.length > 1) {\r\n        const remaining = sections.length - i;\r\n        node = node.placeholderChildren.find((c) => c.maxDepth === remaining) || null;\r\n      } else {\r\n        node = node.placeholderChildren[0] || null;\r\n      }\r\n      if (!node) {\r\n        break;\r\n      }\r\n      if (node.paramName) {\r\n        params[node.paramName] = section;\r\n      }\r\n      paramsFound = true;\r\n    } else {\r\n      node = nextNode;\r\n    }\r\n  }\r\n  if ((node === null || node.data === null) && wildcardNode !== null) {\r\n    node = wildcardNode;\r\n    params[node.paramName || \"_\"] = wildCardParam;\r\n    paramsFound = true;\r\n  }\r\n  if (!node) {\r\n    return null;\r\n  }\r\n  if (paramsFound) {\r\n    return {\r\n      ...node.data,\r\n      params: paramsFound ? params : void 0\r\n    };\r\n  }\r\n  return node.data;\r\n}\r\nfunction insert(ctx, path, data) {\r\n  let isStaticRoute = true;\r\n  const sections = path.split(\"/\");\r\n  let node = ctx.rootNode;\r\n  let _unnamedPlaceholderCtr = 0;\r\n  const matchedNodes = [node];\r\n  for (const section of sections) {\r\n    let childNode;\r\n    if (childNode = node.children.get(section)) {\r\n      node = childNode;\r\n    } else {\r\n      const type = getNodeType(section);\r\n      childNode = createRadixNode({ type, parent: node });\r\n      node.children.set(section, childNode);\r\n      if (type === NODE_TYPES.PLACEHOLDER) {\r\n        childNode.paramName = section === \"*\" ? `_${_unnamedPlaceholderCtr++}` : section.slice(1);\r\n        node.placeholderChildren.push(childNode);\r\n        isStaticRoute = false;\r\n      } else if (type === NODE_TYPES.WILDCARD) {\r\n        node.wildcardChildNode = childNode;\r\n        childNode.paramName = section.slice(\r\n          3\r\n          /* \"**:\" */\r\n        ) || \"_\";\r\n        isStaticRoute = false;\r\n      }\r\n      matchedNodes.push(childNode);\r\n      node = childNode;\r\n    }\r\n  }\r\n  for (const [depth, node2] of matchedNodes.entries()) {\r\n    node2.maxDepth = Math.max(matchedNodes.length - depth, node2.maxDepth || 0);\r\n  }\r\n  node.data = data;\r\n  if (isStaticRoute === true) {\r\n    ctx.staticRoutesMap[path] = node;\r\n  }\r\n  return node;\r\n}\r\nfunction remove(ctx, path) {\r\n  let success = false;\r\n  const sections = path.split(\"/\");\r\n  let node = ctx.rootNode;\r\n  for (const section of sections) {\r\n    node = node.children.get(section);\r\n    if (!node) {\r\n      return success;\r\n    }\r\n  }\r\n  if (node.data) {\r\n    const lastSection = sections.at(-1) || \"\";\r\n    node.data = null;\r\n    if (Object.keys(node.children).length === 0 && node.parent) {\r\n      node.parent.children.delete(lastSection);\r\n      node.parent.wildcardChildNode = null;\r\n      node.parent.placeholderChildren = [];\r\n    }\r\n    success = true;\r\n  }\r\n  return success;\r\n}\r\nfunction createRadixNode(options = {}) {\r\n  return {\r\n    type: options.type || NODE_TYPES.NORMAL,\r\n    maxDepth: 0,\r\n    parent: options.parent || null,\r\n    children: /* @__PURE__ */ new Map(),\r\n    data: options.data || null,\r\n    paramName: options.paramName || null,\r\n    wildcardChildNode: null,\r\n    placeholderChildren: []\r\n  };\r\n}\r\nfunction getNodeType(str) {\r\n  if (str.startsWith(\"**\")) {\r\n    return NODE_TYPES.WILDCARD;\r\n  }\r\n  if (str[0] === \":\" || str === \"*\") {\r\n    return NODE_TYPES.PLACEHOLDER;\r\n  }\r\n  return NODE_TYPES.NORMAL;\r\n}\r\n\r\nfunction toRouteMatcher(router) {\r\n  const table = _routerNodeToTable(\"\", router.ctx.rootNode);\r\n  return _createMatcher(table, router.ctx.options.strictTrailingSlash);\r\n}\r\nfunction _createMatcher(table, strictTrailingSlash) {\r\n  return {\r\n    ctx: { table },\r\n    matchAll: (path) => _matchRoutes(path, table, strictTrailingSlash)\r\n  };\r\n}\r\nfunction _createRouteTable() {\r\n  return {\r\n    static: /* @__PURE__ */ new Map(),\r\n    wildcard: /* @__PURE__ */ new Map(),\r\n    dynamic: /* @__PURE__ */ new Map()\r\n  };\r\n}\r\nfunction _exportMatcherFromTable(table) {\r\n  const obj = /* @__PURE__ */ Object.create(null);\r\n  for (const property in table) {\r\n    obj[property] = property === \"dynamic\" ? Object.fromEntries(\r\n      [...table[property].entries()].map(([key, value]) => [\r\n        key,\r\n        _exportMatcherFromTable(value)\r\n      ])\r\n    ) : Object.fromEntries(table[property].entries());\r\n  }\r\n  return obj;\r\n}\r\nfunction exportMatcher(matcher) {\r\n  return _exportMatcherFromTable(matcher.ctx.table);\r\n}\r\nfunction _createTableFromExport(matcherExport) {\r\n  const table = {};\r\n  for (const property in matcherExport) {\r\n    table[property] = property === \"dynamic\" ? new Map(\r\n      Object.entries(matcherExport[property]).map(([key, value]) => [\r\n        key,\r\n        _createTableFromExport(value)\r\n      ])\r\n    ) : new Map(\r\n      Object.entries(matcherExport[property])\r\n    );\r\n  }\r\n  return table;\r\n}\r\nfunction createMatcherFromExport(matcherExport) {\r\n  return _createMatcher(_createTableFromExport(matcherExport));\r\n}\r\nfunction _matchRoutes(path, table, strictTrailingSlash) {\r\n  if (strictTrailingSlash !== true && path.endsWith(\"/\")) {\r\n    path = path.slice(0, -1) || \"/\";\r\n  }\r\n  const matches = [];\r\n  for (const [key, value] of _sortRoutesMap(table.wildcard)) {\r\n    if (path === key || path.startsWith(key + \"/\")) {\r\n      matches.push(value);\r\n    }\r\n  }\r\n  for (const [key, value] of _sortRoutesMap(table.dynamic)) {\r\n    if (path.startsWith(key + \"/\")) {\r\n      const subPath = \"/\" + path.slice(key.length).split(\"/\").splice(2).join(\"/\");\r\n      matches.push(..._matchRoutes(subPath, value));\r\n    }\r\n  }\r\n  const staticMatch = table.static.get(path);\r\n  if (staticMatch) {\r\n    matches.push(staticMatch);\r\n  }\r\n  return matches.filter(Boolean);\r\n}\r\nfunction _sortRoutesMap(m) {\r\n  return [...m.entries()].sort((a, b) => a[0].length - b[0].length);\r\n}\r\nfunction _routerNodeToTable(initialPath, initialNode) {\r\n  const table = _createRouteTable();\r\n  function _addNode(path, node) {\r\n    if (path) {\r\n      if (node.type === NODE_TYPES.NORMAL && !(path.includes(\"*\") || path.includes(\":\"))) {\r\n        if (node.data) {\r\n          table.static.set(path, node.data);\r\n        }\r\n      } else if (node.type === NODE_TYPES.WILDCARD) {\r\n        table.wildcard.set(path.replace(\"/**\", \"\"), node.data);\r\n      } else if (node.type === NODE_TYPES.PLACEHOLDER) {\r\n        const subTable = _routerNodeToTable(\"\", node);\r\n        if (node.data) {\r\n          subTable.static.set(\"/\", node.data);\r\n        }\r\n        table.dynamic.set(path.replace(/\\/\\*|\\/:\\w+/, \"\"), subTable);\r\n        return;\r\n      }\r\n    }\r\n    for (const [childPath, child] of node.children.entries()) {\r\n      _addNode(`${path}/${childPath}`.replace(\"//\", \"/\"), child);\r\n    }\r\n  }\r\n  _addNode(initialPath, initialNode);\r\n  return table;\r\n}\r\n\r\nexport { NODE_TYPES, createMatcherFromExport, createRouter, exportMatcher, toRouteMatcher };\r\n",
+      "start": 1714315493008,
+      "end": 1714315493242,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493242,
+      "end": 1714315493242,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493243,
+      "end": 1714315493243,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493244,
+      "end": 1714315493244,
+      "order": "normal"
+    }
+  ]
+}

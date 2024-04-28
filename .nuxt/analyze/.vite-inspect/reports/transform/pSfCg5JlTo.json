@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unenv/runtime/node/net/socket.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { Duplex } from \"../stream/duplex.mjs\";\r\nexport class Socket extends Duplex {\r\n  __unenv__ = true;\r\n  bufferSize = 0;\r\n  bytesRead = 0;\r\n  bytesWritten = 0;\r\n  connecting = false;\r\n  destroyed = false;\r\n  pending = false;\r\n  localAddress = \"\";\r\n  localPort = 0;\r\n  remoteAddress = \"\";\r\n  remoteFamily = \"\";\r\n  remotePort = 0;\r\n  autoSelectFamilyAttemptedAddresses = [];\r\n  readyState = \"readOnly\";\r\n  constructor(_options) {\r\n    super();\r\n  }\r\n  write(_buffer, _arg1, _arg2) {\r\n    return false;\r\n  }\r\n  connect(_arg1, _arg2, _arg3) {\r\n    return this;\r\n  }\r\n  end(_arg1, _arg2, _arg3) {\r\n    return this;\r\n  }\r\n  setEncoding(_encoding) {\r\n    return this;\r\n  }\r\n  pause() {\r\n    return this;\r\n  }\r\n  resume() {\r\n    return this;\r\n  }\r\n  setTimeout(_timeout, _callback) {\r\n    return this;\r\n  }\r\n  setNoDelay(_noDelay) {\r\n    return this;\r\n  }\r\n  setKeepAlive(_enable, _initialDelay) {\r\n    return this;\r\n  }\r\n  address() {\r\n    return {};\r\n  }\r\n  unref() {\r\n    return this;\r\n  }\r\n  ref() {\r\n    return this;\r\n  }\r\n  destroySoon() {\r\n    this.destroy();\r\n  }\r\n  resetAndDestroy() {\r\n    const err = new Error(\"ERR_SOCKET_CLOSED\");\r\n    err.code = \"ERR_SOCKET_CLOSED\";\r\n    this.destroy(err);\r\n    return this;\r\n  }\r\n}\r\nexport class SocketAddress {\r\n  __unenv__ = true;\r\n  address;\r\n  family;\r\n  port;\r\n  flowlabel;\r\n  constructor(options) {\r\n    this.address = options.address;\r\n    this.family = options.family;\r\n    this.port = options.port;\r\n    this.flowlabel = options.flowlabel;\r\n  }\r\n}\r\n",
+      "start": 1714315493280,
+      "end": 1714315493495,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493495,
+      "end": 1714315493495,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493495,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493496,
+      "end": 1714315493496,
+      "order": "normal"
+    }
+  ]
+}

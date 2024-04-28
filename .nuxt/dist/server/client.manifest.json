@@ -7,12 +7,12 @@
     "module": true,
     "resourceType": "script"
   },
-  "/home/h00dy/h00dy.me/node_modules/nuxt/dist/app/entry.js": {
+  "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/nuxt/dist/app/entry.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
     "isEntry": true,
-    "file": "/home/h00dy/h00dy.me/node_modules/nuxt/dist/app/entry.js"
+    "file": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/nuxt/dist/app/entry.js"
   }
 }

@@ -1,0 +1,202 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/views/Resume.vue",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "<script setup>\r\nimport {\r\n    useWindowsStore\r\n} from '@/stores/windows'\r\nconst windowsStore = useWindowsStore()\r\n</script>\r\n\r\n<template>\r\n<div style=\"display: flex; height: 100%; flex-direction: column\">\r\n    <nav class=\"download-bar\">\r\n        <a href=\"/files/Kunal_SecurityEngineer_Apr.pdf\" class=\"download\" style=\"z-index: 10\" download target=\"_blank\">\r\n            <span style=\"display: flex\" class=\"border\">\r\n                <img src=\"@/assets/Resume/download.png\" class=\"icon-image\" />\r\n                <p style=\"margin-top: 2px\">Download</p>\r\n            </span>\r\n        </a>\r\n\r\n        <a href=\"/files/Kunal_SecurityEngineer_Apr.pdf\" class=\"download\" style=\"z-index: 10\" target=\"_blank\">\r\n            <span style=\"display: flex\" class=\"border\">\r\n                <img src=\"@/assets/Resume/open.png\" class=\"icon-image\" />\r\n                <p style=\"margin-top: 2px\">Open In New Tab</p>\r\n            </span>\r\n        </a>\r\n    </nav>\r\n    <div class=\"frame\" style=\"z-index: 99\">\r\n        <iframe class=\"frame\" src=\"https://drive.google.com/file/d/1AJQ5Exhr3WL2saYTyrgXOBT95hCkGwyD/preview\"></iframe>\r\n        <span v-if=\"windowsStore.activeWindow != 'ResumeWindow'\" style=\"bottom: 0; left: 0; width: 100%; height: 95%; position: absolute\" class=\"overlay\"></span>\r\n    </div>\r\n</div>\r\n</template>\r\n\r\n<style scoped>\r\n.download {\r\n    vertical-align: middle;\r\n    box-shadow: 1.5px 1.5px black;\r\n    border-top: solid rgb(250, 250, 250) 1.5px;\r\n    border-left: solid rgb(250, 250, 250) 1.5px;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    border-right: solid rgb(90, 90, 90) 1.5px;\r\n    background: rgb(192, 192, 192);\r\n    padding: 2px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.download:active {\r\n    box-shadow: none;\r\n    background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,\r\n            rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.download-bar {\r\n    border: 1px white solid;\r\n    outline: 1px rgb(123, 125, 123) solid;\r\n    font-size: 12px;\r\n    padding: 4px 4px 4px 4px;\r\n    width: 100%;\r\n    display: flex;\r\n    flex-direction: row;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n}\r\n\r\n.border {\r\n    justify-content: center;\r\n    align-items: center;\r\n    border: 1px solid transparent;\r\n    font-family: \"MS Sans Serif\";\r\n    src: url(\"~@/assets/fonts/MS-Sans-Serif.ttf\");\r\n}\r\n\r\n.border:active {\r\n    border: black dotted 1px;\r\n}\r\n\r\n.download:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.frame {\r\n    width: 100%;\r\n    height: 97.5%;\r\n}\r\n</style>\r\n",
+      "start": 1714315493240,
+      "end": 1714315493357,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493357,
+      "end": 1714315493357,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": "import { createElementVNode as _createElementVNode, unref as _unref, openBlock as _openBlock, createElementBlock as _createElementBlock, createCommentVNode as _createCommentVNode, createStaticVNode as _createStaticVNode, pushScopeId as _pushScopeId, popScopeId as _popScopeId } from \"vue\"\nimport _imports_0 from '@/assets/Resume/download.png'\nimport _imports_1 from '@/assets/Resume/open.png'\n\n\nconst _withScopeId = n => (_pushScopeId(\"data-v-4033eddd\"),n=n(),_popScopeId(),n)\nconst _hoisted_1 = { style: {\"display\":\"flex\",\"height\":\"100%\",\"flex-direction\":\"column\"} }\nconst _hoisted_2 = /*#__PURE__*/_createStaticVNode(\"<nav class=\\\"download-bar\\\" data-v-4033eddd><a href=\\\"/files/Kunal_SecurityEngineer_Apr.pdf\\\" class=\\\"download\\\" style=\\\"z-index:10;\\\" download target=\\\"_blank\\\" data-v-4033eddd><span style=\\\"display:flex;\\\" class=\\\"border\\\" data-v-4033eddd><img src=\\\"\" + _imports_0 + \"\\\" class=\\\"icon-image\\\" data-v-4033eddd><p style=\\\"margin-top:2px;\\\" data-v-4033eddd>Download</p></span></a><a href=\\\"/files/Kunal_SecurityEngineer_Apr.pdf\\\" class=\\\"download\\\" style=\\\"z-index:10;\\\" target=\\\"_blank\\\" data-v-4033eddd><span style=\\\"display:flex;\\\" class=\\\"border\\\" data-v-4033eddd><img src=\\\"\" + _imports_1 + \"\\\" class=\\\"icon-image\\\" data-v-4033eddd><p style=\\\"margin-top:2px;\\\" data-v-4033eddd>Open In New Tab</p></span></a></nav>\", 1)\nconst _hoisted_3 = {\n  class: \"frame\",\n  style: {\"z-index\":\"99\"}\n}\nconst _hoisted_4 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/_createElementVNode(\"iframe\", {\n  class: \"frame\",\n  src: \"https://drive.google.com/file/d/1AJQ5Exhr3WL2saYTyrgXOBT95hCkGwyD/preview\"\n}, null, -1))\nconst _hoisted_5 = {\n  key: 0,\n  style: {\"bottom\":\"0\",\"left\":\"0\",\"width\":\"100%\",\"height\":\"95%\",\"position\":\"absolute\"},\n  class: \"overlay\"\n}\n\nimport {\r\n    useWindowsStore\r\n} from '@/stores/windows'\r\n\nconst _sfc_main = {\n  __name: 'Resume',\n  setup(__props) {\n\r\nconst windowsStore = useWindowsStore()\r\n\nreturn (_ctx, _cache) => {\n  return (_openBlock(), _createElementBlock(\"div\", _hoisted_1, [\n    _hoisted_2,\n    _createElementVNode(\"div\", _hoisted_3, [\n      _hoisted_4,\n      (_unref(windowsStore).activeWindow != 'ResumeWindow')\n        ? (_openBlock(), _createElementBlock(\"span\", _hoisted_5))\n        : _createCommentVNode(\"\", true)\n    ])\n  ]))\n}\n}\n\n}\n\n\nimport \"C:/Users/h00dy/Documents/github/h00dy.me/views/Resume.vue?vue&type=style&index=0&scoped=4033eddd&lang.css\"\n\nimport _export_sfc from '\u0000plugin-vue:export-helper'\nexport default /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',\"data-v-4033eddd\"]])",
+      "start": 1714315493357,
+      "end": 1714315493359,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493359,
+      "end": 1714315493359,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493359,
+      "end": 1714315493360,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493360,
+      "end": 1714315493360,
+      "order": "normal"
+    }
+  ]
+}

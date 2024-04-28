@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unenv/runtime/node/http/_request.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { Socket } from \"../net/socket.mjs\";\r\nimport { Readable } from \"../stream/readable.mjs\";\r\nimport { rawHeaders } from \"../../_internal/utils.mjs\";\r\nexport class IncomingMessage extends Readable {\r\n  __unenv__ = {};\r\n  aborted = false;\r\n  httpVersion = \"1.1\";\r\n  httpVersionMajor = 1;\r\n  httpVersionMinor = 1;\r\n  complete = true;\r\n  connection;\r\n  socket;\r\n  headers = {};\r\n  trailers = {};\r\n  method = \"GET\";\r\n  url = \"/\";\r\n  statusCode = 200;\r\n  statusMessage = \"\";\r\n  closed = false;\r\n  errored = null;\r\n  readable = false;\r\n  constructor(socket) {\r\n    super();\r\n    this.socket = this.connection = socket || new Socket();\r\n  }\r\n  get rawHeaders() {\r\n    return rawHeaders(this.headers);\r\n  }\r\n  get rawTrailers() {\r\n    return [];\r\n  }\r\n  setTimeout(_msecs, _callback) {\r\n    return this;\r\n  }\r\n  get headersDistinct() {\r\n    return _distinct(this.headers);\r\n  }\r\n  get trailersDistinct() {\r\n    return _distinct(this.trailers);\r\n  }\r\n}\r\nfunction _distinct(obj) {\r\n  const d = {};\r\n  for (const [key, value] of Object.entries(obj)) {\r\n    if (key) {\r\n      d[key] = (Array.isArray(value) ? value : [value]).filter(\r\n        Boolean\r\n      );\r\n    }\r\n  }\r\n  return d;\r\n}\r\n",
+      "start": 1714315493010,
+      "end": 1714315493245,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493245,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493246,
+      "end": 1714315493246,
+      "order": "normal"
+    }
+  ]
+}

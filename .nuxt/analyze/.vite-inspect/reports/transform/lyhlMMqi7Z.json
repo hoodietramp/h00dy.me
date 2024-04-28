@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/devalue/src/utils.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "/** @type {Record<string, string>} */\r\nexport const escaped = {\r\n\t'<': '\\\\u003C',\r\n\t'\\\\': '\\\\\\\\',\r\n\t'\\b': '\\\\b',\r\n\t'\\f': '\\\\f',\r\n\t'\\n': '\\\\n',\r\n\t'\\r': '\\\\r',\r\n\t'\\t': '\\\\t',\r\n\t'\\u2028': '\\\\u2028',\r\n\t'\\u2029': '\\\\u2029'\r\n};\r\n\r\nexport class DevalueError extends Error {\r\n\t/**\r\n\t * @param {string} message\r\n\t * @param {string[]} keys\r\n\t */\r\n\tconstructor(message, keys) {\r\n\t\tsuper(message);\r\n\t\tthis.name = 'DevalueError';\r\n\t\tthis.path = keys.join('');\r\n\t}\r\n}\r\n\r\n/** @param {any} thing */\r\nexport function is_primitive(thing) {\r\n\treturn Object(thing) !== thing;\r\n}\r\n\r\nconst object_proto_names = /* @__PURE__ */ Object.getOwnPropertyNames(\r\n\tObject.prototype\r\n)\r\n\t.sort()\r\n\t.join('\\0');\r\n\r\n/** @param {any} thing */\r\nexport function is_plain_object(thing) {\r\n\tconst proto = Object.getPrototypeOf(thing);\r\n\r\n\treturn (\r\n\t\tproto === Object.prototype ||\r\n\t\tproto === null ||\r\n\t\tObject.getOwnPropertyNames(proto).sort().join('\\0') === object_proto_names\r\n\t);\r\n}\r\n\r\n/** @param {any} thing */\r\nexport function get_type(thing) {\r\n\treturn Object.prototype.toString.call(thing).slice(8, -1);\r\n}\r\n\r\n/** @param {string} char */\r\nfunction get_escaped_char(char) {\r\n\tswitch (char) {\r\n\t\tcase '\"':\r\n\t\t\treturn '\\\\\"';\r\n\t\tcase '<':\r\n\t\t\treturn '\\\\u003C';\r\n\t\tcase '\\\\':\r\n\t\t\treturn '\\\\\\\\';\r\n\t\tcase '\\n':\r\n\t\t\treturn '\\\\n';\r\n\t\tcase '\\r':\r\n\t\t\treturn '\\\\r';\r\n\t\tcase '\\t':\r\n\t\t\treturn '\\\\t';\r\n\t\tcase '\\b':\r\n\t\t\treturn '\\\\b';\r\n\t\tcase '\\f':\r\n\t\t\treturn '\\\\f';\r\n\t\tcase '\\u2028':\r\n\t\t\treturn '\\\\u2028';\r\n\t\tcase '\\u2029':\r\n\t\t\treturn '\\\\u2029';\r\n\t\tdefault:\r\n\t\t\treturn char < ' '\r\n\t\t\t\t? `\\\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`\r\n\t\t\t\t: '';\r\n\t}\r\n}\r\n\r\n/** @param {string} str */\r\nexport function stringify_string(str) {\r\n\tlet result = '';\r\n\tlet last_pos = 0;\r\n\tconst len = str.length;\r\n\r\n\tfor (let i = 0; i < len; i += 1) {\r\n\t\tconst char = str[i];\r\n\t\tconst replacement = get_escaped_char(char);\r\n\t\tif (replacement) {\r\n\t\t\tresult += str.slice(last_pos, i) + replacement;\r\n\t\t\tlast_pos = i + 1;\r\n\t\t}\r\n\t}\r\n\r\n\treturn `\"${last_pos === 0 ? str : result + str.slice(last_pos)}\"`;\r\n}\r\n",
+      "start": 1714315493892,
+      "end": 1714315493964,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493964,
+      "end": 1714315493964,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493964,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493965,
+      "end": 1714315493965,
+      "order": "normal"
+    }
+  ]
+}

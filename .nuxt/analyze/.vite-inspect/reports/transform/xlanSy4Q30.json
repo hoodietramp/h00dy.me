@@ -1,0 +1,209 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/templates/Navbar.vue?vue&type=style&index=0&scoped=93252668&lang.css",
+  "transforms": [
+    {
+      "name": "vite:vue",
+      "result": "\r\n/*-------------------------------------------*\\\r\n      Container\r\n  \\*-------------------------------------------*/\r\n\r\n.navbar-container {\r\n    width: 100%;\r\n    height: 35px;\r\n    background: rgb(192, 192, 192);\r\n    border-top: solid rgb(250, 250, 250) 2px;\r\n    z-index: 100;\r\n    display: flex;\r\n    flex-direction: row;\r\n    align-items: center;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n      Navbar Items\r\n  \\*-------------------------------------------*/\r\n\r\n.navbar-item {\r\n    width: 100px;\r\n    height: 28px;\r\n    border-radius: 10px;\r\n    margin-left: 2px;\r\n    margin-right: 2px;\r\n    box-shadow: 1.5px 1.5px black;\r\n    border-top: solid rgb(250, 250, 250) 1.5px;\r\n    border-left: solid rgb(250, 250, 250) 1.5px;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    border-right: solid rgb(90, 90, 90) 1.5px;\r\n    background: rgb(192, 192, 192);\r\n    border-radius: 0.5px;\r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center !important;\r\n    padding-left: 5px;\r\n    padding-right: 5px;\r\n    font-weight: bold;\r\n    font-size: 0.7rem;\r\n    padding-top: 2px;\r\n}\r\n\r\n.navbar-item:active {\r\n    background: rgb(192, 192, 192);\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.navbar-item:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.navbar-item-depressed {\r\n    width: 100px;\r\n    height: 28px;\r\n    border-radius: 10px;\r\n    margin-left: 2px;\r\n    margin-right: 2px;\r\n    border-radius: 0.5px;\r\n    display: flex;\r\n    justify-content: flex-start;\r\n    align-items: center;\r\n    padding-left: 5px;\r\n    padding-right: 5px;\r\n    font-weight: bold;\r\n    font-size: 0.7rem;\r\n    background: rgb(192, 192, 192);\r\n    box-shadow: none;\r\n    background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,\r\n            rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n    padding-top: 2px;\r\n}\r\n\r\n.start-icon {\r\n    width: 18px;\r\n    height: 18px;\r\n}\r\n\r\n.start-menu {\r\n    width: 65px;\r\n    margin: 5px;\r\n    height: 25px;\r\n    box-shadow: 1.5px 1.5px black;\r\n    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\r\n    border-top: solid rgb(250, 250, 250) 1.5px;\r\n    border-left: solid rgb(250, 250, 250) 1.5px;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    border-right: solid rgb(90, 90, 90) 1.5px;\r\n    background: rgb(192, 192, 192);\r\n    display: flex !important;\r\n    /* justify-content: space-between; */\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.start-menu:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.start-menu:active {\r\n    background: rgb(192, 192, 192);\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.start-menu-depressed {\r\n    box-shadow: none;\r\n    background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,\r\n            rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.container-border {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.border-box {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    border: black dotted 1px;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n      Utilities\r\n  \\*-------------------------------------------*/\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n}\r\n\r\n.spacer {\r\n    flex-grow: 1;\r\n}\r\n\r\n.time {\r\n    width: 75px;\r\n    margin: 5px;\r\n    height: 25px;\r\n    background: rgb(192, 192, 192);\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-top: solid rgb(90, 90, 90) 1.5px;\r\n    border-left: solid rgb(90, 90, 90) 1.5px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    flex-direction: row;\r\n    font-size: 0.6em;\r\n}\r\n\r\n@media only screen and (max-width: 700px) {\r\n    .time {\r\n        width: auto !important;\r\n        padding-left: 5px;\r\n        padding-right: 5px;\r\n        text-wrap: nowrap;\r\n    }\r\n\r\n    .icon-image {\r\n        width: 0px;\r\n        height: 0px;\r\n        margin-right: 0px;\r\n    }\r\n\r\n    .navbar-item {\r\n        width: auto;\r\n        padding-top: 0;\r\n    }\r\n\r\n    .navbar-item-depressed {\r\n        width: auto;\r\n        padding-top: 0;\r\n    }\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n      CSS Normalisation \r\n  \\*-------------------------------------------*/\r\n\r\nbutton {\r\n    background: none;\r\n    color: inherit;\r\n    border: none;\r\n    font: inherit;\r\n    outline: inherit;\r\n}\r\n\r\np {\r\n    margin: 0;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n}\r\n",
+      "start": 1714315493635,
+      "end": 1714315493635
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493635,
+      "end": 1714315493635,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493635,
+      "end": 1714315493635,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493635,
+      "end": 1714315493635,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "result": ".navbar-container{align-items:center;background:silver;border-top:2px solid #fafafa;display:flex;flex-direction:row;height:35px;width:100%;z-index:100}.navbar-item{align-items:center!important;background:silver;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-radius:.5px;border-style:solid;border-width:1.5px;box-shadow:1.5px 1.5px #000;display:flex;font-size:.7rem;font-weight:700;height:28px;justify-content:flex-start;margin-left:2px;margin-right:2px;padding-left:5px;padding-right:5px;padding-top:2px;width:100px}.navbar-item:active{background:silver;border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none}.navbar-item:hover{cursor:pointer}.navbar-item-depressed{align-items:center;background:silver;background:repeating-conic-gradient(#bdbebd 0 25%,#fff 0 50%) 50% /2px 2px;border-color:#000 #fafafa #fafafa #000;border-radius:.5px;border-style:solid;border-width:1.5px;box-shadow:none;display:flex;font-size:.7rem;font-weight:700;height:28px;justify-content:flex-start;margin-left:2px;margin-right:2px;padding-left:5px;padding-right:5px;padding-top:2px;width:100px}.start-icon{height:18px;width:18px}.start-menu{align-items:center;background:silver;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:1.5px;box-shadow:1.5px 1.5px #000;display:flex!important;font-family:Trebuchet MS,Lucida Sans Unicode,Lucida Grande,Lucida Sans,Arial,sans-serif;height:25px;justify-content:center;margin:5px;width:65px}.start-menu:hover{cursor:pointer}.start-menu:active{background:silver}.start-menu-depressed,.start-menu:active{border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none}.start-menu-depressed{background:repeating-conic-gradient(#bdbebd 0 25%,#fff 0 50%) 50% /2px 2px}.border-box,.container-border{align-items:center;display:flex;justify-content:center}.border-box{border:1px dotted #000}.icon-image{height:15px;margin-bottom:0;margin-right:5px;margin-top:0;width:15px}.spacer{flex-grow:1}.time{align-items:center;background:silver;border-color:#5a5a5a #fafafa #fafafa #5a5a5a;border-style:solid;border-width:1.5px;display:flex;flex-direction:row;font-size:.6em;height:25px;justify-content:center;margin:5px;width:75px}@media only screen and (max-width:700px){.time{padding-left:5px;padding-right:5px;text-wrap:nowrap;width:auto!important}.icon-image{height:0;margin-right:0;width:0}.navbar-item,.navbar-item-depressed{padding-top:0;width:auto}}button{background:none;border:none;color:inherit;font:inherit;outline:inherit}p{margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}",
+      "start": 1714315493635,
+      "end": 1714315493658,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493658,
+      "end": 1714315493658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493658,
+      "end": 1714315493658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493658,
+      "end": 1714315493658,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": ".navbar-container[data-v-93252668]{align-items:center;background:silver;border-top:2px solid #fafafa;display:flex;flex-direction:row;height:35px;width:100%;z-index:100}.navbar-item[data-v-93252668]{align-items:center!important;background:silver;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-radius:.5px;border-style:solid;border-width:1.5px;box-shadow:1.5px 1.5px #000;display:flex;font-size:.7rem;font-weight:700;height:28px;justify-content:flex-start;margin-left:2px;margin-right:2px;padding-left:5px;padding-right:5px;padding-top:2px;width:100px}.navbar-item[data-v-93252668]:active{background:silver;border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none}.navbar-item[data-v-93252668]:hover{cursor:pointer}.navbar-item-depressed[data-v-93252668]{align-items:center;background:silver;background:repeating-conic-gradient(#bdbebd 0 25%,#fff 0 50%) 50% /2px 2px;border-color:#000 #fafafa #fafafa #000;border-radius:.5px;border-style:solid;border-width:1.5px;box-shadow:none;display:flex;font-size:.7rem;font-weight:700;height:28px;justify-content:flex-start;margin-left:2px;margin-right:2px;padding-left:5px;padding-right:5px;padding-top:2px;width:100px}.start-icon[data-v-93252668]{height:18px;width:18px}.start-menu[data-v-93252668]{align-items:center;background:silver;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:1.5px;box-shadow:1.5px 1.5px #000;display:flex!important;font-family:Trebuchet MS,Lucida Sans Unicode,Lucida Grande,Lucida Sans,Arial,sans-serif;height:25px;justify-content:center;margin:5px;width:65px}.start-menu[data-v-93252668]:hover{cursor:pointer}.start-menu[data-v-93252668]:active{background:silver}.start-menu-depressed[data-v-93252668],.start-menu[data-v-93252668]:active{border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none}.start-menu-depressed[data-v-93252668]{background:repeating-conic-gradient(#bdbebd 0 25%,#fff 0 50%) 50% /2px 2px}.border-box[data-v-93252668],.container-border[data-v-93252668]{align-items:center;display:flex;justify-content:center}.border-box[data-v-93252668]{border:1px dotted #000}.icon-image[data-v-93252668]{height:15px;margin-bottom:0;margin-right:5px;margin-top:0;width:15px}.spacer[data-v-93252668]{flex-grow:1}.time[data-v-93252668]{align-items:center;background:silver;border-color:#5a5a5a #fafafa #fafafa #5a5a5a;border-style:solid;border-width:1.5px;display:flex;flex-direction:row;font-size:.6em;height:25px;justify-content:center;margin:5px;width:75px}@media only screen and (max-width:700px){.time[data-v-93252668]{padding-left:5px;padding-right:5px;text-wrap:nowrap;width:auto!important}.icon-image[data-v-93252668]{height:0;margin-right:0;width:0}.navbar-item[data-v-93252668],.navbar-item-depressed[data-v-93252668]{padding-top:0;width:auto}}button[data-v-93252668]{background:none;border:none;color:inherit;font:inherit;outline:inherit}p[data-v-93252668]{margin:0;overflow:hidden;padding:0;text-overflow:ellipsis;white-space:nowrap}",
+      "start": 1714315493658,
+      "end": 1714315493661,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493661,
+      "end": 1714315493661,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493661,
+      "end": 1714315493661,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493661,
+      "end": 1714315493661,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493661,
+      "end": 1714315493661,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493661,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "result": "",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493662,
+      "end": 1714315493662,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493662,
+      "end": 1714315493663,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493663,
+      "end": 1714315493663,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493663,
+      "end": 1714315493663,
+      "order": "normal"
+    }
+  ]
+}

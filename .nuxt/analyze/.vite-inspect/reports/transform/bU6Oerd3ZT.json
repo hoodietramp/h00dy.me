@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/ufo/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "const n = /[^\\0-\\x7E]/;\r\nconst t = /[\\x2E\\u3002\\uFF0E\\uFF61]/g;\r\nconst o = {\r\n  overflow: \"Overflow Error\",\r\n  \"not-basic\": \"Illegal Input\",\r\n  \"invalid-input\": \"Invalid Input\"\r\n};\r\nconst e = Math.floor;\r\nconst r = String.fromCharCode;\r\nfunction s(n2) {\r\n  throw new RangeError(o[n2]);\r\n}\r\nconst c = function(n2, t2) {\r\n  return n2 + 22 + 75 * (n2 < 26) - ((t2 != 0) << 5);\r\n};\r\nconst u = function(n2, t2, o2) {\r\n  let r2 = 0;\r\n  for (n2 = o2 ? e(n2 / 700) : n2 >> 1, n2 += e(n2 / t2); n2 > 455; r2 += 36) {\r\n    n2 = e(n2 / 35);\r\n  }\r\n  return e(r2 + 36 * n2 / (n2 + 38));\r\n};\r\nfunction toASCII(o2) {\r\n  return function(n2, o3) {\r\n    const e2 = n2.split(\"@\");\r\n    let r2 = \"\";\r\n    e2.length > 1 && (r2 = e2[0] + \"@\", n2 = e2[1]);\r\n    const s2 = function(n3, t2) {\r\n      const o4 = [];\r\n      let e3 = n3.length;\r\n      for (; e3--; ) {\r\n        o4[e3] = t2(n3[e3]);\r\n      }\r\n      return o4;\r\n    }((n2 = n2.replace(t, \".\")).split(\".\"), o3).join(\".\");\r\n    return r2 + s2;\r\n  }(o2, function(t2) {\r\n    return n.test(t2) ? \"xn--\" + function(n2) {\r\n      const t3 = [];\r\n      const o3 = (n2 = function(n3) {\r\n        const t4 = [];\r\n        let o4 = 0;\r\n        const e2 = n3.length;\r\n        for (; o4 < e2; ) {\r\n          const r2 = n3.charCodeAt(o4++);\r\n          if (r2 >= 55296 && r2 <= 56319 && o4 < e2) {\r\n            const e3 = n3.charCodeAt(o4++);\r\n            (64512 & e3) == 56320 ? t4.push(((1023 & r2) << 10) + (1023 & e3) + 65536) : (t4.push(r2), o4--);\r\n          } else {\r\n            t4.push(r2);\r\n          }\r\n        }\r\n        return t4;\r\n      }(n2)).length;\r\n      let f = 128;\r\n      let i = 0;\r\n      let l = 72;\r\n      for (const o4 of n2) {\r\n        o4 < 128 && t3.push(r(o4));\r\n      }\r\n      const h = t3.length;\r\n      let p = h;\r\n      for (h && t3.push(\"-\"); p < o3; ) {\r\n        let o4 = 2147483647;\r\n        for (const t4 of n2) {\r\n          t4 >= f && t4 < o4 && (o4 = t4);\r\n        }\r\n        const a = p + 1;\r\n        o4 - f > e((2147483647 - i) / a) && s(\"overflow\"), i += (o4 - f) * a, f = o4;\r\n        for (const o5 of n2) {\r\n          if (o5 < f && ++i > 2147483647 && s(\"overflow\"), o5 == f) {\r\n            let n3 = i;\r\n            for (let o6 = 36; ; o6 += 36) {\r\n              const s2 = o6 <= l ? 1 : o6 >= l + 26 ? 26 : o6 - l;\r\n              if (n3 < s2) {\r\n                break;\r\n              }\r\n              const u2 = n3 - s2;\r\n              const f2 = 36 - s2;\r\n              t3.push(r(c(s2 + u2 % f2, 0))), n3 = e(u2 / f2);\r\n            }\r\n            t3.push(r(c(n3, 0))), l = u(i, a, p == h), i = 0, ++p;\r\n          }\r\n        }\r\n        ++i, ++f;\r\n      }\r\n      return t3.join(\"\");\r\n    }(t2) : t2;\r\n  });\r\n}\r\n\r\nconst HASH_RE = /#/g;\r\nconst AMPERSAND_RE = /&/g;\r\nconst SLASH_RE = /\\//g;\r\nconst EQUAL_RE = /=/g;\r\nconst IM_RE = /\\?/g;\r\nconst PLUS_RE = /\\+/g;\r\nconst ENC_CARET_RE = /%5e/gi;\r\nconst ENC_BACKTICK_RE = /%60/gi;\r\nconst ENC_CURLY_OPEN_RE = /%7b/gi;\r\nconst ENC_PIPE_RE = /%7c/gi;\r\nconst ENC_CURLY_CLOSE_RE = /%7d/gi;\r\nconst ENC_SPACE_RE = /%20/gi;\r\nconst ENC_SLASH_RE = /%2f/gi;\r\nconst ENC_ENC_SLASH_RE = /%252f/gi;\r\nfunction encode(text) {\r\n  return encodeURI(\"\" + text).replace(ENC_PIPE_RE, \"|\");\r\n}\r\nfunction encodeHash(text) {\r\n  return encode(text).replace(ENC_CURLY_OPEN_RE, \"{\").replace(ENC_CURLY_CLOSE_RE, \"}\").replace(ENC_CARET_RE, \"^\");\r\n}\r\nfunction encodeQueryValue(input) {\r\n  return encode(typeof input === \"string\" ? input : JSON.stringify(input)).replace(PLUS_RE, \"%2B\").replace(ENC_SPACE_RE, \"+\").replace(HASH_RE, \"%23\").replace(AMPERSAND_RE, \"%26\").replace(ENC_BACKTICK_RE, \"`\").replace(ENC_CARET_RE, \"^\").replace(SLASH_RE, \"%2F\");\r\n}\r\nfunction encodeQueryKey(text) {\r\n  return encodeQueryValue(text).replace(EQUAL_RE, \"%3D\");\r\n}\r\nfunction encodePath(text) {\r\n  return encode(text).replace(HASH_RE, \"%23\").replace(IM_RE, \"%3F\").replace(ENC_ENC_SLASH_RE, \"%2F\").replace(AMPERSAND_RE, \"%26\").replace(PLUS_RE, \"%2B\");\r\n}\r\nfunction encodeParam(text) {\r\n  return encodePath(text).replace(SLASH_RE, \"%2F\");\r\n}\r\nfunction decode(text = \"\") {\r\n  try {\r\n    return decodeURIComponent(\"\" + text);\r\n  } catch {\r\n    return \"\" + text;\r\n  }\r\n}\r\nfunction decodePath(text) {\r\n  return decode(text.replace(ENC_SLASH_RE, \"%252F\"));\r\n}\r\nfunction decodeQueryKey(text) {\r\n  return decode(text.replace(PLUS_RE, \" \"));\r\n}\r\nfunction decodeQueryValue(text) {\r\n  return decode(text.replace(PLUS_RE, \" \"));\r\n}\r\nfunction encodeHost(name = \"\") {\r\n  return toASCII(name);\r\n}\r\n\r\nfunction parseQuery(parametersString = \"\") {\r\n  const object = {};\r\n  if (parametersString[0] === \"?\") {\r\n    parametersString = parametersString.slice(1);\r\n  }\r\n  for (const parameter of parametersString.split(\"&\")) {\r\n    const s = parameter.match(/([^=]+)=?(.*)/) || [];\r\n    if (s.length < 2) {\r\n      continue;\r\n    }\r\n    const key = decodeQueryKey(s[1]);\r\n    if (key === \"__proto__\" || key === \"constructor\") {\r\n      continue;\r\n    }\r\n    const value = decodeQueryValue(s[2] || \"\");\r\n    if (object[key] === void 0) {\r\n      object[key] = value;\r\n    } else if (Array.isArray(object[key])) {\r\n      object[key].push(value);\r\n    } else {\r\n      object[key] = [object[key], value];\r\n    }\r\n  }\r\n  return object;\r\n}\r\nfunction encodeQueryItem(key, value) {\r\n  if (typeof value === \"number\" || typeof value === \"boolean\") {\r\n    value = String(value);\r\n  }\r\n  if (!value) {\r\n    return encodeQueryKey(key);\r\n  }\r\n  if (Array.isArray(value)) {\r\n    return value.map((_value) => `${encodeQueryKey(key)}=${encodeQueryValue(_value)}`).join(\"&\");\r\n  }\r\n  return `${encodeQueryKey(key)}=${encodeQueryValue(value)}`;\r\n}\r\nfunction stringifyQuery(query) {\r\n  return Object.keys(query).filter((k) => query[k] !== void 0).map((k) => encodeQueryItem(k, query[k])).filter(Boolean).join(\"&\");\r\n}\r\n\r\nconst PROTOCOL_STRICT_REGEX = /^[\\s\\w\\0+.-]{2,}:([/\\\\]{1,2})/;\r\nconst PROTOCOL_REGEX = /^[\\s\\w\\0+.-]{2,}:([/\\\\]{2})?/;\r\nconst PROTOCOL_RELATIVE_REGEX = /^([/\\\\]\\s*){2,}[^/\\\\]/;\r\nconst PROTOCOL_SCRIPT_RE = /^[\\s\\0]*(blob|data|javascript|vbscript):$/i;\r\nconst TRAILING_SLASH_RE = /\\/$|\\/\\?|\\/#/;\r\nconst JOIN_LEADING_SLASH_RE = /^\\.?\\//;\r\nfunction isRelative(inputString) {\r\n  return [\"./\", \"../\"].some((string_) => inputString.startsWith(string_));\r\n}\r\nfunction hasProtocol(inputString, opts = {}) {\r\n  if (typeof opts === \"boolean\") {\r\n    opts = { acceptRelative: opts };\r\n  }\r\n  if (opts.strict) {\r\n    return PROTOCOL_STRICT_REGEX.test(inputString);\r\n  }\r\n  return PROTOCOL_REGEX.test(inputString) || (opts.acceptRelative ? PROTOCOL_RELATIVE_REGEX.test(inputString) : false);\r\n}\r\nfunction isScriptProtocol(protocol) {\r\n  return !!protocol && PROTOCOL_SCRIPT_RE.test(protocol);\r\n}\r\nfunction hasTrailingSlash(input = \"\", respectQueryAndFragment) {\r\n  if (!respectQueryAndFragment) {\r\n    return input.endsWith(\"/\");\r\n  }\r\n  return TRAILING_SLASH_RE.test(input);\r\n}\r\nfunction withoutTrailingSlash(input = \"\", respectQueryAndFragment) {\r\n  if (!respectQueryAndFragment) {\r\n    return (hasTrailingSlash(input) ? input.slice(0, -1) : input) || \"/\";\r\n  }\r\n  if (!hasTrailingSlash(input, true)) {\r\n    return input || \"/\";\r\n  }\r\n  let path = input;\r\n  let fragment = \"\";\r\n  const fragmentIndex = input.indexOf(\"#\");\r\n  if (fragmentIndex >= 0) {\r\n    path = input.slice(0, fragmentIndex);\r\n    fragment = input.slice(fragmentIndex);\r\n  }\r\n  const [s0, ...s] = path.split(\"?\");\r\n  const cleanPath = s0.endsWith(\"/\") ? s0.slice(0, -1) : s0;\r\n  return (cleanPath || \"/\") + (s.length > 0 ? `?${s.join(\"?\")}` : \"\") + fragment;\r\n}\r\nfunction withTrailingSlash(input = \"\", respectQueryAndFragment) {\r\n  if (!respectQueryAndFragment) {\r\n    return input.endsWith(\"/\") ? input : input + \"/\";\r\n  }\r\n  if (hasTrailingSlash(input, true)) {\r\n    return input || \"/\";\r\n  }\r\n  let path = input;\r\n  let fragment = \"\";\r\n  const fragmentIndex = input.indexOf(\"#\");\r\n  if (fragmentIndex >= 0) {\r\n    path = input.slice(0, fragmentIndex);\r\n    fragment = input.slice(fragmentIndex);\r\n    if (!path) {\r\n      return fragment;\r\n    }\r\n  }\r\n  const [s0, ...s] = path.split(\"?\");\r\n  return s0 + \"/\" + (s.length > 0 ? `?${s.join(\"?\")}` : \"\") + fragment;\r\n}\r\nfunction hasLeadingSlash(input = \"\") {\r\n  return input.startsWith(\"/\");\r\n}\r\nfunction withoutLeadingSlash(input = \"\") {\r\n  return (hasLeadingSlash(input) ? input.slice(1) : input) || \"/\";\r\n}\r\nfunction withLeadingSlash(input = \"\") {\r\n  return hasLeadingSlash(input) ? input : \"/\" + input;\r\n}\r\nfunction cleanDoubleSlashes(input = \"\") {\r\n  return input.split(\"://\").map((string_) => string_.replace(/\\/{2,}/g, \"/\")).join(\"://\");\r\n}\r\nfunction withBase(input, base) {\r\n  if (isEmptyURL(base) || hasProtocol(input)) {\r\n    return input;\r\n  }\r\n  const _base = withoutTrailingSlash(base);\r\n  if (input.startsWith(_base)) {\r\n    return input;\r\n  }\r\n  return joinURL(_base, input);\r\n}\r\nfunction withoutBase(input, base) {\r\n  if (isEmptyURL(base)) {\r\n    return input;\r\n  }\r\n  const _base = withoutTrailingSlash(base);\r\n  if (!input.startsWith(_base)) {\r\n    return input;\r\n  }\r\n  const trimmed = input.slice(_base.length);\r\n  return trimmed[0] === \"/\" ? trimmed : \"/\" + trimmed;\r\n}\r\nfunction withQuery(input, query) {\r\n  const parsed = parseURL(input);\r\n  const mergedQuery = { ...parseQuery(parsed.search), ...query };\r\n  parsed.search = stringifyQuery(mergedQuery);\r\n  return stringifyParsedURL(parsed);\r\n}\r\nfunction getQuery(input) {\r\n  return parseQuery(parseURL(input).search);\r\n}\r\nfunction isEmptyURL(url) {\r\n  return !url || url === \"/\";\r\n}\r\nfunction isNonEmptyURL(url) {\r\n  return url && url !== \"/\";\r\n}\r\nfunction joinURL(base, ...input) {\r\n  let url = base || \"\";\r\n  for (const segment of input.filter((url2) => isNonEmptyURL(url2))) {\r\n    if (url) {\r\n      const _segment = segment.replace(JOIN_LEADING_SLASH_RE, \"\");\r\n      url = withTrailingSlash(url) + _segment;\r\n    } else {\r\n      url = segment;\r\n    }\r\n  }\r\n  return url;\r\n}\r\nfunction joinRelativeURL(..._input) {\r\n  const JOIN_SEGMENT_SPLIT_RE = /\\/(?!\\/)/;\r\n  const input = _input.filter(Boolean);\r\n  const segments = [];\r\n  let segmentsDepth = 0;\r\n  for (const i of input) {\r\n    if (!i || i === \"/\") {\r\n      continue;\r\n    }\r\n    for (const [sindex, s] of i.split(JOIN_SEGMENT_SPLIT_RE).entries()) {\r\n      if (!s || s === \".\") {\r\n        continue;\r\n      }\r\n      if (s === \"..\") {\r\n        if (segments.length === 1 && hasProtocol(segments[0])) {\r\n          continue;\r\n        }\r\n        segments.pop();\r\n        segmentsDepth--;\r\n        continue;\r\n      }\r\n      if (sindex === 1 && segments[segments.length - 1]?.endsWith(\":/\")) {\r\n        segments[segments.length - 1] += \"/\" + s;\r\n        continue;\r\n      }\r\n      segments.push(s);\r\n      segmentsDepth++;\r\n    }\r\n  }\r\n  let url = segments.join(\"/\");\r\n  if (segmentsDepth >= 0) {\r\n    if (input[0]?.startsWith(\"/\") && !url.startsWith(\"/\")) {\r\n      url = \"/\" + url;\r\n    } else if (input[0]?.startsWith(\"./\") && !url.startsWith(\"./\")) {\r\n      url = \"./\" + url;\r\n    }\r\n  } else {\r\n    url = \"../\".repeat(-1 * segmentsDepth) + url;\r\n  }\r\n  if (input[input.length - 1]?.endsWith(\"/\") && !url.endsWith(\"/\")) {\r\n    url += \"/\";\r\n  }\r\n  return url;\r\n}\r\nfunction withHttp(input) {\r\n  return withProtocol(input, \"http://\");\r\n}\r\nfunction withHttps(input) {\r\n  return withProtocol(input, \"https://\");\r\n}\r\nfunction withoutProtocol(input) {\r\n  return withProtocol(input, \"\");\r\n}\r\nfunction withProtocol(input, protocol) {\r\n  const match = input.match(PROTOCOL_REGEX);\r\n  if (!match) {\r\n    return protocol + input;\r\n  }\r\n  return protocol + input.slice(match[0].length);\r\n}\r\nfunction normalizeURL(input) {\r\n  const parsed = parseURL(input);\r\n  parsed.pathname = encodePath(decodePath(parsed.pathname));\r\n  parsed.hash = encodeHash(decode(parsed.hash));\r\n  parsed.host = encodeHost(decode(parsed.host));\r\n  parsed.search = stringifyQuery(parseQuery(parsed.search));\r\n  return stringifyParsedURL(parsed);\r\n}\r\nfunction resolveURL(base = \"\", ...inputs) {\r\n  if (typeof base !== \"string\") {\r\n    throw new TypeError(\r\n      `URL input should be string received ${typeof base} (${base})`\r\n    );\r\n  }\r\n  const filteredInputs = inputs.filter((input) => isNonEmptyURL(input));\r\n  if (filteredInputs.length === 0) {\r\n    return base;\r\n  }\r\n  const url = parseURL(base);\r\n  for (const inputSegment of filteredInputs) {\r\n    const urlSegment = parseURL(inputSegment);\r\n    if (urlSegment.pathname) {\r\n      url.pathname = withTrailingSlash(url.pathname) + withoutLeadingSlash(urlSegment.pathname);\r\n    }\r\n    if (urlSegment.hash && urlSegment.hash !== \"#\") {\r\n      url.hash = urlSegment.hash;\r\n    }\r\n    if (urlSegment.search && urlSegment.search !== \"?\") {\r\n      if (url.search && url.search !== \"?\") {\r\n        const queryString = stringifyQuery({\r\n          ...parseQuery(url.search),\r\n          ...parseQuery(urlSegment.search)\r\n        });\r\n        url.search = queryString.length > 0 ? \"?\" + queryString : \"\";\r\n      } else {\r\n        url.search = urlSegment.search;\r\n      }\r\n    }\r\n  }\r\n  return stringifyParsedURL(url);\r\n}\r\nfunction isSamePath(p1, p2) {\r\n  return decode(withoutTrailingSlash(p1)) === decode(withoutTrailingSlash(p2));\r\n}\r\nfunction isEqual(a, b, options = {}) {\r\n  if (!options.trailingSlash) {\r\n    a = withTrailingSlash(a);\r\n    b = withTrailingSlash(b);\r\n  }\r\n  if (!options.leadingSlash) {\r\n    a = withLeadingSlash(a);\r\n    b = withLeadingSlash(b);\r\n  }\r\n  if (!options.encoding) {\r\n    a = decode(a);\r\n    b = decode(b);\r\n  }\r\n  return a === b;\r\n}\r\nfunction withFragment(input, hash) {\r\n  if (!hash || hash === \"#\") {\r\n    return input;\r\n  }\r\n  const parsed = parseURL(input);\r\n  parsed.hash = hash === \"\" ? \"\" : \"#\" + encodeHash(hash);\r\n  return stringifyParsedURL(parsed);\r\n}\r\nfunction withoutFragment(input) {\r\n  return stringifyParsedURL({ ...parseURL(input), hash: \"\" });\r\n}\r\nfunction withoutHost(input) {\r\n  const parsed = parseURL(input);\r\n  return (parsed.pathname || \"/\") + parsed.search + parsed.hash;\r\n}\r\n\r\nconst protocolRelative = Symbol.for(\"ufo:protocolRelative\");\r\nfunction parseURL(input = \"\", defaultProto) {\r\n  const _specialProtoMatch = input.match(\r\n    /^[\\s\\0]*(blob:|data:|javascript:|vbscript:)(.*)/i\r\n  );\r\n  if (_specialProtoMatch) {\r\n    const [, _proto, _pathname = \"\"] = _specialProtoMatch;\r\n    return {\r\n      protocol: _proto.toLowerCase(),\r\n      pathname: _pathname,\r\n      href: _proto + _pathname,\r\n      auth: \"\",\r\n      host: \"\",\r\n      search: \"\",\r\n      hash: \"\"\r\n    };\r\n  }\r\n  if (!hasProtocol(input, { acceptRelative: true })) {\r\n    return defaultProto ? parseURL(defaultProto + input) : parsePath(input);\r\n  }\r\n  const [, protocol = \"\", auth, hostAndPath = \"\"] = input.replace(/\\\\/g, \"/\").match(/^[\\s\\0]*([\\w+.-]{2,}:)?\\/\\/([^/@]+@)?(.*)/) || [];\r\n  const [, host = \"\", path = \"\"] = hostAndPath.match(/([^#/?]*)(.*)?/) || [];\r\n  const { pathname, search, hash } = parsePath(\r\n    path.replace(/\\/(?=[A-Za-z]:)/, \"\")\r\n  );\r\n  return {\r\n    protocol: protocol.toLowerCase(),\r\n    auth: auth ? auth.slice(0, Math.max(0, auth.length - 1)) : \"\",\r\n    host,\r\n    pathname,\r\n    search,\r\n    hash,\r\n    [protocolRelative]: !protocol\r\n  };\r\n}\r\nfunction parsePath(input = \"\") {\r\n  const [pathname = \"\", search = \"\", hash = \"\"] = (input.match(/([^#?]*)(\\?[^#]*)?(#.*)?/) || []).splice(1);\r\n  return {\r\n    pathname,\r\n    search,\r\n    hash\r\n  };\r\n}\r\nfunction parseAuth(input = \"\") {\r\n  const [username, password] = input.split(\":\");\r\n  return {\r\n    username: decode(username),\r\n    password: decode(password)\r\n  };\r\n}\r\nfunction parseHost(input = \"\") {\r\n  const [hostname, port] = (input.match(/([^/:]*):?(\\d+)?/) || []).splice(1);\r\n  return {\r\n    hostname: decode(hostname),\r\n    port\r\n  };\r\n}\r\nfunction stringifyParsedURL(parsed) {\r\n  const pathname = parsed.pathname || \"\";\r\n  const search = parsed.search ? (parsed.search.startsWith(\"?\") ? \"\" : \"?\") + parsed.search : \"\";\r\n  const hash = parsed.hash || \"\";\r\n  const auth = parsed.auth ? parsed.auth + \"@\" : \"\";\r\n  const host = parsed.host || \"\";\r\n  const proto = parsed.protocol || parsed[protocolRelative] ? (parsed.protocol || \"\") + \"//\" : \"\";\r\n  return proto + auth + host + pathname + search + hash;\r\n}\r\nconst FILENAME_STRICT_REGEX = /\\/([^/]+\\.[^/]+)$/;\r\nconst FILENAME_REGEX = /\\/([^/]+)$/;\r\nfunction parseFilename(input = \"\", { strict }) {\r\n  const { pathname } = parseURL(input);\r\n  const matches = strict ? pathname.match(FILENAME_STRICT_REGEX) : pathname.match(FILENAME_REGEX);\r\n  return matches ? matches[1] : void 0;\r\n}\r\n\r\nvar __defProp = Object.defineProperty;\r\nvar __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;\r\nvar __publicField = (obj, key, value) => {\r\n  __defNormalProp(obj, typeof key !== \"symbol\" ? key + \"\" : key, value);\r\n  return value;\r\n};\r\nclass $URL {\r\n  constructor(input = \"\") {\r\n    __publicField(this, \"protocol\");\r\n    __publicField(this, \"host\");\r\n    __publicField(this, \"auth\");\r\n    __publicField(this, \"pathname\");\r\n    __publicField(this, \"query\", {});\r\n    __publicField(this, \"hash\");\r\n    if (typeof input !== \"string\") {\r\n      throw new TypeError(\r\n        `URL input should be string received ${typeof input} (${input})`\r\n      );\r\n    }\r\n    const parsed = parseURL(input);\r\n    this.protocol = decode(parsed.protocol);\r\n    this.host = decode(parsed.host);\r\n    this.auth = decode(parsed.auth);\r\n    this.pathname = decodePath(parsed.pathname);\r\n    this.query = parseQuery(parsed.search);\r\n    this.hash = decode(parsed.hash);\r\n  }\r\n  get hostname() {\r\n    return parseHost(this.host).hostname;\r\n  }\r\n  get port() {\r\n    return parseHost(this.host).port || \"\";\r\n  }\r\n  get username() {\r\n    return parseAuth(this.auth).username;\r\n  }\r\n  get password() {\r\n    return parseAuth(this.auth).password || \"\";\r\n  }\r\n  get hasProtocol() {\r\n    return this.protocol.length;\r\n  }\r\n  get isAbsolute() {\r\n    return this.hasProtocol || this.pathname[0] === \"/\";\r\n  }\r\n  get search() {\r\n    const q = stringifyQuery(this.query);\r\n    return q.length > 0 ? \"?\" + q : \"\";\r\n  }\r\n  get searchParams() {\r\n    const p = new URLSearchParams();\r\n    for (const name in this.query) {\r\n      const value = this.query[name];\r\n      if (Array.isArray(value)) {\r\n        for (const v of value) {\r\n          p.append(name, v);\r\n        }\r\n      } else {\r\n        p.append(\r\n          name,\r\n          typeof value === \"string\" ? value : JSON.stringify(value)\r\n        );\r\n      }\r\n    }\r\n    return p;\r\n  }\r\n  get origin() {\r\n    return (this.protocol ? this.protocol + \"//\" : \"\") + encodeHost(this.host);\r\n  }\r\n  get fullpath() {\r\n    return encodePath(this.pathname) + this.search + encodeHash(this.hash);\r\n  }\r\n  get encodedAuth() {\r\n    if (!this.auth) {\r\n      return \"\";\r\n    }\r\n    const { username, password } = parseAuth(this.auth);\r\n    return encodeURIComponent(username) + (password ? \":\" + encodeURIComponent(password) : \"\");\r\n  }\r\n  get href() {\r\n    const auth = this.encodedAuth;\r\n    const originWithAuth = (this.protocol ? this.protocol + \"//\" : \"\") + (auth ? auth + \"@\" : \"\") + encodeHost(this.host);\r\n    return this.hasProtocol && this.isAbsolute ? originWithAuth + this.fullpath : this.fullpath;\r\n  }\r\n  append(url) {\r\n    if (url.hasProtocol) {\r\n      throw new Error(\"Cannot append a URL with protocol\");\r\n    }\r\n    Object.assign(this.query, url.query);\r\n    if (url.pathname) {\r\n      this.pathname = withTrailingSlash(this.pathname) + withoutLeadingSlash(url.pathname);\r\n    }\r\n    if (url.hash) {\r\n      this.hash = url.hash;\r\n    }\r\n  }\r\n  toJSON() {\r\n    return this.href;\r\n  }\r\n  toString() {\r\n    return this.href;\r\n  }\r\n}\r\nfunction createURL(input) {\r\n  return new $URL(input);\r\n}\r\n\r\nexport { $URL, cleanDoubleSlashes, createURL, decode, decodePath, decodeQueryKey, decodeQueryValue, encode, encodeHash, encodeHost, encodeParam, encodePath, encodeQueryItem, encodeQueryKey, encodeQueryValue, getQuery, hasLeadingSlash, hasProtocol, hasTrailingSlash, isEmptyURL, isEqual, isNonEmptyURL, isRelative, isSamePath, isScriptProtocol, joinRelativeURL, joinURL, normalizeURL, parseAuth, parseFilename, parseHost, parsePath, parseQuery, parseURL, resolveURL, stringifyParsedURL, stringifyQuery, withBase, withFragment, withHttp, withHttps, withLeadingSlash, withProtocol, withQuery, withTrailingSlash, withoutBase, withoutFragment, withoutHost, withoutLeadingSlash, withoutProtocol, withoutTrailingSlash };\r\n",
+      "start": 1714315492662,
+      "end": 1714315492763,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315492764,
+      "end": 1714315492764,
+      "order": "normal"
+    }
+  ]
+}

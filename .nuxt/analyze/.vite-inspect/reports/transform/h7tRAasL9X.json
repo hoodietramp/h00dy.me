@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/@unhead/dom/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { HasElementTags, hashTag, normaliseProps, tagDedupeKey, defineHeadPlugin } from '@unhead/shared';\r\n\r\nasync function renderDOMHead(head, options = {}) {\r\n  const dom = options.document || head.resolvedOptions.document;\r\n  if (!dom || !head.dirty)\r\n    return;\r\n  const beforeRenderCtx = { shouldRender: true, tags: [] };\r\n  await head.hooks.callHook(\"dom:beforeRender\", beforeRenderCtx);\r\n  if (!beforeRenderCtx.shouldRender)\r\n    return;\r\n  const tags = (await head.resolveTags()).map((tag) => ({\r\n    tag,\r\n    id: HasElementTags.includes(tag.tag) ? hashTag(tag) : tag.tag,\r\n    shouldRender: true\r\n  }));\r\n  let state = head._dom;\r\n  if (!state) {\r\n    state = {\r\n      elMap: { htmlAttrs: dom.documentElement, bodyAttrs: dom.body }\r\n    };\r\n    for (const key of [\"body\", \"head\"]) {\r\n      const children = dom[key]?.children;\r\n      const tags2 = [];\r\n      for (const c of [...children].filter((c2) => HasElementTags.includes(c2.tagName.toLowerCase()))) {\r\n        const t = {\r\n          tag: c.tagName.toLowerCase(),\r\n          props: await normaliseProps(\r\n            c.getAttributeNames().reduce((props, name) => ({ ...props, [name]: c.getAttribute(name) }), {})\r\n          ),\r\n          innerHTML: c.innerHTML\r\n        };\r\n        let i = 1;\r\n        let d = tagDedupeKey(t);\r\n        while (d && tags2.find((t2) => t2._d === d))\r\n          d = `${d}:${i++}`;\r\n        t._d = d || void 0;\r\n        tags2.push(t);\r\n        state.elMap[c.getAttribute(\"data-hid\") || hashTag(t)] = c;\r\n      }\r\n    }\r\n  }\r\n  state.pendingSideEffects = { ...state.sideEffects || {} };\r\n  state.sideEffects = {};\r\n  function track(id, scope, fn) {\r\n    const k = `${id}:${scope}`;\r\n    state.sideEffects[k] = fn;\r\n    delete state.pendingSideEffects[k];\r\n  }\r\n  function trackCtx({ id, $el, tag }) {\r\n    const isAttrTag = tag.tag.endsWith(\"Attrs\");\r\n    state.elMap[id] = $el;\r\n    if (!isAttrTag) {\r\n      [\"textContent\", \"innerHTML\"].forEach((k) => {\r\n        tag[k] && tag[k] !== $el[k] && ($el[k] = tag[k]);\r\n      });\r\n      track(id, \"el\", () => {\r\n        state.elMap[id]?.remove();\r\n        delete state.elMap[id];\r\n      });\r\n    }\r\n    for (const [k, value] of Object.entries(tag._eventHandlers || {})) {\r\n      if ($el.getAttribute(`data-${k}`) !== \"\") {\r\n        (tag.tag === \"bodyAttrs\" ? dom.defaultView : $el).addEventListener(k.replace(\"on\", \"\"), value.bind($el));\r\n        $el.setAttribute(`data-${k}`, \"\");\r\n      }\r\n    }\r\n    Object.entries(tag.props).forEach(([k, value]) => {\r\n      const ck = `attr:${k}`;\r\n      if (k === \"class\") {\r\n        for (const c of (value || \"\").split(\" \").filter(Boolean)) {\r\n          isAttrTag && track(id, `${ck}:${c}`, () => $el.classList.remove(c));\r\n          !$el.classList.contains(c) && $el.classList.add(c);\r\n        }\r\n      } else if (k === \"style\") {\r\n        for (const c of (value || \"\").split(\";\").filter(Boolean)) {\r\n          const [k2, ...v] = c.split(\":\").map((s) => s.trim());\r\n          track(id, `${ck}:${c}:${k2}`, () => {\r\n            $el.style.removeProperty(k2);\r\n          });\r\n          $el.style.setProperty(k2, v.join(\":\"));\r\n        }\r\n      } else {\r\n        $el.getAttribute(k) !== value && $el.setAttribute(k, value === true ? \"\" : String(value));\r\n        isAttrTag && track(id, ck, () => $el.removeAttribute(k));\r\n      }\r\n    });\r\n  }\r\n  const pending = [];\r\n  const frag = {\r\n    bodyClose: void 0,\r\n    bodyOpen: void 0,\r\n    head: void 0\r\n  };\r\n  for (const ctx of tags) {\r\n    const { tag, shouldRender, id } = ctx;\r\n    if (!shouldRender)\r\n      continue;\r\n    if (tag.tag === \"title\") {\r\n      dom.title = tag.textContent;\r\n      continue;\r\n    }\r\n    ctx.$el = ctx.$el || state.elMap[id];\r\n    if (ctx.$el)\r\n      trackCtx(ctx);\r\n    else\r\n      HasElementTags.includes(tag.tag) && pending.push(ctx);\r\n  }\r\n  for (const ctx of pending) {\r\n    const pos = ctx.tag.tagPosition || \"head\";\r\n    ctx.$el = dom.createElement(ctx.tag.tag);\r\n    trackCtx(ctx);\r\n    frag[pos] = frag[pos] || dom.createDocumentFragment();\r\n    frag[pos].appendChild(ctx.$el);\r\n  }\r\n  for (const ctx of tags)\r\n    await head.hooks.callHook(\"dom:renderTag\", ctx, dom, track);\r\n  frag.head && dom.head.appendChild(frag.head);\r\n  frag.bodyOpen && dom.body.insertBefore(frag.bodyOpen, dom.body.firstChild);\r\n  frag.bodyClose && dom.body.appendChild(frag.bodyClose);\r\n  Object.values(state.pendingSideEffects).forEach((fn) => fn());\r\n  head._dom = state;\r\n  head.dirty = false;\r\n  await head.hooks.callHook(\"dom:rendered\", { renders: tags });\r\n}\r\n\r\nasync function debouncedRenderDOMHead(head, options = {}) {\r\n  const fn = options.delayFn || ((fn2) => setTimeout(fn2, 10));\r\n  return head._domUpdatePromise = head._domUpdatePromise || new Promise((resolve) => fn(async () => {\r\n    await renderDOMHead(head, options);\r\n    delete head._domUpdatePromise;\r\n    resolve();\r\n  }));\r\n}\r\n\r\n// @__NO_SIDE_EFFECTS__\r\nfunction DomPlugin(options) {\r\n  return defineHeadPlugin((head) => {\r\n    const initialPayload = head.resolvedOptions.document?.head.querySelector('script[id=\"unhead:payload\"]')?.innerHTML || false;\r\n    initialPayload && head.push(JSON.parse(initialPayload));\r\n    return {\r\n      mode: \"client\",\r\n      hooks: {\r\n        \"entries:updated\": function(head2) {\r\n          debouncedRenderDOMHead(head2, options);\r\n        }\r\n      }\r\n    };\r\n  });\r\n}\r\n\r\nexport { DomPlugin, debouncedRenderDOMHead, renderDOMHead };\r\n",
+      "start": 1714315492777,
+      "end": 1714315493011,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493011,
+      "end": 1714315493011,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493011,
+      "end": 1714315493012,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493012,
+      "end": 1714315493012,
+      "order": "normal"
+    }
+  ]
+}

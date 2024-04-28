@@ -1,0 +1,17 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/nuxt/dist/app/types.js",
+  "transforms": [
+    {
+      "name": "__load__",
+      "result": "",
+      "start": 1714315495455,
+      "end": 1714315495455
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495455,
+      "end": 1714315495455,
+      "order": "normal"
+    }
+  ]
+}

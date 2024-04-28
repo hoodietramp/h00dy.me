@@ -1,0 +1,204 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/templates/Window.vue",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "<script setup>\r\nimport interact from 'interactjs';\r\nimport {\r\n    onMounted,\r\n    ref,\r\n    defineProps,\r\n    computed\r\n} from 'vue';\r\nimport {\r\n    useWindowsStore\r\n} from '@/stores/windows'\r\n\r\nconst props = defineProps({\r\n    windowId: String,\r\n    nameOfWindow: String,\r\n    content_padding_left: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_right: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_top: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n    content_padding_bottom: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n})\r\n\r\nconst position = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst tempPosition = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst windowsStore = useWindowsStore()\r\nconst window = ref({})\r\nconst ComponentName = props.nameOfWindow\r\nconst w = ref(400)\r\nconst h = ref(400)\r\n\r\nconst style = computed(() => ({\r\n    height: `${h.value}px`,\r\n    width: `${w.value}px`,\r\n    transform: `translate(${position.value.x}px, ${position.value.y}px)`,\r\n    \"--content-padding-left\": props.content_padding_left || \"15%\",\r\n    \"--content-padding-right\": props.content_padding_right || \"15%\",\r\n    \"--content-padding-top\": props.content_padding_top || \"5%\",\r\n    \"--content-padding-bottom\": props.content_padding_bottom || \"5%\",\r\n    \"--fullscreen\": windowsStore.getFullscreenWindowHeight, // assuming this is a method in your store\r\n}));\r\n\r\nconst setActiveWindow = () => {\r\n    windowsStore.setActiveWindow(window.value.windowId)\r\n    windowsStore.zIndexIncrement(window.value.windowId)\r\n}\r\n\r\nconst toggleWindowSize = () => {\r\n    if (windowsStore.getWindowFullscreen(window.value.windowId) == true) {\r\n        const payload = {\r\n            fullscreen: false,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        position.value.x = tempPosition.value.x\r\n        position.value.y = tempPosition.value.y\r\n    } else if (\r\n        windowsStore.getWindowFullscreen(window.value.windowId) == false\r\n    ) {\r\n        const payload = {\r\n            fullscreen: true,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        const tempX = position.value.x\r\n        const tempY = position.value.y\r\n        tempPosition.value.x = tempX\r\n        tempPosition.value.y = tempY\r\n        position.value.x = 0\r\n        position.value.y = 0\r\n    }\r\n}\r\n\r\nconst minimizeWindow = () => {\r\n    const payload = {\r\n        windowState: \"minimize\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setActiveWindow(\"\")\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst closeWindow = () => {\r\n    const payload = {\r\n        windowState: \"close\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst getImagePath = (iconImage) => {\r\n    const path = `../assets/win95Icons/${iconImage}`;\r\n    const modules = import.meta.glob(\"../assets/win95Icons/*\", { eager: true });\r\n    const mod = modules[path]\r\n    if (mod == undefined) {\r\n        return \"\"\r\n    } else {\r\n        return mod.default;\r\n    }\r\n};\r\n\r\nlet isDragging = false;\r\n\r\nonMounted(() => {\r\n    window.value = windowsStore.getWindowById(ComponentName)\r\n    const draggableWindow = interact(\"#\" + window.value.windowId)\r\n    draggableWindow\r\n        .draggable({\r\n            listeners: {\r\n                move(event) {\r\n                    position.value.x += event.dx\r\n                    position.value.y += event.dy\r\n                    // event.target.style.transform = `translate(${position.value.x}px, ${position.value.y}px)`\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictRect({\r\n                    restriction: '#screen',\r\n                    endOnly: true\r\n                }),\r\n            ],\r\n            allowFrom: '#top-bar'\r\n        })\r\n        .on('dragstart', () => {\r\n            isDragging = true;\r\n        })\r\n        .on('dragmove', () => {\r\n            if (isDragging) {\r\n                setActiveWindow();\r\n                // windowsStore.zIndexIncrement(window.value.windowId);\r\n                isDragging = false;\r\n            }\r\n        })\r\n        .on('dragend', () => {\r\n        isDragging = false;\r\n        })\r\n        .resizable({\r\n            edges: {\r\n                left: true,\r\n                right: true,\r\n                bottom: true,\r\n                top: false\r\n            },\r\n            listeners: {\r\n                move(event) {\r\n                    const target = event.target\r\n                    w.value = event.rect.width\r\n                    h.value = event.rect.height\r\n                    target.style.width = `${w.value}px`\r\n                    target.style.height = `${h.value}px`\r\n                    position.value.x += event.deltaRect.left\r\n                    position.value.y += event.deltaRect.top\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictSize({\r\n                    min: {\r\n                        width: 400,\r\n                        height: 400\r\n                    },\r\n                    max: {\r\n                        width: document.getElementById('screen').clientWidth - position.value.x,\r\n                        height: document.getElementById('screen').clientHeight - position.value.y \r\n                    }\r\n                }),\r\n            ],\r\n        })\r\n})\r\n</script>\r\n\r\n<template>\r\n<div :id=\"window.windowId\" :style=\"style\" class=\"window window-style\" :class=\"{\r\n        'fullscreen': window.fullscreen == true,\r\n        'minimize': window.fullscreen == 'minimize',\r\n    }\"\r\n    @click=\"setActiveWindow\" \r\n    @dragstart=\"setActiveWindow\" @click.native=\"setActiveWindow\">\r\n    <div id=\"top-bar\" class=\"top-bar-window\" :class=\"\r\n        windowsStore.activeWindow == window.windowId\r\n            ? 'top-bar'\r\n            : 'top-bar-deactivated'\r\n        \" @dblclick=\"toggleWindowSize\">\r\n        <div class=\"window-name\">\r\n            <img class=\"icon-image\" :src=\"getImagePath(window.iconImage)\" :alt=\"window.altText\" />{{ window.displayName }}\r\n        </div>\r\n        <div class=\"triple-button\">\r\n            <button class=\"minimize-button button\" @click=\"minimizeWindow\">\r\n                <span style=\"\r\n                height: 2px;\r\n                width: 6px;\r\n                background: black;\r\n                margin-top: 8px;\r\n                margin-right: 2px;\r\n            \">\r\n                </span>\r\n            </button>\r\n            <button class=\"expand-button button\" @click=\"toggleWindowSize\">\r\n                <span style=\"\r\n                height: 8px;\r\n                width: 9px;\r\n                border-left: black 1px solid;\r\n                border-right: black 1px solid;\r\n                border-left: black 1px solid;\r\n                border-bottom: black 1px solid;\r\n                border-top: black 2px solid;\r\n            \">\r\n                </span>\r\n            </button>\r\n            <button class=\"close-button button\" style=\"margin-right: 3px; padding-left: 1px\" @click=\"closeWindow\">\r\n                ×\r\n            </button>\r\n        </div>\r\n    </div>\r\n    <div class=\"content\">\r\n        <slot class=\"window-content\" name=\"content\"> </slot>\r\n    </div>\r\n</div>\r\n</template>\r\n\r\n<style scoped>\r\n/*-------------------------------------------*\\\r\n    Windows/Display\r\n\\*-------------------------------------------*/\r\n\r\n.minimize {\r\n    display: none;\r\n}\r\n\r\n.window {\r\n    box-sizing: border-box;\r\n    background: #ffffff;\r\n    padding: 0px;\r\n    margin: 0px;\r\n    user-select: none;\r\n    -ms-touch-action: none;\r\n    touch-action: none;\r\n    flex-flow: column;\r\n    display: flex;\r\n}\r\n\r\n.fullscreen {\r\n    width: 100% !important;\r\n    height: var(--fullscreen) !important;\r\n    margin: 0;\r\n    transition: all 0.5s ease;\r\n    padding: 0;\r\n}\r\n\r\n.content {\r\n    flex-grow: 1;\r\n    overflow-x: hidden;\r\n    padding-right: var(--content-padding-right);\r\n    padding-left: var(--content-padding-left);\r\n    padding-top: var(--content-padding-top);\r\n    padding-bottom: var(--content-padding-bottom);\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Top Bar\r\n\\*-------------------------------------------*/\r\n\r\n.top-bar {\r\n    /* background: rgb(0, 0, 124); */\r\n    background: #cfcfcf;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.top-bar-window {\r\n    display: flex;\r\n    width: auto;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    flex-direction: row;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    padding: 2px 2px 2px 2px;\r\n}\r\n\r\n.top-bar-deactivated {\r\n    background: rgb(123, 125, 123);\r\n}\r\n\r\n.top-bar:hover {\r\n    cursor: default;\r\n}\r\n\r\n.window-name {\r\n    color: #222222;\r\n    display: flex;\r\n    align-items: center;\r\n    font-weight: 500;\r\n    padding: 0;\r\n    font-size: 16px;\r\n    margin: 0 0 0 3px;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n}\r\n</style>\r\n",
+      "start": 1714315493110,
+      "end": 1714315493282,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": "import { unref as _unref, createElementVNode as _createElementVNode, toDisplayString as _toDisplayString, createTextVNode as _createTextVNode, normalizeClass as _normalizeClass, renderSlot as _renderSlot, normalizeStyle as _normalizeStyle, openBlock as _openBlock, createElementBlock as _createElementBlock, pushScopeId as _pushScopeId, popScopeId as _popScopeId } from \"vue\"\n\nconst _withScopeId = n => (_pushScopeId(\"data-v-87ed50b4\"),n=n(),_popScopeId(),n)\nconst _hoisted_1 = [\"id\"]\nconst _hoisted_2 = { class: \"window-name\" }\nconst _hoisted_3 = [\"src\", \"alt\"]\nconst _hoisted_4 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/_createElementVNode(\"span\", { style: {\"height\":\"2px\",\"width\":\"6px\",\"background\":\"black\",\"margin-top\":\"8px\",\"margin-right\":\"2px\"} }, null, -1))\nconst _hoisted_5 = [\n  _hoisted_4\n]\nconst _hoisted_6 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/_createElementVNode(\"span\", { style: {\"height\":\"8px\",\"width\":\"9px\",\"border-left\":\"black 1px solid\",\"border-right\":\"black 1px solid\",\"border-bottom\":\"black 1px solid\",\"border-top\":\"black 2px solid\"} }, null, -1))\nconst _hoisted_7 = [\n  _hoisted_6\n]\nconst _hoisted_8 = { class: \"content\" }\n\nimport interact from 'interactjs';\r\nimport {\r\n    onMounted,\r\n    ref,\r\n    computed\r\n} from 'vue';\r\nimport {\r\n    useWindowsStore\r\n} from '@/stores/windows'\r\n\r\n\nconst _sfc_main = {\n  __name: 'Window',\n  props: {\r\n    windowId: String,\r\n    nameOfWindow: String,\r\n    content_padding_left: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_right: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_top: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n    content_padding_bottom: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n},\n  setup(__props) {\n\r\nconst props = __props\r\n\r\nconst position = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst tempPosition = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst windowsStore = useWindowsStore()\r\nconst window = ref({})\r\nconst ComponentName = props.nameOfWindow\r\nconst w = ref(400)\r\nconst h = ref(400)\r\n\r\nconst style = computed(() => ({\r\n    height: `${h.value}px`,\r\n    width: `${w.value}px`,\r\n    transform: `translate(${position.value.x}px, ${position.value.y}px)`,\r\n    \"--content-padding-left\": props.content_padding_left || \"15%\",\r\n    \"--content-padding-right\": props.content_padding_right || \"15%\",\r\n    \"--content-padding-top\": props.content_padding_top || \"5%\",\r\n    \"--content-padding-bottom\": props.content_padding_bottom || \"5%\",\r\n    \"--fullscreen\": windowsStore.getFullscreenWindowHeight, // assuming this is a method in your store\r\n}));\r\n\r\nconst setActiveWindow = () => {\r\n    windowsStore.setActiveWindow(window.value.windowId)\r\n    windowsStore.zIndexIncrement(window.value.windowId)\r\n}\r\n\r\nconst toggleWindowSize = () => {\r\n    if (windowsStore.getWindowFullscreen(window.value.windowId) == true) {\r\n        const payload = {\r\n            fullscreen: false,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        position.value.x = tempPosition.value.x\r\n        position.value.y = tempPosition.value.y\r\n    } else if (\r\n        windowsStore.getWindowFullscreen(window.value.windowId) == false\r\n    ) {\r\n        const payload = {\r\n            fullscreen: true,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        const tempX = position.value.x\r\n        const tempY = position.value.y\r\n        tempPosition.value.x = tempX\r\n        tempPosition.value.y = tempY\r\n        position.value.x = 0\r\n        position.value.y = 0\r\n    }\r\n}\r\n\r\nconst minimizeWindow = () => {\r\n    const payload = {\r\n        windowState: \"minimize\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setActiveWindow(\"\")\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst closeWindow = () => {\r\n    const payload = {\r\n        windowState: \"close\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst getImagePath = (iconImage) => {\r\n    const path = `../assets/win95Icons/${iconImage}`;\r\n    const modules = import.meta.glob(\"../assets/win95Icons/*\", { eager: true });\r\n    const mod = modules[path]\r\n    if (mod == undefined) {\r\n        return \"\"\r\n    } else {\r\n        return mod.default;\r\n    }\r\n};\r\n\r\nlet isDragging = false;\r\n\r\nonMounted(() => {\r\n    window.value = windowsStore.getWindowById(ComponentName)\r\n    const draggableWindow = interact(\"#\" + window.value.windowId)\r\n    draggableWindow\r\n        .draggable({\r\n            listeners: {\r\n                move(event) {\r\n                    position.value.x += event.dx\r\n                    position.value.y += event.dy\r\n                    // event.target.style.transform = `translate(${position.value.x}px, ${position.value.y}px)`\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictRect({\r\n                    restriction: '#screen',\r\n                    endOnly: true\r\n                }),\r\n            ],\r\n            allowFrom: '#top-bar'\r\n        })\r\n        .on('dragstart', () => {\r\n            isDragging = true;\r\n        })\r\n        .on('dragmove', () => {\r\n            if (isDragging) {\r\n                setActiveWindow();\r\n                // windowsStore.zIndexIncrement(window.value.windowId);\r\n                isDragging = false;\r\n            }\r\n        })\r\n        .on('dragend', () => {\r\n        isDragging = false;\r\n        })\r\n        .resizable({\r\n            edges: {\r\n                left: true,\r\n                right: true,\r\n                bottom: true,\r\n                top: false\r\n            },\r\n            listeners: {\r\n                move(event) {\r\n                    const target = event.target\r\n                    w.value = event.rect.width\r\n                    h.value = event.rect.height\r\n                    target.style.width = `${w.value}px`\r\n                    target.style.height = `${h.value}px`\r\n                    position.value.x += event.deltaRect.left\r\n                    position.value.y += event.deltaRect.top\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictSize({\r\n                    min: {\r\n                        width: 400,\r\n                        height: 400\r\n                    },\r\n                    max: {\r\n                        width: document.getElementById('screen').clientWidth - position.value.x,\r\n                        height: document.getElementById('screen').clientHeight - position.value.y \r\n                    }\r\n                }),\r\n            ],\r\n        })\r\n})\r\n\nreturn (_ctx, _cache) => {\n  return (_openBlock(), _createElementBlock(\"div\", {\n    id: window.value.windowId,\n    style: _normalizeStyle(style.value),\n    class: _normalizeClass([\"window window-style\", {\r\n        'fullscreen': window.value.fullscreen == true,\r\n        'minimize': window.value.fullscreen == 'minimize',\r\n    }]),\n    onClick: [setActiveWindow, setActiveWindow],\n    onDragstart: setActiveWindow\n  }, [\n    _createElementVNode(\"div\", {\n      id: \"top-bar\",\n      class: _normalizeClass([\"top-bar-window\", \r\n        _unref(windowsStore).activeWindow == window.value.windowId\r\n            ? 'top-bar'\r\n            : 'top-bar-deactivated'\r\n        ]),\n      onDblclick: toggleWindowSize\n    }, [\n      _createElementVNode(\"div\", _hoisted_2, [\n        _createElementVNode(\"img\", {\n          class: \"icon-image\",\n          src: getImagePath(window.value.iconImage),\n          alt: window.value.altText\n        }, null, 8, _hoisted_3),\n        _createTextVNode(_toDisplayString(window.value.displayName), 1)\n      ]),\n      _createElementVNode(\"div\", { class: \"triple-button\" }, [\n        _createElementVNode(\"button\", {\n          class: \"minimize-button button\",\n          onClick: minimizeWindow\n        }, _hoisted_5),\n        _createElementVNode(\"button\", {\n          class: \"expand-button button\",\n          onClick: toggleWindowSize\n        }, _hoisted_7),\n        _createElementVNode(\"button\", {\n          class: \"close-button button\",\n          style: {\"margin-right\":\"3px\",\"padding-left\":\"1px\"},\n          onClick: closeWindow\n        }, \" × \")\n      ])\n    ], 34),\n    _createElementVNode(\"div\", _hoisted_8, [\n      _renderSlot(_ctx.$slots, \"content\", { class: \"window-content\" }, undefined, true)\n    ])\n  ], 46, _hoisted_1))\n}\n}\n\n}\n\n\nimport \"C:/Users/h00dy/Documents/github/h00dy.me/templates/Window.vue?vue&type=style&index=0&scoped=87ed50b4&lang.css\"\n\nimport _export_sfc from '\u0000plugin-vue:export-helper'\nexport default /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',\"data-v-87ed50b4\"]])",
+      "start": 1714315493282,
+      "end": 1714315493291,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493291,
+      "end": 1714315493291,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493291,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493292,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493292,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493292,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493292,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493292,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493292,
+      "end": 1714315493292,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "result": "import * as __vite_glob_0_0 from \"../assets/win95Icons/bio.png\";import * as __vite_glob_0_1 from \"../assets/win95Icons/file.png\";import * as __vite_glob_0_2 from \"../assets/win95Icons/folder.png\";import * as __vite_glob_0_3 from \"../assets/win95Icons/mail.png\";import * as __vite_glob_0_4 from \"../assets/win95Icons/photos.png\";import * as __vite_glob_0_5 from \"../assets/win95Icons/resume.png\";import { unref as _unref, createElementVNode as _createElementVNode, toDisplayString as _toDisplayString, createTextVNode as _createTextVNode, normalizeClass as _normalizeClass, renderSlot as _renderSlot, normalizeStyle as _normalizeStyle, openBlock as _openBlock, createElementBlock as _createElementBlock, pushScopeId as _pushScopeId, popScopeId as _popScopeId } from \"vue\"\n\nconst _withScopeId = n => (_pushScopeId(\"data-v-87ed50b4\"),n=n(),_popScopeId(),n)\nconst _hoisted_1 = [\"id\"]\nconst _hoisted_2 = { class: \"window-name\" }\nconst _hoisted_3 = [\"src\", \"alt\"]\nconst _hoisted_4 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/_createElementVNode(\"span\", { style: {\"height\":\"2px\",\"width\":\"6px\",\"background\":\"black\",\"margin-top\":\"8px\",\"margin-right\":\"2px\"} }, null, -1))\nconst _hoisted_5 = [\n  _hoisted_4\n]\nconst _hoisted_6 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/_createElementVNode(\"span\", { style: {\"height\":\"8px\",\"width\":\"9px\",\"border-left\":\"black 1px solid\",\"border-right\":\"black 1px solid\",\"border-bottom\":\"black 1px solid\",\"border-top\":\"black 2px solid\"} }, null, -1))\nconst _hoisted_7 = [\n  _hoisted_6\n]\nconst _hoisted_8 = { class: \"content\" }\n\nimport interact from 'interactjs';\r\nimport {\r\n    onMounted,\r\n    ref,\r\n    computed\r\n} from 'vue';\r\nimport {\r\n    useWindowsStore\r\n} from '@/stores/windows'\r\n\r\n\nconst _sfc_main = {\n  __name: 'Window',\n  props: {\r\n    windowId: String,\r\n    nameOfWindow: String,\r\n    content_padding_left: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_right: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_top: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n    content_padding_bottom: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n},\n  setup(__props) {\n\r\nconst props = __props\r\n\r\nconst position = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst tempPosition = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst windowsStore = useWindowsStore()\r\nconst window = ref({})\r\nconst ComponentName = props.nameOfWindow\r\nconst w = ref(400)\r\nconst h = ref(400)\r\n\r\nconst style = computed(() => ({\r\n    height: `${h.value}px`,\r\n    width: `${w.value}px`,\r\n    transform: `translate(${position.value.x}px, ${position.value.y}px)`,\r\n    \"--content-padding-left\": props.content_padding_left || \"15%\",\r\n    \"--content-padding-right\": props.content_padding_right || \"15%\",\r\n    \"--content-padding-top\": props.content_padding_top || \"5%\",\r\n    \"--content-padding-bottom\": props.content_padding_bottom || \"5%\",\r\n    \"--fullscreen\": windowsStore.getFullscreenWindowHeight, // assuming this is a method in your store\r\n}));\r\n\r\nconst setActiveWindow = () => {\r\n    windowsStore.setActiveWindow(window.value.windowId)\r\n    windowsStore.zIndexIncrement(window.value.windowId)\r\n}\r\n\r\nconst toggleWindowSize = () => {\r\n    if (windowsStore.getWindowFullscreen(window.value.windowId) == true) {\r\n        const payload = {\r\n            fullscreen: false,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        position.value.x = tempPosition.value.x\r\n        position.value.y = tempPosition.value.y\r\n    } else if (\r\n        windowsStore.getWindowFullscreen(window.value.windowId) == false\r\n    ) {\r\n        const payload = {\r\n            fullscreen: true,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        const tempX = position.value.x\r\n        const tempY = position.value.y\r\n        tempPosition.value.x = tempX\r\n        tempPosition.value.y = tempY\r\n        position.value.x = 0\r\n        position.value.y = 0\r\n    }\r\n}\r\n\r\nconst minimizeWindow = () => {\r\n    const payload = {\r\n        windowState: \"minimize\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setActiveWindow(\"\")\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst closeWindow = () => {\r\n    const payload = {\r\n        windowState: \"close\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst getImagePath = (iconImage) => {\r\n    const path = `../assets/win95Icons/${iconImage}`;\r\n    const modules = /* #__PURE__ */ Object.assign({\"../assets/win95Icons/bio.png\": __vite_glob_0_0,\"../assets/win95Icons/file.png\": __vite_glob_0_1,\"../assets/win95Icons/folder.png\": __vite_glob_0_2,\"../assets/win95Icons/mail.png\": __vite_glob_0_3,\"../assets/win95Icons/photos.png\": __vite_glob_0_4,\"../assets/win95Icons/resume.png\": __vite_glob_0_5});\r\n    const mod = modules[path]\r\n    if (mod == undefined) {\r\n        return \"\"\r\n    } else {\r\n        return mod.default;\r\n    }\r\n};\r\n\r\nlet isDragging = false;\r\n\r\nonMounted(() => {\r\n    window.value = windowsStore.getWindowById(ComponentName)\r\n    const draggableWindow = interact(\"#\" + window.value.windowId)\r\n    draggableWindow\r\n        .draggable({\r\n            listeners: {\r\n                move(event) {\r\n                    position.value.x += event.dx\r\n                    position.value.y += event.dy\r\n                    // event.target.style.transform = `translate(${position.value.x}px, ${position.value.y}px)`\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictRect({\r\n                    restriction: '#screen',\r\n                    endOnly: true\r\n                }),\r\n            ],\r\n            allowFrom: '#top-bar'\r\n        })\r\n        .on('dragstart', () => {\r\n            isDragging = true;\r\n        })\r\n        .on('dragmove', () => {\r\n            if (isDragging) {\r\n                setActiveWindow();\r\n                // windowsStore.zIndexIncrement(window.value.windowId);\r\n                isDragging = false;\r\n            }\r\n        })\r\n        .on('dragend', () => {\r\n        isDragging = false;\r\n        })\r\n        .resizable({\r\n            edges: {\r\n                left: true,\r\n                right: true,\r\n                bottom: true,\r\n                top: false\r\n            },\r\n            listeners: {\r\n                move(event) {\r\n                    const target = event.target\r\n                    w.value = event.rect.width\r\n                    h.value = event.rect.height\r\n                    target.style.width = `${w.value}px`\r\n                    target.style.height = `${h.value}px`\r\n                    position.value.x += event.deltaRect.left\r\n                    position.value.y += event.deltaRect.top\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictSize({\r\n                    min: {\r\n                        width: 400,\r\n                        height: 400\r\n                    },\r\n                    max: {\r\n                        width: document.getElementById('screen').clientWidth - position.value.x,\r\n                        height: document.getElementById('screen').clientHeight - position.value.y \r\n                    }\r\n                }),\r\n            ],\r\n        })\r\n})\r\n\nreturn (_ctx, _cache) => {\n  return (_openBlock(), _createElementBlock(\"div\", {\n    id: window.value.windowId,\n    style: _normalizeStyle(style.value),\n    class: _normalizeClass([\"window window-style\", {\r\n        'fullscreen': window.value.fullscreen == true,\r\n        'minimize': window.value.fullscreen == 'minimize',\r\n    }]),\n    onClick: [setActiveWindow, setActiveWindow],\n    onDragstart: setActiveWindow\n  }, [\n    _createElementVNode(\"div\", {\n      id: \"top-bar\",\n      class: _normalizeClass([\"top-bar-window\", \r\n        _unref(windowsStore).activeWindow == window.value.windowId\r\n            ? 'top-bar'\r\n            : 'top-bar-deactivated'\r\n        ]),\n      onDblclick: toggleWindowSize\n    }, [\n      _createElementVNode(\"div\", _hoisted_2, [\n        _createElementVNode(\"img\", {\n          class: \"icon-image\",\n          src: getImagePath(window.value.iconImage),\n          alt: window.value.altText\n        }, null, 8, _hoisted_3),\n        _createTextVNode(_toDisplayString(window.value.displayName), 1)\n      ]),\n      _createElementVNode(\"div\", { class: \"triple-button\" }, [\n        _createElementVNode(\"button\", {\n          class: \"minimize-button button\",\n          onClick: minimizeWindow\n        }, _hoisted_5),\n        _createElementVNode(\"button\", {\n          class: \"expand-button button\",\n          onClick: toggleWindowSize\n        }, _hoisted_7),\n        _createElementVNode(\"button\", {\n          class: \"close-button button\",\n          style: {\"margin-right\":\"3px\",\"padding-left\":\"1px\"},\n          onClick: closeWindow\n        }, \" × \")\n      ])\n    ], 34),\n    _createElementVNode(\"div\", _hoisted_8, [\n      _renderSlot(_ctx.$slots, \"content\", { class: \"window-content\" }, undefined, true)\n    ])\n  ], 46, _hoisted_1))\n}\n}\n\n}\n\n\nimport \"C:/Users/h00dy/Documents/github/h00dy.me/templates/Window.vue?vue&type=style&index=0&scoped=87ed50b4&lang.css\"\n\nimport _export_sfc from '\u0000plugin-vue:export-helper'\nexport default /*#__PURE__*/_export_sfc(_sfc_main, [['__scopeId',\"data-v-87ed50b4\"]])",
+      "start": 1714315493292,
+      "end": 1714315493394,
+      "order": "normal",
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493394,
+      "end": 1714315493394,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493394,
+      "end": 1714315493396,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493396,
+      "end": 1714315493396,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493396,
+      "end": 1714315493396,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493396,
+      "end": 1714315493396,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493396,
+      "end": 1714315493396,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493396,
+      "end": 1714315493396,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493396,
+      "end": 1714315493396,
+      "order": "normal"
+    }
+  ]
+}

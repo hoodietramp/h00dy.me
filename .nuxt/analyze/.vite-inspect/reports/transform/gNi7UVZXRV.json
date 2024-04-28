@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/klona/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "export function klona(x) {\r\n\tif (typeof x !== 'object') return x;\r\n\r\n\tvar k, tmp, str=Object.prototype.toString.call(x);\r\n\r\n\tif (str === '[object Object]') {\r\n\t\tif (x.constructor !== Object && typeof x.constructor === 'function') {\r\n\t\t\ttmp = new x.constructor();\r\n\t\t\tfor (k in x) {\r\n\t\t\t\tif (x.hasOwnProperty(k) && tmp[k] !== x[k]) {\r\n\t\t\t\t\ttmp[k] = klona(x[k]);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t} else {\r\n\t\t\ttmp = {}; // null\r\n\t\t\tfor (k in x) {\r\n\t\t\t\tif (k === '__proto__') {\r\n\t\t\t\t\tObject.defineProperty(tmp, k, {\r\n\t\t\t\t\t\tvalue: klona(x[k]),\r\n\t\t\t\t\t\tconfigurable: true,\r\n\t\t\t\t\t\tenumerable: true,\r\n\t\t\t\t\t\twritable: true,\r\n\t\t\t\t\t});\r\n\t\t\t\t} else {\r\n\t\t\t\t\ttmp[k] = klona(x[k]);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn tmp;\r\n\t}\r\n\r\n\tif (str === '[object Array]') {\r\n\t\tk = x.length;\r\n\t\tfor (tmp=Array(k); k--;) {\r\n\t\t\ttmp[k] = klona(x[k]);\r\n\t\t}\r\n\t\treturn tmp;\r\n\t}\r\n\r\n\tif (str === '[object Set]') {\r\n\t\ttmp = new Set;\r\n\t\tx.forEach(function (val) {\r\n\t\t\ttmp.add(klona(val));\r\n\t\t});\r\n\t\treturn tmp;\r\n\t}\r\n\r\n\tif (str === '[object Map]') {\r\n\t\ttmp = new Map;\r\n\t\tx.forEach(function (val, key) {\r\n\t\t\ttmp.set(klona(key), klona(val));\r\n\t\t});\r\n\t\treturn tmp;\r\n\t}\r\n\r\n\tif (str === '[object Date]') {\r\n\t\treturn new Date(+x);\r\n\t}\r\n\r\n\tif (str === '[object RegExp]') {\r\n\t\ttmp = new RegExp(x.source, x.flags);\r\n\t\ttmp.lastIndex = x.lastIndex;\r\n\t\treturn tmp;\r\n\t}\r\n\r\n\tif (str === '[object DataView]') {\r\n\t\treturn new x.constructor( klona(x.buffer) );\r\n\t}\r\n\r\n\tif (str === '[object ArrayBuffer]') {\r\n\t\treturn x.slice(0);\r\n\t}\r\n\r\n\t// ArrayBuffer.isView(x)\r\n\t// ~> `new` bcuz `Buffer.slice` => ref\r\n\tif (str.slice(-6) === 'Array]') {\r\n\t\treturn new x.constructor(x);\r\n\t}\r\n\r\n\treturn x;\r\n}\r\n",
+      "start": 1714315493364,
+      "end": 1714315493601,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493601,
+      "end": 1714315493601,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493601,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493602,
+      "end": 1714315493602,
+      "order": "normal"
+    }
+  ]
+}

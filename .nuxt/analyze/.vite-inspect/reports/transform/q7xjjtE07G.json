@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/ohash/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "const defaults = Object.freeze({\r\n  ignoreUnknown: false,\r\n  respectType: false,\r\n  respectFunctionNames: false,\r\n  respectFunctionProperties: false,\r\n  unorderedObjects: true,\r\n  unorderedArrays: false,\r\n  unorderedSets: false,\r\n  excludeKeys: void 0,\r\n  excludeValues: void 0,\r\n  replacer: void 0\r\n});\r\nfunction objectHash(object, options) {\r\n  if (options) {\r\n    options = { ...defaults, ...options };\r\n  } else {\r\n    options = defaults;\r\n  }\r\n  const hasher = createHasher(options);\r\n  hasher.dispatch(object);\r\n  return hasher.toString();\r\n}\r\nconst defaultPrototypesKeys = Object.freeze([\r\n  \"prototype\",\r\n  \"__proto__\",\r\n  \"constructor\"\r\n]);\r\nfunction createHasher(options) {\r\n  let buff = \"\";\r\n  let context = /* @__PURE__ */ new Map();\r\n  const write = (str) => {\r\n    buff += str;\r\n  };\r\n  return {\r\n    toString() {\r\n      return buff;\r\n    },\r\n    getContext() {\r\n      return context;\r\n    },\r\n    dispatch(value) {\r\n      if (options.replacer) {\r\n        value = options.replacer(value);\r\n      }\r\n      const type = value === null ? \"null\" : typeof value;\r\n      return this[type](value);\r\n    },\r\n    object(object) {\r\n      if (object && typeof object.toJSON === \"function\") {\r\n        return this.object(object.toJSON());\r\n      }\r\n      const objString = Object.prototype.toString.call(object);\r\n      let objType = \"\";\r\n      const objectLength = objString.length;\r\n      if (objectLength < 10) {\r\n        objType = \"unknown:[\" + objString + \"]\";\r\n      } else {\r\n        objType = objString.slice(8, objectLength - 1);\r\n      }\r\n      objType = objType.toLowerCase();\r\n      let objectNumber = null;\r\n      if ((objectNumber = context.get(object)) === void 0) {\r\n        context.set(object, context.size);\r\n      } else {\r\n        return this.dispatch(\"[CIRCULAR:\" + objectNumber + \"]\");\r\n      }\r\n      if (typeof Buffer !== \"undefined\" && Buffer.isBuffer && Buffer.isBuffer(object)) {\r\n        write(\"buffer:\");\r\n        return write(object.toString(\"utf8\"));\r\n      }\r\n      if (objType !== \"object\" && objType !== \"function\" && objType !== \"asyncfunction\") {\r\n        if (this[objType]) {\r\n          this[objType](object);\r\n        } else if (!options.ignoreUnknown) {\r\n          this.unkown(object, objType);\r\n        }\r\n      } else {\r\n        let keys = Object.keys(object);\r\n        if (options.unorderedObjects) {\r\n          keys = keys.sort();\r\n        }\r\n        let extraKeys = [];\r\n        if (options.respectType !== false && !isNativeFunction(object)) {\r\n          extraKeys = defaultPrototypesKeys;\r\n        }\r\n        if (options.excludeKeys) {\r\n          keys = keys.filter((key) => {\r\n            return !options.excludeKeys(key);\r\n          });\r\n          extraKeys = extraKeys.filter((key) => {\r\n            return !options.excludeKeys(key);\r\n          });\r\n        }\r\n        write(\"object:\" + (keys.length + extraKeys.length) + \":\");\r\n        const dispatchForKey = (key) => {\r\n          this.dispatch(key);\r\n          write(\":\");\r\n          if (!options.excludeValues) {\r\n            this.dispatch(object[key]);\r\n          }\r\n          write(\",\");\r\n        };\r\n        for (const key of keys) {\r\n          dispatchForKey(key);\r\n        }\r\n        for (const key of extraKeys) {\r\n          dispatchForKey(key);\r\n        }\r\n      }\r\n    },\r\n    array(arr, unordered) {\r\n      unordered = unordered === void 0 ? options.unorderedArrays !== false : unordered;\r\n      write(\"array:\" + arr.length + \":\");\r\n      if (!unordered || arr.length <= 1) {\r\n        for (const entry of arr) {\r\n          this.dispatch(entry);\r\n        }\r\n        return;\r\n      }\r\n      const contextAdditions = /* @__PURE__ */ new Map();\r\n      const entries = arr.map((entry) => {\r\n        const hasher = createHasher(options);\r\n        hasher.dispatch(entry);\r\n        for (const [key, value] of hasher.getContext()) {\r\n          contextAdditions.set(key, value);\r\n        }\r\n        return hasher.toString();\r\n      });\r\n      context = contextAdditions;\r\n      entries.sort();\r\n      return this.array(entries, false);\r\n    },\r\n    date(date) {\r\n      return write(\"date:\" + date.toJSON());\r\n    },\r\n    symbol(sym) {\r\n      return write(\"symbol:\" + sym.toString());\r\n    },\r\n    unkown(value, type) {\r\n      write(type);\r\n      if (!value) {\r\n        return;\r\n      }\r\n      write(\":\");\r\n      if (value && typeof value.entries === \"function\") {\r\n        return this.array(\r\n          Array.from(value.entries()),\r\n          true\r\n          /* ordered */\r\n        );\r\n      }\r\n    },\r\n    error(err) {\r\n      return write(\"error:\" + err.toString());\r\n    },\r\n    boolean(bool) {\r\n      return write(\"bool:\" + bool);\r\n    },\r\n    string(string) {\r\n      write(\"string:\" + string.length + \":\");\r\n      write(string);\r\n    },\r\n    function(fn) {\r\n      write(\"fn:\");\r\n      if (isNativeFunction(fn)) {\r\n        this.dispatch(\"[native]\");\r\n      } else {\r\n        this.dispatch(fn.toString());\r\n      }\r\n      if (options.respectFunctionNames !== false) {\r\n        this.dispatch(\"function-name:\" + String(fn.name));\r\n      }\r\n      if (options.respectFunctionProperties) {\r\n        this.object(fn);\r\n      }\r\n    },\r\n    number(number) {\r\n      return write(\"number:\" + number);\r\n    },\r\n    xml(xml) {\r\n      return write(\"xml:\" + xml.toString());\r\n    },\r\n    null() {\r\n      return write(\"Null\");\r\n    },\r\n    undefined() {\r\n      return write(\"Undefined\");\r\n    },\r\n    regexp(regex) {\r\n      return write(\"regex:\" + regex.toString());\r\n    },\r\n    uint8array(arr) {\r\n      write(\"uint8array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    uint8clampedarray(arr) {\r\n      write(\"uint8clampedarray:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    int8array(arr) {\r\n      write(\"int8array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    uint16array(arr) {\r\n      write(\"uint16array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    int16array(arr) {\r\n      write(\"int16array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    uint32array(arr) {\r\n      write(\"uint32array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    int32array(arr) {\r\n      write(\"int32array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    float32array(arr) {\r\n      write(\"float32array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    float64array(arr) {\r\n      write(\"float64array:\");\r\n      return this.dispatch(Array.prototype.slice.call(arr));\r\n    },\r\n    arraybuffer(arr) {\r\n      write(\"arraybuffer:\");\r\n      return this.dispatch(new Uint8Array(arr));\r\n    },\r\n    url(url) {\r\n      return write(\"url:\" + url.toString());\r\n    },\r\n    map(map) {\r\n      write(\"map:\");\r\n      const arr = [...map];\r\n      return this.array(arr, options.unorderedSets !== false);\r\n    },\r\n    set(set) {\r\n      write(\"set:\");\r\n      const arr = [...set];\r\n      return this.array(arr, options.unorderedSets !== false);\r\n    },\r\n    file(file) {\r\n      write(\"file:\");\r\n      return this.dispatch([file.name, file.size, file.type, file.lastModfied]);\r\n    },\r\n    blob() {\r\n      if (options.ignoreUnknown) {\r\n        return write(\"[blob]\");\r\n      }\r\n      throw new Error(\r\n        'Hashing Blob objects is currently not supported\\nUse \"options.replacer\" or \"options.ignoreUnknown\"\\n'\r\n      );\r\n    },\r\n    domwindow() {\r\n      return write(\"domwindow\");\r\n    },\r\n    bigint(number) {\r\n      return write(\"bigint:\" + number.toString());\r\n    },\r\n    /* Node.js standard native objects */\r\n    process() {\r\n      return write(\"process\");\r\n    },\r\n    timer() {\r\n      return write(\"timer\");\r\n    },\r\n    pipe() {\r\n      return write(\"pipe\");\r\n    },\r\n    tcp() {\r\n      return write(\"tcp\");\r\n    },\r\n    udp() {\r\n      return write(\"udp\");\r\n    },\r\n    tty() {\r\n      return write(\"tty\");\r\n    },\r\n    statwatcher() {\r\n      return write(\"statwatcher\");\r\n    },\r\n    securecontext() {\r\n      return write(\"securecontext\");\r\n    },\r\n    connection() {\r\n      return write(\"connection\");\r\n    },\r\n    zlib() {\r\n      return write(\"zlib\");\r\n    },\r\n    context() {\r\n      return write(\"context\");\r\n    },\r\n    nodescript() {\r\n      return write(\"nodescript\");\r\n    },\r\n    httpparser() {\r\n      return write(\"httpparser\");\r\n    },\r\n    dataview() {\r\n      return write(\"dataview\");\r\n    },\r\n    signal() {\r\n      return write(\"signal\");\r\n    },\r\n    fsevent() {\r\n      return write(\"fsevent\");\r\n    },\r\n    tlswrap() {\r\n      return write(\"tlswrap\");\r\n    }\r\n  };\r\n}\r\nconst nativeFunc = \"[native code] }\";\r\nconst nativeFuncLength = nativeFunc.length;\r\nfunction isNativeFunction(f) {\r\n  if (typeof f !== \"function\") {\r\n    return false;\r\n  }\r\n  return Function.prototype.toString.call(f).slice(-nativeFuncLength) === nativeFunc;\r\n}\r\n\r\nclass WordArray {\r\n  constructor(words, sigBytes) {\r\n    words = this.words = words || [];\r\n    this.sigBytes = sigBytes === void 0 ? words.length * 4 : sigBytes;\r\n  }\r\n  toString(encoder) {\r\n    return (encoder || Hex).stringify(this);\r\n  }\r\n  concat(wordArray) {\r\n    this.clamp();\r\n    if (this.sigBytes % 4) {\r\n      for (let i = 0; i < wordArray.sigBytes; i++) {\r\n        const thatByte = wordArray.words[i >>> 2] >>> 24 - i % 4 * 8 & 255;\r\n        this.words[this.sigBytes + i >>> 2] |= thatByte << 24 - (this.sigBytes + i) % 4 * 8;\r\n      }\r\n    } else {\r\n      for (let j = 0; j < wordArray.sigBytes; j += 4) {\r\n        this.words[this.sigBytes + j >>> 2] = wordArray.words[j >>> 2];\r\n      }\r\n    }\r\n    this.sigBytes += wordArray.sigBytes;\r\n    return this;\r\n  }\r\n  clamp() {\r\n    this.words[this.sigBytes >>> 2] &= 4294967295 << 32 - this.sigBytes % 4 * 8;\r\n    this.words.length = Math.ceil(this.sigBytes / 4);\r\n  }\r\n  clone() {\r\n    return new WordArray([...this.words]);\r\n  }\r\n}\r\nconst Hex = {\r\n  stringify(wordArray) {\r\n    const hexChars = [];\r\n    for (let i = 0; i < wordArray.sigBytes; i++) {\r\n      const bite = wordArray.words[i >>> 2] >>> 24 - i % 4 * 8 & 255;\r\n      hexChars.push((bite >>> 4).toString(16), (bite & 15).toString(16));\r\n    }\r\n    return hexChars.join(\"\");\r\n  }\r\n};\r\nconst Base64 = {\r\n  stringify(wordArray) {\r\n    const keyStr = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";\r\n    const base64Chars = [];\r\n    for (let i = 0; i < wordArray.sigBytes; i += 3) {\r\n      const byte1 = wordArray.words[i >>> 2] >>> 24 - i % 4 * 8 & 255;\r\n      const byte2 = wordArray.words[i + 1 >>> 2] >>> 24 - (i + 1) % 4 * 8 & 255;\r\n      const byte3 = wordArray.words[i + 2 >>> 2] >>> 24 - (i + 2) % 4 * 8 & 255;\r\n      const triplet = byte1 << 16 | byte2 << 8 | byte3;\r\n      for (let j = 0; j < 4 && i * 8 + j * 6 < wordArray.sigBytes * 8; j++) {\r\n        base64Chars.push(keyStr.charAt(triplet >>> 6 * (3 - j) & 63));\r\n      }\r\n    }\r\n    return base64Chars.join(\"\");\r\n  }\r\n};\r\nconst Latin1 = {\r\n  parse(latin1Str) {\r\n    const latin1StrLength = latin1Str.length;\r\n    const words = [];\r\n    for (let i = 0; i < latin1StrLength; i++) {\r\n      words[i >>> 2] |= (latin1Str.charCodeAt(i) & 255) << 24 - i % 4 * 8;\r\n    }\r\n    return new WordArray(words, latin1StrLength);\r\n  }\r\n};\r\nconst Utf8 = {\r\n  parse(utf8Str) {\r\n    return Latin1.parse(unescape(encodeURIComponent(utf8Str)));\r\n  }\r\n};\r\nclass BufferedBlockAlgorithm {\r\n  constructor() {\r\n    this._data = new WordArray();\r\n    this._nDataBytes = 0;\r\n    this._minBufferSize = 0;\r\n    this.blockSize = 512 / 32;\r\n  }\r\n  reset() {\r\n    this._data = new WordArray();\r\n    this._nDataBytes = 0;\r\n  }\r\n  _append(data) {\r\n    if (typeof data === \"string\") {\r\n      data = Utf8.parse(data);\r\n    }\r\n    this._data.concat(data);\r\n    this._nDataBytes += data.sigBytes;\r\n  }\r\n  // eslint-disable-next-line @typescript-eslint/no-unused-vars\r\n  _doProcessBlock(_dataWords, _offset) {\r\n  }\r\n  _process(doFlush) {\r\n    let processedWords;\r\n    let nBlocksReady = this._data.sigBytes / (this.blockSize * 4);\r\n    if (doFlush) {\r\n      nBlocksReady = Math.ceil(nBlocksReady);\r\n    } else {\r\n      nBlocksReady = Math.max((nBlocksReady | 0) - this._minBufferSize, 0);\r\n    }\r\n    const nWordsReady = nBlocksReady * this.blockSize;\r\n    const nBytesReady = Math.min(nWordsReady * 4, this._data.sigBytes);\r\n    if (nWordsReady) {\r\n      for (let offset = 0; offset < nWordsReady; offset += this.blockSize) {\r\n        this._doProcessBlock(this._data.words, offset);\r\n      }\r\n      processedWords = this._data.words.splice(0, nWordsReady);\r\n      this._data.sigBytes -= nBytesReady;\r\n    }\r\n    return new WordArray(processedWords, nBytesReady);\r\n  }\r\n}\r\nclass Hasher extends BufferedBlockAlgorithm {\r\n  update(messageUpdate) {\r\n    this._append(messageUpdate);\r\n    this._process();\r\n    return this;\r\n  }\r\n  finalize(messageUpdate) {\r\n    if (messageUpdate) {\r\n      this._append(messageUpdate);\r\n    }\r\n  }\r\n}\r\n\r\nconst H = [\r\n  1779033703,\r\n  -1150833019,\r\n  1013904242,\r\n  -1521486534,\r\n  1359893119,\r\n  -1694144372,\r\n  528734635,\r\n  1541459225\r\n];\r\nconst K = [\r\n  1116352408,\r\n  1899447441,\r\n  -1245643825,\r\n  -373957723,\r\n  961987163,\r\n  1508970993,\r\n  -1841331548,\r\n  -1424204075,\r\n  -670586216,\r\n  310598401,\r\n  607225278,\r\n  1426881987,\r\n  1925078388,\r\n  -2132889090,\r\n  -1680079193,\r\n  -1046744716,\r\n  -459576895,\r\n  -272742522,\r\n  264347078,\r\n  604807628,\r\n  770255983,\r\n  1249150122,\r\n  1555081692,\r\n  1996064986,\r\n  -1740746414,\r\n  -1473132947,\r\n  -1341970488,\r\n  -1084653625,\r\n  -958395405,\r\n  -710438585,\r\n  113926993,\r\n  338241895,\r\n  666307205,\r\n  773529912,\r\n  1294757372,\r\n  1396182291,\r\n  1695183700,\r\n  1986661051,\r\n  -2117940946,\r\n  -1838011259,\r\n  -1564481375,\r\n  -1474664885,\r\n  -1035236496,\r\n  -949202525,\r\n  -778901479,\r\n  -694614492,\r\n  -200395387,\r\n  275423344,\r\n  430227734,\r\n  506948616,\r\n  659060556,\r\n  883997877,\r\n  958139571,\r\n  1322822218,\r\n  1537002063,\r\n  1747873779,\r\n  1955562222,\r\n  2024104815,\r\n  -2067236844,\r\n  -1933114872,\r\n  -1866530822,\r\n  -1538233109,\r\n  -1090935817,\r\n  -965641998\r\n];\r\nconst W = [];\r\nclass SHA256 extends Hasher {\r\n  constructor() {\r\n    super(...arguments);\r\n    this._hash = new WordArray([...H]);\r\n  }\r\n  reset() {\r\n    super.reset();\r\n    this._hash = new WordArray([...H]);\r\n  }\r\n  _doProcessBlock(M, offset) {\r\n    const H2 = this._hash.words;\r\n    let a = H2[0];\r\n    let b = H2[1];\r\n    let c = H2[2];\r\n    let d = H2[3];\r\n    let e = H2[4];\r\n    let f = H2[5];\r\n    let g = H2[6];\r\n    let h = H2[7];\r\n    for (let i = 0; i < 64; i++) {\r\n      if (i < 16) {\r\n        W[i] = M[offset + i] | 0;\r\n      } else {\r\n        const gamma0x = W[i - 15];\r\n        const gamma0 = (gamma0x << 25 | gamma0x >>> 7) ^ (gamma0x << 14 | gamma0x >>> 18) ^ gamma0x >>> 3;\r\n        const gamma1x = W[i - 2];\r\n        const gamma1 = (gamma1x << 15 | gamma1x >>> 17) ^ (gamma1x << 13 | gamma1x >>> 19) ^ gamma1x >>> 10;\r\n        W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16];\r\n      }\r\n      const ch = e & f ^ ~e & g;\r\n      const maj = a & b ^ a & c ^ b & c;\r\n      const sigma0 = (a << 30 | a >>> 2) ^ (a << 19 | a >>> 13) ^ (a << 10 | a >>> 22);\r\n      const sigma1 = (e << 26 | e >>> 6) ^ (e << 21 | e >>> 11) ^ (e << 7 | e >>> 25);\r\n      const t1 = h + sigma1 + ch + K[i] + W[i];\r\n      const t2 = sigma0 + maj;\r\n      h = g;\r\n      g = f;\r\n      f = e;\r\n      e = d + t1 | 0;\r\n      d = c;\r\n      c = b;\r\n      b = a;\r\n      a = t1 + t2 | 0;\r\n    }\r\n    H2[0] = H2[0] + a | 0;\r\n    H2[1] = H2[1] + b | 0;\r\n    H2[2] = H2[2] + c | 0;\r\n    H2[3] = H2[3] + d | 0;\r\n    H2[4] = H2[4] + e | 0;\r\n    H2[5] = H2[5] + f | 0;\r\n    H2[6] = H2[6] + g | 0;\r\n    H2[7] = H2[7] + h | 0;\r\n  }\r\n  finalize(messageUpdate) {\r\n    super.finalize(messageUpdate);\r\n    const nBitsTotal = this._nDataBytes * 8;\r\n    const nBitsLeft = this._data.sigBytes * 8;\r\n    this._data.words[nBitsLeft >>> 5] |= 128 << 24 - nBitsLeft % 32;\r\n    this._data.words[(nBitsLeft + 64 >>> 9 << 4) + 14] = Math.floor(\r\n      nBitsTotal / 4294967296\r\n    );\r\n    this._data.words[(nBitsLeft + 64 >>> 9 << 4) + 15] = nBitsTotal;\r\n    this._data.sigBytes = this._data.words.length * 4;\r\n    this._process();\r\n    return this._hash;\r\n  }\r\n}\r\nfunction sha256(message) {\r\n  return new SHA256().finalize(message).toString();\r\n}\r\nfunction sha256base64(message) {\r\n  return new SHA256().finalize(message).toString(Base64);\r\n}\r\n\r\nfunction hash(object, options = {}) {\r\n  const hashed = typeof object === \"string\" ? object : objectHash(object, options);\r\n  return sha256base64(hashed).slice(0, 10);\r\n}\r\n\r\nfunction murmurHash(key, seed = 0) {\r\n  if (typeof key === \"string\") {\r\n    key = createBuffer(key);\r\n  }\r\n  let i = 0;\r\n  let h1 = seed;\r\n  let k1;\r\n  let h1b;\r\n  const remainder = key.length & 3;\r\n  const bytes = key.length - remainder;\r\n  const c1 = 3432918353;\r\n  const c2 = 461845907;\r\n  while (i < bytes) {\r\n    k1 = key[i] & 255 | (key[++i] & 255) << 8 | (key[++i] & 255) << 16 | (key[++i] & 255) << 24;\r\n    ++i;\r\n    k1 = (k1 & 65535) * c1 + (((k1 >>> 16) * c1 & 65535) << 16) & 4294967295;\r\n    k1 = k1 << 15 | k1 >>> 17;\r\n    k1 = (k1 & 65535) * c2 + (((k1 >>> 16) * c2 & 65535) << 16) & 4294967295;\r\n    h1 ^= k1;\r\n    h1 = h1 << 13 | h1 >>> 19;\r\n    h1b = (h1 & 65535) * 5 + (((h1 >>> 16) * 5 & 65535) << 16) & 4294967295;\r\n    h1 = (h1b & 65535) + 27492 + (((h1b >>> 16) + 58964 & 65535) << 16);\r\n  }\r\n  k1 = 0;\r\n  switch (remainder) {\r\n    case 3: {\r\n      k1 ^= (key[i + 2] & 255) << 16;\r\n      break;\r\n    }\r\n    case 2: {\r\n      k1 ^= (key[i + 1] & 255) << 8;\r\n      break;\r\n    }\r\n    case 1: {\r\n      k1 ^= key[i] & 255;\r\n      k1 = (k1 & 65535) * c1 + (((k1 >>> 16) * c1 & 65535) << 16) & 4294967295;\r\n      k1 = k1 << 15 | k1 >>> 17;\r\n      k1 = (k1 & 65535) * c2 + (((k1 >>> 16) * c2 & 65535) << 16) & 4294967295;\r\n      h1 ^= k1;\r\n    }\r\n  }\r\n  h1 ^= key.length;\r\n  h1 ^= h1 >>> 16;\r\n  h1 = (h1 & 65535) * 2246822507 + (((h1 >>> 16) * 2246822507 & 65535) << 16) & 4294967295;\r\n  h1 ^= h1 >>> 13;\r\n  h1 = (h1 & 65535) * 3266489909 + (((h1 >>> 16) * 3266489909 & 65535) << 16) & 4294967295;\r\n  h1 ^= h1 >>> 16;\r\n  return h1 >>> 0;\r\n}\r\nfunction createBuffer(val) {\r\n  return new TextEncoder().encode(val);\r\n}\r\n\r\nfunction isEqual(object1, object2, hashOptions = {}) {\r\n  if (object1 === object2) {\r\n    return true;\r\n  }\r\n  if (objectHash(object1, hashOptions) === objectHash(object2, hashOptions)) {\r\n    return true;\r\n  }\r\n  return false;\r\n}\r\n\r\nfunction diff(obj1, obj2, opts = {}) {\r\n  const h1 = _toHashedObject(obj1, opts);\r\n  const h2 = _toHashedObject(obj2, opts);\r\n  return _diff(h1, h2, opts);\r\n}\r\nfunction _diff(h1, h2, opts = {}) {\r\n  const diffs = [];\r\n  const allProps = /* @__PURE__ */ new Set([\r\n    ...Object.keys(h1.props || {}),\r\n    ...Object.keys(h2.props || {})\r\n  ]);\r\n  if (h1.props && h2.props) {\r\n    for (const prop of allProps) {\r\n      const p1 = h1.props[prop];\r\n      const p2 = h2.props[prop];\r\n      if (p1 && p2) {\r\n        diffs.push(..._diff(h1.props?.[prop], h2.props?.[prop], opts));\r\n      } else if (p1 || p2) {\r\n        diffs.push(\r\n          new DiffEntry((p2 || p1).key, p1 ? \"removed\" : \"added\", p2, p1)\r\n        );\r\n      }\r\n    }\r\n  }\r\n  if (allProps.size === 0 && h1.hash !== h2.hash) {\r\n    diffs.push(new DiffEntry((h2 || h1).key, \"changed\", h2, h1));\r\n  }\r\n  return diffs;\r\n}\r\nfunction _toHashedObject(obj, opts, key = \"\") {\r\n  if (obj && typeof obj !== \"object\") {\r\n    return new DiffHashedObject(key, obj, objectHash(obj, opts));\r\n  }\r\n  const props = {};\r\n  const hashes = [];\r\n  for (const _key in obj) {\r\n    props[_key] = _toHashedObject(\r\n      obj[_key],\r\n      opts,\r\n      key ? `${key}.${_key}` : _key\r\n    );\r\n    hashes.push(props[_key].hash);\r\n  }\r\n  return new DiffHashedObject(key, obj, `{${hashes.join(\":\")}}`, props);\r\n}\r\nclass DiffEntry {\r\n  // eslint-disable-next-line no-useless-constructor\r\n  constructor(key, type, newValue, oldValue) {\r\n    this.key = key;\r\n    this.type = type;\r\n    this.newValue = newValue;\r\n    this.oldValue = oldValue;\r\n  }\r\n  toString() {\r\n    return this.toJSON();\r\n  }\r\n  toJSON() {\r\n    switch (this.type) {\r\n      case \"added\": {\r\n        return `Added   \\`${this.key}\\``;\r\n      }\r\n      case \"removed\": {\r\n        return `Removed \\`${this.key}\\``;\r\n      }\r\n      case \"changed\": {\r\n        return `Changed \\`${this.key}\\` from \\`${this.oldValue?.toString() || \"-\"}\\` to \\`${this.newValue.toString()}\\``;\r\n      }\r\n    }\r\n  }\r\n}\r\nclass DiffHashedObject {\r\n  // eslint-disable-next-line no-useless-constructor\r\n  constructor(key, value, hash, props) {\r\n    this.key = key;\r\n    this.value = value;\r\n    this.hash = hash;\r\n    this.props = props;\r\n  }\r\n  toString() {\r\n    if (this.props) {\r\n      return `{${Object.keys(this.props).join(\",\")}}`;\r\n    } else {\r\n      return JSON.stringify(this.value);\r\n    }\r\n  }\r\n  toJSON() {\r\n    const k = this.key || \".\";\r\n    if (this.props) {\r\n      return `${k}({${Object.keys(this.props).join(\",\")}})`;\r\n    }\r\n    return `${k}(${this.value})`;\r\n  }\r\n}\r\n\r\nexport { diff, hash, isEqual, murmurHash, objectHash, sha256, sha256base64 };\r\n",
+      "start": 1714315493006,
+      "end": 1714315493241,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493241,
+      "end": 1714315493241,
+      "order": "normal"
+    }
+  ]
+}

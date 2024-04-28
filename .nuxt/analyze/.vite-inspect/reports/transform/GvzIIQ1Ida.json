@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/iron-webcrypto/dist/index.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "// src/utils.ts\r\nvar alphabetByEncoding = {};\r\nvar alphabetByValue = Array.from({ length: 64 });\r\nfor (let i = 0, start = \"A\".charCodeAt(0), limit = \"Z\".charCodeAt(0); i + start <= limit; i++) {\r\n  const char = String.fromCharCode(i + start);\r\n  alphabetByEncoding[char] = i;\r\n  alphabetByValue[i] = char;\r\n}\r\nfor (let i = 0, start = \"a\".charCodeAt(0), limit = \"z\".charCodeAt(0); i + start <= limit; i++) {\r\n  const char = String.fromCharCode(i + start);\r\n  const index = i + 26;\r\n  alphabetByEncoding[char] = index;\r\n  alphabetByValue[index] = char;\r\n}\r\nfor (let i = 0; i < 10; i++) {\r\n  alphabetByEncoding[i.toString(10)] = i + 52;\r\n  const char = i.toString(10);\r\n  const index = i + 52;\r\n  alphabetByEncoding[char] = index;\r\n  alphabetByValue[index] = char;\r\n}\r\nalphabetByEncoding[\"-\"] = 62;\r\nalphabetByValue[62] = \"-\";\r\nalphabetByEncoding[\"_\"] = 63;\r\nalphabetByValue[63] = \"_\";\r\nvar bitsPerLetter = 6;\r\nvar bitsPerByte = 8;\r\nvar maxLetterValue = 63;\r\nvar stringToBuffer = (value) => {\r\n  return new TextEncoder().encode(value);\r\n};\r\nvar bufferToString = (value) => {\r\n  return new TextDecoder().decode(value);\r\n};\r\nvar base64urlDecode = (_input) => {\r\n  const input = _input + \"=\".repeat((4 - _input.length % 4) % 4);\r\n  let totalByteLength = input.length / 4 * 3;\r\n  if (input.endsWith(\"==\")) {\r\n    totalByteLength -= 2;\r\n  } else if (input.endsWith(\"=\")) {\r\n    totalByteLength--;\r\n  }\r\n  const out = new ArrayBuffer(totalByteLength);\r\n  const dataView = new DataView(out);\r\n  for (let i = 0; i < input.length; i += 4) {\r\n    let bits = 0;\r\n    let bitLength = 0;\r\n    for (let j = i, limit = i + 3; j <= limit; j++) {\r\n      if (input[j] === \"=\") {\r\n        bits >>= bitsPerLetter;\r\n      } else {\r\n        if (!(input[j] in alphabetByEncoding)) {\r\n          throw new TypeError(`Invalid character ${input[j]} in base64 string.`);\r\n        }\r\n        bits |= alphabetByEncoding[input[j]] << (limit - j) * bitsPerLetter;\r\n        bitLength += bitsPerLetter;\r\n      }\r\n    }\r\n    const chunkOffset = i / 4 * 3;\r\n    bits >>= bitLength % bitsPerByte;\r\n    const byteLength = Math.floor(bitLength / bitsPerByte);\r\n    for (let k = 0; k < byteLength; k++) {\r\n      const offset = (byteLength - k - 1) * bitsPerByte;\r\n      dataView.setUint8(chunkOffset + k, (bits & 255 << offset) >> offset);\r\n    }\r\n  }\r\n  return new Uint8Array(out);\r\n};\r\nvar base64urlEncode = (_input) => {\r\n  const input = typeof _input === \"string\" ? stringToBuffer(_input) : _input;\r\n  let str = \"\";\r\n  for (let i = 0; i < input.length; i += 3) {\r\n    let bits = 0;\r\n    let bitLength = 0;\r\n    for (let j = i, limit = Math.min(i + 3, input.length); j < limit; j++) {\r\n      bits |= input[j] << (limit - j - 1) * bitsPerByte;\r\n      bitLength += bitsPerByte;\r\n    }\r\n    const bitClusterCount = Math.ceil(bitLength / bitsPerLetter);\r\n    bits <<= bitClusterCount * bitsPerLetter - bitLength;\r\n    for (let k = 1; k <= bitClusterCount; k++) {\r\n      const offset = (bitClusterCount - k) * bitsPerLetter;\r\n      str += alphabetByValue[(bits & maxLetterValue << offset) >> offset];\r\n    }\r\n  }\r\n  return str;\r\n};\r\n\r\n// src/index.ts\r\nvar defaults = {\r\n  encryption: { saltBits: 256, algorithm: \"aes-256-cbc\", iterations: 1, minPasswordlength: 32 },\r\n  integrity: { saltBits: 256, algorithm: \"sha256\", iterations: 1, minPasswordlength: 32 },\r\n  ttl: 0,\r\n  timestampSkewSec: 60,\r\n  localtimeOffsetMsec: 0\r\n};\r\nvar clone = (options) => ({\r\n  ...options,\r\n  encryption: { ...options.encryption },\r\n  integrity: { ...options.integrity }\r\n});\r\nvar algorithms = {\r\n  \"aes-128-ctr\": { keyBits: 128, ivBits: 128, name: \"AES-CTR\" },\r\n  \"aes-256-cbc\": { keyBits: 256, ivBits: 128, name: \"AES-CBC\" },\r\n  sha256: { keyBits: 256, name: \"SHA-256\" }\r\n};\r\nvar macFormatVersion = \"2\";\r\nvar macPrefix = \"Fe26.2\";\r\nvar randomBytes = (_crypto, size) => {\r\n  const bytes = new Uint8Array(size);\r\n  _crypto.getRandomValues(bytes);\r\n  return bytes;\r\n};\r\nvar randomBits = (_crypto, bits) => {\r\n  if (bits < 1)\r\n    throw new Error(\"Invalid random bits count\");\r\n  const bytes = Math.ceil(bits / 8);\r\n  return randomBytes(_crypto, bytes);\r\n};\r\nvar pbkdf2 = async (_crypto, password, salt, iterations, keyLength, hash) => {\r\n  const passwordBuffer = stringToBuffer(password);\r\n  const importedKey = await _crypto.subtle.importKey(\"raw\", passwordBuffer, \"PBKDF2\", false, [\r\n    \"deriveBits\"\r\n  ]);\r\n  const saltBuffer = stringToBuffer(salt);\r\n  const params = { name: \"PBKDF2\", hash, salt: saltBuffer, iterations };\r\n  const derivation = await _crypto.subtle.deriveBits(params, importedKey, keyLength * 8);\r\n  return derivation;\r\n};\r\nvar generateKey = async (_crypto, password, options) => {\r\n  var _a;\r\n  if (!(password == null ? void 0 : password.length))\r\n    throw new Error(\"Empty password\");\r\n  if (options == null || typeof options !== \"object\")\r\n    throw new Error(\"Bad options\");\r\n  if (!(options.algorithm in algorithms))\r\n    throw new Error(`Unknown algorithm: ${options.algorithm}`);\r\n  const algorithm = algorithms[options.algorithm];\r\n  const result = {};\r\n  const hmac = (_a = options.hmac) != null ? _a : false;\r\n  const id = hmac ? { name: \"HMAC\", hash: algorithm.name } : { name: algorithm.name };\r\n  const usage = hmac ? [\"sign\", \"verify\"] : [\"encrypt\", \"decrypt\"];\r\n  if (typeof password === \"string\") {\r\n    if (password.length < options.minPasswordlength)\r\n      throw new Error(\r\n        `Password string too short (min ${options.minPasswordlength} characters required)`\r\n      );\r\n    let { salt = \"\" } = options;\r\n    if (!salt) {\r\n      const { saltBits = 0 } = options;\r\n      if (!saltBits)\r\n        throw new Error(\"Missing salt and saltBits options\");\r\n      const randomSalt = randomBits(_crypto, saltBits);\r\n      salt = [...new Uint8Array(randomSalt)].map((x) => x.toString(16).padStart(2, \"0\")).join(\"\");\r\n    }\r\n    const derivedKey = await pbkdf2(\r\n      _crypto,\r\n      password,\r\n      salt,\r\n      options.iterations,\r\n      algorithm.keyBits / 8,\r\n      \"SHA-1\"\r\n    );\r\n    const importedEncryptionKey = await _crypto.subtle.importKey(\r\n      \"raw\",\r\n      derivedKey,\r\n      id,\r\n      false,\r\n      usage\r\n    );\r\n    result.key = importedEncryptionKey;\r\n    result.salt = salt;\r\n  } else {\r\n    if (password.length < algorithm.keyBits / 8)\r\n      throw new Error(\"Key buffer (password) too small\");\r\n    result.key = await _crypto.subtle.importKey(\"raw\", password, id, false, usage);\r\n    result.salt = \"\";\r\n  }\r\n  if (options.iv)\r\n    result.iv = options.iv;\r\n  else if (\"ivBits\" in algorithm)\r\n    result.iv = randomBits(_crypto, algorithm.ivBits);\r\n  return result;\r\n};\r\nvar encrypt = async (_crypto, password, options, data) => {\r\n  const key = await generateKey(_crypto, password, options);\r\n  const textBuffer = stringToBuffer(data);\r\n  const encrypted = await _crypto.subtle.encrypt(\r\n    { name: algorithms[options.algorithm].name, iv: key.iv },\r\n    key.key,\r\n    textBuffer\r\n  );\r\n  return { encrypted: new Uint8Array(encrypted), key };\r\n};\r\nvar decrypt = async (_crypto, password, options, data) => {\r\n  const key = await generateKey(_crypto, password, options);\r\n  const decrypted = await _crypto.subtle.decrypt(\r\n    { name: algorithms[options.algorithm].name, iv: key.iv },\r\n    key.key,\r\n    typeof data === \"string\" ? stringToBuffer(data) : data\r\n  );\r\n  return bufferToString(new Uint8Array(decrypted));\r\n};\r\nvar hmacWithPassword = async (_crypto, password, options, data) => {\r\n  const key = await generateKey(_crypto, password, { ...options, hmac: true });\r\n  const textBuffer = stringToBuffer(data);\r\n  const signed = await _crypto.subtle.sign({ name: \"HMAC\" }, key.key, textBuffer);\r\n  const digest = base64urlEncode(new Uint8Array(signed));\r\n  return { digest, salt: key.salt };\r\n};\r\nvar normalizePassword = (password) => {\r\n  if (typeof password === \"string\" || password instanceof Uint8Array)\r\n    return { encryption: password, integrity: password };\r\n  if (\"secret\" in password)\r\n    return { id: password.id, encryption: password.secret, integrity: password.secret };\r\n  return { id: password.id, encryption: password.encryption, integrity: password.integrity };\r\n};\r\nvar seal = async (_crypto, object, password, options) => {\r\n  if (!password)\r\n    throw new Error(\"Empty password\");\r\n  const opts = clone(options);\r\n  const now = Date.now() + (opts.localtimeOffsetMsec || 0);\r\n  const objectString = JSON.stringify(object);\r\n  const pass = normalizePassword(password);\r\n  const { id = \"\", encryption, integrity } = pass;\r\n  if (id && !/^\\w+$/.test(id))\r\n    throw new Error(\"Invalid password id\");\r\n  const { encrypted, key } = await encrypt(_crypto, encryption, opts.encryption, objectString);\r\n  const encryptedB64 = base64urlEncode(new Uint8Array(encrypted));\r\n  const iv = base64urlEncode(key.iv);\r\n  const expiration = opts.ttl ? now + opts.ttl : \"\";\r\n  const macBaseString = `${macPrefix}*${id}*${key.salt}*${iv}*${encryptedB64}*${expiration}`;\r\n  const mac = await hmacWithPassword(_crypto, integrity, opts.integrity, macBaseString);\r\n  const sealed = `${macBaseString}*${mac.salt}*${mac.digest}`;\r\n  return sealed;\r\n};\r\nvar fixedTimeComparison = (a, b) => {\r\n  let mismatch = a.length === b.length ? 0 : 1;\r\n  if (mismatch)\r\n    b = a;\r\n  for (let i = 0; i < a.length; i += 1)\r\n    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);\r\n  return mismatch === 0;\r\n};\r\nvar unseal = async (_crypto, sealed, password, options) => {\r\n  if (!password)\r\n    throw new Error(\"Empty password\");\r\n  const opts = clone(options);\r\n  const now = Date.now() + (opts.localtimeOffsetMsec || 0);\r\n  const parts = sealed.split(\"*\");\r\n  if (parts.length !== 8)\r\n    throw new Error(\"Incorrect number of sealed components\");\r\n  const prefix = parts[0];\r\n  let passwordId = parts[1];\r\n  const encryptionSalt = parts[2];\r\n  const encryptionIv = parts[3];\r\n  const encryptedB64 = parts[4];\r\n  const expiration = parts[5];\r\n  const hmacSalt = parts[6];\r\n  const hmac = parts[7];\r\n  const macBaseString = `${prefix}*${passwordId}*${encryptionSalt}*${encryptionIv}*${encryptedB64}*${expiration}`;\r\n  if (macPrefix !== prefix)\r\n    throw new Error(\"Wrong mac prefix\");\r\n  if (expiration) {\r\n    if (!/^\\d+$/.test(expiration))\r\n      throw new Error(\"Invalid expiration\");\r\n    const exp = Number.parseInt(expiration, 10);\r\n    if (exp <= now - opts.timestampSkewSec * 1e3)\r\n      throw new Error(\"Expired seal\");\r\n  }\r\n  let pass = \"\";\r\n  passwordId = passwordId || \"default\";\r\n  if (typeof password === \"string\" || password instanceof Uint8Array)\r\n    pass = password;\r\n  else if (passwordId in password) {\r\n    pass = password[passwordId];\r\n  } else {\r\n    throw new Error(`Cannot find password: ${passwordId}`);\r\n  }\r\n  pass = normalizePassword(pass);\r\n  const macOptions = opts.integrity;\r\n  macOptions.salt = hmacSalt;\r\n  const mac = await hmacWithPassword(_crypto, pass.integrity, macOptions, macBaseString);\r\n  if (!fixedTimeComparison(mac.digest, hmac))\r\n    throw new Error(\"Bad hmac value\");\r\n  const encrypted = base64urlDecode(encryptedB64);\r\n  const decryptOptions = opts.encryption;\r\n  decryptOptions.salt = encryptionSalt;\r\n  decryptOptions.iv = base64urlDecode(encryptionIv);\r\n  const decrypted = await decrypt(_crypto, pass.encryption, decryptOptions, encrypted);\r\n  if (decrypted)\r\n    return JSON.parse(decrypted);\r\n  return null;\r\n};\r\n\r\nexport { algorithms, base64urlDecode, base64urlEncode, bufferToString, clone, decrypt, defaults, encrypt, generateKey, hmacWithPassword, macFormatVersion, macPrefix, randomBits, seal, stringToBuffer, unseal };\r\n",
+      "start": 1714315493004,
+      "end": 1714315493236,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493237,
+      "end": 1714315493237,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493237,
+      "end": 1714315493238,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493238,
+      "end": 1714315493238,
+      "order": "normal"
+    }
+  ]
+}

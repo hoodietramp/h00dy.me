@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unhead/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { createHooks } from 'hookable';\r\nimport { DomPlugin } from '@unhead/dom';\r\nimport { defineHeadPlugin, tagDedupeKey, tagWeight, HasElementTags, NetworkEvents, hashCode, SortModifiers, processTemplateParams, resolveTitleTemplate, IsBrowser, normaliseEntryTags, composableNames, whitelistSafeInput, unpackMeta, ScriptNetworkEvents } from '@unhead/shared';\r\nexport { composableNames } from '@unhead/shared';\r\n\r\nconst UsesMergeStrategy = [\"templateParams\", \"htmlAttrs\", \"bodyAttrs\"];\r\nconst DedupePlugin = defineHeadPlugin({\r\n  hooks: {\r\n    \"tag:normalise\": function({ tag }) {\r\n      [\"hid\", \"vmid\", \"key\"].forEach((key) => {\r\n        if (tag.props[key]) {\r\n          tag.key = tag.props[key];\r\n          delete tag.props[key];\r\n        }\r\n      });\r\n      const generatedKey = tagDedupeKey(tag);\r\n      const dedupe = generatedKey || (tag.key ? `${tag.tag}:${tag.key}` : false);\r\n      if (dedupe)\r\n        tag._d = dedupe;\r\n    },\r\n    \"tags:resolve\": function(ctx) {\r\n      const deduping = {};\r\n      ctx.tags.forEach((tag) => {\r\n        const dedupeKey = (tag.key ? `${tag.tag}:${tag.key}` : tag._d) || tag._p;\r\n        const dupedTag = deduping[dedupeKey];\r\n        if (dupedTag) {\r\n          let strategy = tag?.tagDuplicateStrategy;\r\n          if (!strategy && UsesMergeStrategy.includes(tag.tag))\r\n            strategy = \"merge\";\r\n          if (strategy === \"merge\") {\r\n            const oldProps = dupedTag.props;\r\n            [\"class\", \"style\"].forEach((key) => {\r\n              if (oldProps[key]) {\r\n                if (tag.props[key]) {\r\n                  if (key === \"style\" && !oldProps[key].endsWith(\";\"))\r\n                    oldProps[key] += \";\";\r\n                  tag.props[key] = `${oldProps[key]} ${tag.props[key]}`;\r\n                } else {\r\n                  tag.props[key] = oldProps[key];\r\n                }\r\n              }\r\n            });\r\n            deduping[dedupeKey].props = {\r\n              ...oldProps,\r\n              ...tag.props\r\n            };\r\n            return;\r\n          } else if (tag._e === dupedTag._e) {\r\n            dupedTag._duped = dupedTag._duped || [];\r\n            tag._d = `${dupedTag._d}:${dupedTag._duped.length + 1}`;\r\n            dupedTag._duped.push(tag);\r\n            return;\r\n          } else if (tagWeight(tag) > tagWeight(dupedTag)) {\r\n            return;\r\n          }\r\n        }\r\n        const propCount = Object.keys(tag.props).length + (tag.innerHTML ? 1 : 0) + (tag.textContent ? 1 : 0);\r\n        if (HasElementTags.includes(tag.tag) && propCount === 0) {\r\n          delete deduping[dedupeKey];\r\n          return;\r\n        }\r\n        deduping[dedupeKey] = tag;\r\n      });\r\n      const newTags = [];\r\n      Object.values(deduping).forEach((tag) => {\r\n        const dupes = tag._duped;\r\n        delete tag._duped;\r\n        newTags.push(tag);\r\n        if (dupes)\r\n          newTags.push(...dupes);\r\n      });\r\n      ctx.tags = newTags;\r\n      ctx.tags = ctx.tags.filter((t) => !(t.tag === \"meta\" && (t.props.name || t.props.property) && !t.props.content));\r\n    }\r\n  }\r\n});\r\n\r\nconst PayloadPlugin = defineHeadPlugin({\r\n  mode: \"server\",\r\n  hooks: {\r\n    \"tags:resolve\": function(ctx) {\r\n      const payload = {};\r\n      ctx.tags.filter((tag) => [\"titleTemplate\", \"templateParams\", \"title\"].includes(tag.tag) && tag._m === \"server\").forEach((tag) => {\r\n        payload[tag.tag] = tag.tag.startsWith(\"title\") ? tag.textContent : tag.props;\r\n      });\r\n      Object.keys(payload).length && ctx.tags.push({\r\n        tag: \"script\",\r\n        innerHTML: JSON.stringify(payload),\r\n        props: { id: \"unhead:payload\", type: \"application/json\" }\r\n      });\r\n    }\r\n  }\r\n});\r\n\r\nconst ValidEventTags = [\"script\", \"link\", \"bodyAttrs\"];\r\nconst EventHandlersPlugin = defineHeadPlugin((head) => ({\r\n  hooks: {\r\n    \"tags:resolve\": function(ctx) {\r\n      for (const tag of ctx.tags.filter((t) => ValidEventTags.includes(t.tag))) {\r\n        Object.entries(tag.props).forEach(([key, value]) => {\r\n          if (key.startsWith(\"on\") && typeof value === \"function\") {\r\n            if (head.ssr && NetworkEvents.includes(key))\r\n              tag.props[key] = `this.dataset.${key}fired = true`;\r\n            else\r\n              delete tag.props[key];\r\n            tag._eventHandlers = tag._eventHandlers || {};\r\n            tag._eventHandlers[key] = value;\r\n          }\r\n        });\r\n        if (head.ssr && tag._eventHandlers && (tag.props.src || tag.props.href))\r\n          tag.key = tag.key || hashCode(tag.props.src || tag.props.href);\r\n      }\r\n    },\r\n    \"dom:renderTag\": function({ $el, tag }) {\r\n      for (const k of Object.keys($el?.dataset || {}).filter((k2) => NetworkEvents.some((e) => `${e}fired` === k2))) {\r\n        const ek = k.replace(\"fired\", \"\");\r\n        tag._eventHandlers?.[ek]?.call($el, new Event(ek.replace(\"on\", \"\")));\r\n      }\r\n    }\r\n  }\r\n}));\r\n\r\nconst DupeableTags = [\"link\", \"style\", \"script\", \"noscript\"];\r\nconst HashKeyedPlugin = defineHeadPlugin({\r\n  hooks: {\r\n    \"tag:normalise\": ({ tag }) => {\r\n      if (tag.key && DupeableTags.includes(tag.tag)) {\r\n        tag.props[\"data-hid\"] = tag._h = hashCode(tag.key);\r\n      }\r\n    }\r\n  }\r\n});\r\n\r\nconst SortPlugin = defineHeadPlugin({\r\n  hooks: {\r\n    \"tags:resolve\": (ctx) => {\r\n      const tagPositionForKey = (key) => ctx.tags.find((tag) => tag._d === key)?._p;\r\n      for (const { prefix, offset } of SortModifiers) {\r\n        for (const tag of ctx.tags.filter((tag2) => typeof tag2.tagPriority === \"string\" && tag2.tagPriority.startsWith(prefix))) {\r\n          const position = tagPositionForKey(\r\n            tag.tagPriority.replace(prefix, \"\")\r\n          );\r\n          if (typeof position !== \"undefined\")\r\n            tag._p = position + offset;\r\n        }\r\n      }\r\n      ctx.tags.sort((a, b) => a._p - b._p).sort((a, b) => tagWeight(a) - tagWeight(b));\r\n    }\r\n  }\r\n});\r\n\r\nconst SupportedAttrs = {\r\n  meta: \"content\",\r\n  link: \"href\",\r\n  htmlAttrs: \"lang\"\r\n};\r\nconst TemplateParamsPlugin = defineHeadPlugin((head) => ({\r\n  hooks: {\r\n    \"tags:resolve\": (ctx) => {\r\n      const { tags } = ctx;\r\n      const title = tags.find((tag) => tag.tag === \"title\")?.textContent;\r\n      const idx = tags.findIndex((tag) => tag.tag === \"templateParams\");\r\n      const params = idx !== -1 ? tags[idx].props : {};\r\n      const sep = params.separator || \"|\";\r\n      delete params.separator;\r\n      params.pageTitle = processTemplateParams(params.pageTitle || title || \"\", params, sep);\r\n      for (const tag of tags.filter((t) => t.processTemplateParams !== false)) {\r\n        const v = SupportedAttrs[tag.tag];\r\n        if (v && typeof tag.props[v] === \"string\") {\r\n          tag.props[v] = processTemplateParams(tag.props[v], params, sep);\r\n        } else if (tag.processTemplateParams === true || [\"titleTemplate\", \"title\"].includes(tag.tag)) {\r\n          [\"innerHTML\", \"textContent\"].forEach((p) => {\r\n            if (typeof tag[p] === \"string\")\r\n              tag[p] = processTemplateParams(tag[p], params, sep);\r\n          });\r\n        }\r\n      }\r\n      head._templateParams = params;\r\n      head._separator = sep;\r\n      ctx.tags = tags.filter((tag) => tag.tag !== \"templateParams\");\r\n    }\r\n  }\r\n}));\r\n\r\nconst TitleTemplatePlugin = defineHeadPlugin({\r\n  hooks: {\r\n    \"tags:resolve\": (ctx) => {\r\n      const { tags } = ctx;\r\n      let titleTemplateIdx = tags.findIndex((i) => i.tag === \"titleTemplate\");\r\n      const titleIdx = tags.findIndex((i) => i.tag === \"title\");\r\n      if (titleIdx !== -1 && titleTemplateIdx !== -1) {\r\n        const newTitle = resolveTitleTemplate(\r\n          tags[titleTemplateIdx].textContent,\r\n          tags[titleIdx].textContent\r\n        );\r\n        if (newTitle !== null) {\r\n          tags[titleIdx].textContent = newTitle || tags[titleIdx].textContent;\r\n        } else {\r\n          delete tags[titleIdx];\r\n        }\r\n      } else if (titleTemplateIdx !== -1) {\r\n        const newTitle = resolveTitleTemplate(\r\n          tags[titleTemplateIdx].textContent\r\n        );\r\n        if (newTitle !== null) {\r\n          tags[titleTemplateIdx].textContent = newTitle;\r\n          tags[titleTemplateIdx].tag = \"title\";\r\n          titleTemplateIdx = -1;\r\n        }\r\n      }\r\n      if (titleTemplateIdx !== -1) {\r\n        delete tags[titleTemplateIdx];\r\n      }\r\n      ctx.tags = tags.filter(Boolean);\r\n    }\r\n  }\r\n});\r\n\r\nconst XSSPlugin = defineHeadPlugin({\r\n  hooks: {\r\n    \"tags:afterResolve\": function(ctx) {\r\n      for (const tag of ctx.tags) {\r\n        if (typeof tag.innerHTML === \"string\") {\r\n          if (tag.innerHTML && [\"application/ld+json\", \"application/json\"].includes(tag.props.type)) {\r\n            tag.innerHTML = tag.innerHTML.replace(/</g, \"\\\\u003C\");\r\n          } else {\r\n            tag.innerHTML = tag.innerHTML.replace(new RegExp(`</${tag.tag}`, \"g\"), `<\\\\/${tag.tag}`);\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n});\r\n\r\nlet activeHead;\r\n// @__NO_SIDE_EFFECTS__\r\nfunction createHead(options = {}) {\r\n  const head = createHeadCore(options);\r\n  head.use(DomPlugin());\r\n  return activeHead = head;\r\n}\r\n// @__NO_SIDE_EFFECTS__\r\nfunction createServerHead(options = {}) {\r\n  return activeHead = createHeadCore(options);\r\n}\r\nfunction filterMode(mode, ssr) {\r\n  return !mode || mode === \"server\" && ssr || mode === \"client\" && !ssr;\r\n}\r\nfunction createHeadCore(options = {}) {\r\n  const hooks = createHooks();\r\n  hooks.addHooks(options.hooks || {});\r\n  options.document = options.document || (IsBrowser ? document : void 0);\r\n  const ssr = !options.document;\r\n  const updated = () => {\r\n    head.dirty = true;\r\n    hooks.callHook(\"entries:updated\", head);\r\n  };\r\n  let entryCount = 0;\r\n  let entries = [];\r\n  const plugins = [];\r\n  const head = {\r\n    plugins,\r\n    dirty: false,\r\n    resolvedOptions: options,\r\n    hooks,\r\n    headEntries() {\r\n      return entries;\r\n    },\r\n    use(p) {\r\n      const plugin = typeof p === \"function\" ? p(head) : p;\r\n      if (!plugin.key || !plugins.some((p2) => p2.key === plugin.key)) {\r\n        plugins.push(plugin);\r\n        filterMode(plugin.mode, ssr) && hooks.addHooks(plugin.hooks || {});\r\n      }\r\n    },\r\n    push(input, entryOptions) {\r\n      delete entryOptions?.head;\r\n      const entry = {\r\n        _i: entryCount++,\r\n        input,\r\n        ...entryOptions\r\n      };\r\n      if (filterMode(entry.mode, ssr)) {\r\n        entries.push(entry);\r\n        updated();\r\n      }\r\n      return {\r\n        dispose() {\r\n          entries = entries.filter((e) => e._i !== entry._i);\r\n          hooks.callHook(\"entries:updated\", head);\r\n          updated();\r\n        },\r\n        // a patch is the same as creating a new entry, just a nice DX\r\n        patch(input2) {\r\n          entries = entries.map((e) => {\r\n            if (e._i === entry._i) {\r\n              e.input = entry.input = input2;\r\n            }\r\n            return e;\r\n          });\r\n          updated();\r\n        }\r\n      };\r\n    },\r\n    async resolveTags() {\r\n      const resolveCtx = { tags: [], entries: [...entries] };\r\n      await hooks.callHook(\"entries:resolve\", resolveCtx);\r\n      for (const entry of resolveCtx.entries) {\r\n        const resolved = entry.resolvedInput || entry.input;\r\n        entry.resolvedInput = await (entry.transform ? entry.transform(resolved) : resolved);\r\n        if (entry.resolvedInput) {\r\n          for (const tag of await normaliseEntryTags(entry)) {\r\n            const tagCtx = { tag, entry, resolvedOptions: head.resolvedOptions };\r\n            await hooks.callHook(\"tag:normalise\", tagCtx);\r\n            resolveCtx.tags.push(tagCtx.tag);\r\n          }\r\n        }\r\n      }\r\n      await hooks.callHook(\"tags:beforeResolve\", resolveCtx);\r\n      await hooks.callHook(\"tags:resolve\", resolveCtx);\r\n      await hooks.callHook(\"tags:afterResolve\", resolveCtx);\r\n      return resolveCtx.tags;\r\n    },\r\n    ssr\r\n  };\r\n  [\r\n    DedupePlugin,\r\n    PayloadPlugin,\r\n    EventHandlersPlugin,\r\n    HashKeyedPlugin,\r\n    SortPlugin,\r\n    TemplateParamsPlugin,\r\n    TitleTemplatePlugin,\r\n    XSSPlugin,\r\n    ...options?.plugins || []\r\n  ].forEach((p) => head.use(p));\r\n  head.hooks.callHook(\"init\", head);\r\n  return head;\r\n}\r\n\r\n// @__NO_SIDE_EFFECTS__\r\nfunction HashHydrationPlugin() {\r\n  return defineHeadPlugin({});\r\n}\r\n\r\nconst importRe = /@import/;\r\n// @__NO_SIDE_EFFECTS__\r\nfunction CapoPlugin(options) {\r\n  return defineHeadPlugin({\r\n    hooks: {\r\n      \"tags:beforeResolve\": function({ tags }) {\r\n        for (const tag of tags) {\r\n          if (tag.tagPosition && tag.tagPosition !== \"head\")\r\n            continue;\r\n          tag.tagPriority = tag.tagPriority || tagWeight(tag);\r\n          if (tag.tagPriority !== 100)\r\n            continue;\r\n          const isTruthy = (val) => val === \"\" || val === true;\r\n          const isScript = tag.tag === \"script\";\r\n          const isLink = tag.tag === \"link\";\r\n          if (isScript && isTruthy(tag.props.async)) {\r\n            tag.tagPriority = 30;\r\n          } else if (tag.tag === \"style\" && tag.innerHTML && importRe.test(tag.innerHTML)) {\r\n            tag.tagPriority = 40;\r\n          } else if (isScript && tag.props.src && !isTruthy(tag.props.defer) && !isTruthy(tag.props.async) && tag.props.type !== \"module\" && !tag.props.type?.endsWith(\"json\")) {\r\n            tag.tagPriority = 50;\r\n          } else if (isLink && tag.props.rel === \"stylesheet\" || tag.tag === \"style\") {\r\n            tag.tagPriority = 60;\r\n          } else if (isLink && [\"preload\", \"modulepreload\"].includes(tag.props.rel)) {\r\n            tag.tagPriority = 70;\r\n          } else if (isScript && isTruthy(tag.props.defer) && tag.props.src && !isTruthy(tag.props.async)) {\r\n            tag.tagPriority = 80;\r\n          } else if (isLink && [\"prefetch\", \"dns-prefetch\", \"prerender\"].includes(tag.props.rel)) {\r\n            tag.tagPriority = 90;\r\n          }\r\n        }\r\n        options?.track && tags.push({\r\n          tag: \"htmlAttrs\",\r\n          props: {\r\n            \"data-capo\": \"\"\r\n          }\r\n        });\r\n      }\r\n    }\r\n  });\r\n}\r\n\r\nconst unheadComposablesImports = [\r\n  {\r\n    from: \"unhead\",\r\n    imports: composableNames\r\n  }\r\n];\r\n\r\nfunction getActiveHead() {\r\n  return activeHead;\r\n}\r\n\r\nfunction useHead(input, options = {}) {\r\n  const head = options.head || getActiveHead();\r\n  return head?.push(input, options);\r\n}\r\n\r\nfunction useHeadSafe(input, options = {}) {\r\n  return useHead(input, {\r\n    ...options || {},\r\n    transform: whitelistSafeInput\r\n  });\r\n}\r\n\r\nfunction useServerHead(input, options = {}) {\r\n  return useHead(input, { ...options, mode: \"server\" });\r\n}\r\n\r\nfunction useServerHeadSafe(input, options = {}) {\r\n  return useHeadSafe(input, { ...options, mode: \"server\" });\r\n}\r\n\r\nfunction useSeoMeta(input, options) {\r\n  const { title, titleTemplate, ...meta } = input;\r\n  return useHead({\r\n    title,\r\n    titleTemplate,\r\n    // we need to input the meta so the reactivity will be resolved\r\n    // @ts-expect-error runtime type\r\n    _flatMeta: meta\r\n  }, {\r\n    ...options,\r\n    transform(t) {\r\n      const meta2 = unpackMeta({ ...t._flatMeta });\r\n      delete t._flatMeta;\r\n      return {\r\n        // @ts-expect-error runtime type\r\n        ...t,\r\n        meta: meta2\r\n      };\r\n    }\r\n  });\r\n}\r\n\r\nfunction useServerSeoMeta(input, options) {\r\n  return useSeoMeta(input, {\r\n    ...options || {},\r\n    mode: \"server\"\r\n  });\r\n}\r\n\r\nfunction useScript(_input, _options) {\r\n  const input = typeof _input === \"string\" ? { src: _input } : _input;\r\n  const options = _options || {};\r\n  const head = options.head || getActiveHead();\r\n  if (!head)\r\n    throw new Error(\"Missing Unhead context.\");\r\n  const id = input.key || hashCode(input.src || (typeof input.innerHTML === \"string\" ? input.innerHTML : \"\"));\r\n  const key = `use-script.${id}`;\r\n  if (head._scripts?.[id])\r\n    return head._scripts[id];\r\n  const syncStatus = (s) => {\r\n    script.status = s;\r\n    head.hooks.callHook(`script:updated`, hookCtx);\r\n  };\r\n  const trigger = typeof options.trigger !== \"undefined\" ? options.trigger : \"client\";\r\n  ScriptNetworkEvents.forEach((fn) => {\r\n    const _fn = typeof input[fn] === \"function\" ? input[fn].bind(options.eventContext) : null;\r\n    input[fn] = (e) => {\r\n      syncStatus(fn === \"onload\" ? \"loaded\" : fn === \"onerror\" ? \"error\" : \"loading\");\r\n      _fn?.(e);\r\n    };\r\n  });\r\n  const loadPromise = new Promise((resolve, reject) => {\r\n    const cleanUp = head.hooks.hook(\"script:updated\", ({ script: script2 }) => {\r\n      if (script2.id === id && (script2.status === \"loaded\" || script2.status === \"error\")) {\r\n        if (script2.status === \"loaded\")\r\n          resolve(options.use?.());\r\n        else if (script2.status === \"error\")\r\n          reject(new Error(`Failed to load script: ${input.src}`));\r\n        cleanUp();\r\n      }\r\n    });\r\n  });\r\n  const script = {\r\n    id,\r\n    status: \"awaitingLoad\",\r\n    loaded: false,\r\n    remove() {\r\n      if (script.entry) {\r\n        script.entry.dispose();\r\n        syncStatus(\"removed\");\r\n        delete head._scripts?.[id];\r\n        return true;\r\n      }\r\n      return false;\r\n    },\r\n    load() {\r\n      if (!script.entry) {\r\n        syncStatus(\"loading\");\r\n        script.entry = head.push({\r\n          script: [{ defer: true, fetchpriority: \"low\", ...input, key }]\r\n        }, options);\r\n      }\r\n      return loadPromise;\r\n    }\r\n  };\r\n  const hookCtx = { script };\r\n  if (trigger === \"client\" && !head.ssr || trigger === \"server\" && head.ssr)\r\n    script.load();\r\n  else if (trigger instanceof Promise)\r\n    trigger.then(script.load);\r\n  else if (typeof trigger === \"function\")\r\n    trigger(script.load);\r\n  const removeHook = head.hooks.hook(\"dom:renderTag\", (ctx) => {\r\n    if (ctx.tag.key !== key)\r\n      return;\r\n    if (ctx.tag.innerHTML) {\r\n      setTimeout(\r\n        () => {\r\n          syncStatus(\"loaded\");\r\n          typeof input.onload === \"function\" && input.onload.call(options.eventContext, new Event(\"load\"));\r\n        },\r\n        5\r\n        /* give inline script a chance to run */\r\n      );\r\n    }\r\n    removeHook();\r\n  });\r\n  const instance = new Proxy({}, {\r\n    get(_, fn) {\r\n      const $script = Object.assign(loadPromise, script);\r\n      const stub = options.stub?.({ script: $script, fn });\r\n      if (stub)\r\n        return stub;\r\n      if (fn === \"$script\")\r\n        return $script;\r\n      return (...args) => {\r\n        const hookCtx2 = { script, fn, args };\r\n        head.hooks.callHook(\"script:instance-fn\", hookCtx2);\r\n        if (head.ssr || !options.use)\r\n          return;\r\n        return script.status === \"loaded\" ? options.use()[fn]?.(...args) : loadPromise.then((api) => api[fn]?.(...args));\r\n      };\r\n    }\r\n  });\r\n  head._scripts = Object.assign(\r\n    head._scripts || {},\r\n    { [id]: instance }\r\n  );\r\n  return instance;\r\n}\r\n\r\nexport { CapoPlugin, HashHydrationPlugin, createHead, createHeadCore, createServerHead, getActiveHead, unheadComposablesImports, useHead, useHeadSafe, useScript, useSeoMeta, useServerHead, useServerHeadSafe, useServerSeoMeta };\r\n",
+      "start": 1714315493045,
+      "end": 1714315493262,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493262,
+      "end": 1714315493262,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493262,
+      "end": 1714315493263,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493263,
+      "end": 1714315493263,
+      "order": "normal"
+    }
+  ]
+}

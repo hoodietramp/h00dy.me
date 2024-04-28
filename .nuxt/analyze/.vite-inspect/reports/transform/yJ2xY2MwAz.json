@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unctx/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "function createContext(opts = {}) {\r\n  let currentInstance;\r\n  let isSingleton = false;\r\n  const checkConflict = (instance) => {\r\n    if (currentInstance && currentInstance !== instance) {\r\n      throw new Error(\"Context conflict\");\r\n    }\r\n  };\r\n  let als;\r\n  if (opts.asyncContext) {\r\n    const _AsyncLocalStorage = opts.AsyncLocalStorage || globalThis.AsyncLocalStorage;\r\n    if (_AsyncLocalStorage) {\r\n      als = new _AsyncLocalStorage();\r\n    } else {\r\n      console.warn(\"[unctx] `AsyncLocalStorage` is not provided.\");\r\n    }\r\n  }\r\n  const _getCurrentInstance = () => {\r\n    if (als && currentInstance === void 0) {\r\n      const instance = als.getStore();\r\n      if (instance !== void 0) {\r\n        return instance;\r\n      }\r\n    }\r\n    return currentInstance;\r\n  };\r\n  return {\r\n    use: () => {\r\n      const _instance = _getCurrentInstance();\r\n      if (_instance === void 0) {\r\n        throw new Error(\"Context is not available\");\r\n      }\r\n      return _instance;\r\n    },\r\n    tryUse: () => {\r\n      return _getCurrentInstance();\r\n    },\r\n    set: (instance, replace) => {\r\n      if (!replace) {\r\n        checkConflict(instance);\r\n      }\r\n      currentInstance = instance;\r\n      isSingleton = true;\r\n    },\r\n    unset: () => {\r\n      currentInstance = void 0;\r\n      isSingleton = false;\r\n    },\r\n    call: (instance, callback) => {\r\n      checkConflict(instance);\r\n      currentInstance = instance;\r\n      try {\r\n        return als ? als.run(instance, callback) : callback();\r\n      } finally {\r\n        if (!isSingleton) {\r\n          currentInstance = void 0;\r\n        }\r\n      }\r\n    },\r\n    async callAsync(instance, callback) {\r\n      currentInstance = instance;\r\n      const onRestore = () => {\r\n        currentInstance = instance;\r\n      };\r\n      const onLeave = () => currentInstance === instance ? onRestore : void 0;\r\n      asyncHandlers.add(onLeave);\r\n      try {\r\n        const r = als ? als.run(instance, callback) : callback();\r\n        if (!isSingleton) {\r\n          currentInstance = void 0;\r\n        }\r\n        return await r;\r\n      } finally {\r\n        asyncHandlers.delete(onLeave);\r\n      }\r\n    }\r\n  };\r\n}\r\nfunction createNamespace(defaultOpts = {}) {\r\n  const contexts = {};\r\n  return {\r\n    get(key, opts = {}) {\r\n      if (!contexts[key]) {\r\n        contexts[key] = createContext({ ...defaultOpts, ...opts });\r\n      }\r\n      contexts[key];\r\n      return contexts[key];\r\n    }\r\n  };\r\n}\r\nconst _globalThis = typeof globalThis !== \"undefined\" ? globalThis : typeof self !== \"undefined\" ? self : typeof global !== \"undefined\" ? global : typeof window !== \"undefined\" ? window : {};\r\nconst globalKey = \"__unctx__\";\r\nconst defaultNamespace = _globalThis[globalKey] || (_globalThis[globalKey] = createNamespace());\r\nconst getContext = (key, opts = {}) => defaultNamespace.get(key, opts);\r\nconst useContext = (key, opts = {}) => getContext(key, opts).use;\r\nconst asyncHandlersKey = \"__unctx_async_handlers__\";\r\nconst asyncHandlers = _globalThis[asyncHandlersKey] || (_globalThis[asyncHandlersKey] = /* @__PURE__ */ new Set());\r\nfunction executeAsync(function_) {\r\n  const restores = [];\r\n  for (const leaveHandler of asyncHandlers) {\r\n    const restore2 = leaveHandler();\r\n    if (restore2) {\r\n      restores.push(restore2);\r\n    }\r\n  }\r\n  const restore = () => {\r\n    for (const restore2 of restores) {\r\n      restore2();\r\n    }\r\n  };\r\n  let awaitable = function_();\r\n  if (awaitable && typeof awaitable === \"object\" && \"catch\" in awaitable) {\r\n    awaitable = awaitable.catch((error) => {\r\n      restore();\r\n      throw error;\r\n    });\r\n  }\r\n  return [awaitable, restore];\r\n}\r\nfunction withAsyncContext(function_, transformed) {\r\n  if (!transformed) {\r\n    console.warn(\r\n      \"[unctx] `withAsyncContext` needs transformation for async context support in\",\r\n      function_,\r\n      \"\\n\",\r\n      function_.toString()\r\n    );\r\n  }\r\n  return function_;\r\n}\r\n\r\nexport { createContext, createNamespace, defaultNamespace, executeAsync, getContext, useContext, withAsyncContext };\r\n",
+      "start": 1714315492771,
+      "end": 1714315493008,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493008,
+      "end": 1714315493008,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493008,
+      "end": 1714315493008,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493008,
+      "end": 1714315493008,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493008,
+      "end": 1714315493008,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493008,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493009,
+      "end": 1714315493009,
+      "order": "normal"
+    }
+  ]
+}

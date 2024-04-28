@@ -28,6 +28,12 @@
             <div class="social-text"><u>Y</u>outube</div>
           </div>
         </a>
+        <a href="https://discord.h00dy.me" target="_blank">
+          <div class="bar">
+            <img class="social-image" src="@/assets/iPhone-Icons/discord.png" />
+            <u>D</u>iscord
+          </div>
+        </a>
         <a href="https://www.reddit.com/user/_kunaljaglan" target="_blank">
           <div class="bar">
             <img class="social-image" src="@/assets/iPhone-Icons/Reddit.webp" />
@@ -67,7 +73,7 @@
     }
   .menu {
     width: 175px;
-    height: 320px;
+    height: 360px;
     background: rgb(255, 255, 255);
     overflow: hidden;
     border-radius: 1%;

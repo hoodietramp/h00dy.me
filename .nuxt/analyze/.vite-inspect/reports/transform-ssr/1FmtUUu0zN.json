@@ -1,0 +1,282 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue?vue&type=style&index=0&scoped=2e3bcba4&lang.css",
+  "transforms": [
+    {
+      "name": "vite:vue",
+      "result": "\r\n  @font-face {\r\n    font-family: 'Proto Mono';\r\n    src: url('/assets/fonts/proto_mono_regular.ttf') format('truetype');\r\n    font-weight: 700;\r\n    }\r\n  .menu {\r\n    width: 175px;\r\n    height: 320px;\r\n    background: rgb(255, 255, 255);\r\n    overflow: hidden;\r\n    border-radius: 1%;\r\n    border-top: solid #222222 2px;\r\n    border-left: solid #222222 2px;\r\n    border-right: solid rgb(90, 90, 90) 1.5px;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    box-shadow: 1.5px 1.5px black;\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n    align-items: flex-end;\r\n    outline: rgb(222, 222, 222) 1px solid;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;\r\n    font-size: 12px;\r\n  }\r\n  \r\n  .topbar {\r\n    height: 30px;\r\n    background-color: #cfcfcf;\r\n    font-size: 14px;\r\n    font-family: 'Ubuntu Mono', monospace;\r\n    color:rgb(0, 136, 255);\r\n    padding: 5px;\r\n    width: 100%;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    text-align: left;\r\n    }\r\n\r\n  a {\r\n    color: black;\r\n    text-decoration: none;\r\n  }\r\n  \r\n  @media only screen and (max-width: 600px) {\r\n    .sidebar {\r\n      width: 5px;\r\n      background: rgb(123, 125, 123);\r\n      height: 100%;\r\n      width: 100%;\r\n      display: flex;\r\n      align-items: flex-end;\r\n    }\r\n  }\r\n  \r\n  .divider {\r\n    width: 100%;\r\n    height: 1px;\r\n    background: rgb(8, 8, 8);\r\n    border-bottom: rgb(0, 0, 0) solid 1px;\r\n  }\r\n  \r\n  .socials {\r\n    flex-grow: 3;\r\n    width: 100%;\r\n  }\r\n  \r\n  .social-image {\r\n    width: 30px;\r\n    height: 30px;\r\n    margin-right: 10px;\r\n    border-radius: 6px;\r\n  }\r\n  \r\n  .bar {\r\n    display: flex;\r\n    flex-direction: row;\r\n    padding: 5px 10px 5px 10px;\r\n    align-items: center;\r\n  }\r\n  \r\n  .bar:hover {\r\n    background: #d9d9d9;\r\n    color: #fc7a00;\r\n  }\r\n  ",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "sourcemaps": {
+        "version": 3,
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue"
+        ],
+        "names": [],
+        "mappings": "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",
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue",
+        "sourceRoot": "",
+        "sourcesContent": [
+          "<template>\r\n    <div class=\"menu\" style=\"z-index: 1000000\">\r\n    <div class=\"topbar\">\r\n       <h4> h00dy ≈)</h4>\r\n    </div>\r\n      <div class=\"socials\">\r\n        <a href=\"https://x.com/hoodietramp\" target=\"_blank\">\r\n          <div class=\"bar\">\r\n            <img class=\"social-image\" src=\"@/assets/iPhone-Icons/x.webp\" />\r\n            <u>T</u>witter\r\n          </div>\r\n        </a>\r\n        <a href=\"https://www.instagram.com/hoodietramp/\" target=\"_blank\">\r\n          <div class=\"bar\">\r\n            <img\r\n              class=\"social-image\"\r\n              src=\"@/assets/iPhone-Icons/Instagram.webp\"\r\n            />\r\n            <div class=\"social-text\"><u>I</u>nstagram</div>\r\n          </div>\r\n        </a>\r\n        <a href=\"https://youtube.com/@hoodietramp/\" target=\"_blank\">\r\n          <div class=\"bar\">\r\n            <img\r\n              class=\"social-image\"\r\n              src=\"@/assets/iPhone-Icons/youtube.webp\"\r\n            />\r\n            <div class=\"social-text\"><u>Y</u>outube</div>\r\n          </div>\r\n        </a>\r\n        <a href=\"https://www.reddit.com/user/_kunaljaglan\" target=\"_blank\">\r\n          <div class=\"bar\">\r\n            <img class=\"social-image\" src=\"@/assets/iPhone-Icons/Reddit.webp\" />\r\n            <u>R</u>eddit\r\n          </div>\r\n        </a>\r\n        <a\r\n          href=\"https://www.linkedin.com/in/h00dy\"\r\n          target=\"_blank\"\r\n        >\r\n          <div class=\"bar\">\r\n            <img class=\"social-image\" src=\"@/assets/iPhone-Icons/Linkedin.webp\" />\r\n            <u>L</u>inkedIn\r\n          </div>\r\n        </a>\r\n        <a href=\"https://github.com/hoodietramp\" target=\"_blank\">\r\n          <div class=\"bar\">\r\n            <img class=\"social-image\" src=\"@/assets/iPhone-Icons/github.png\" />\r\n            <u>G</u>itHub\r\n          </div>\r\n        </a>\r\n        <div class=\"divider\"></div>\r\n        <a href=\"/files/Kunal_SecurityEngineer_Apr.pdf\" target=\"_blank\">\r\n          <div class=\"bar\">\r\n            <img class=\"social-image\" src=\"@/assets/win95Icons/resume.png\" />\r\n            <u>R</u>ésumé\r\n          </div>\r\n        </a>\r\n      </div>\r\n    </div>\r\n  </template>\r\n  <style scoped>\r\n  @font-face {\r\n    font-family: 'Proto Mono';\r\n    src: url('/assets/fonts/proto_mono_regular.ttf') format('truetype');\r\n    font-weight: 700;\r\n    }\r\n  .menu {\r\n    width: 175px;\r\n    height: 320px;\r\n    background: rgb(255, 255, 255);\r\n    overflow: hidden;\r\n    border-radius: 1%;\r\n    border-top: solid #222222 2px;\r\n    border-left: solid #222222 2px;\r\n    border-right: solid rgb(90, 90, 90) 1.5px;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    box-shadow: 1.5px 1.5px black;\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n    align-items: flex-end;\r\n    outline: rgb(222, 222, 222) 1px solid;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;\r\n    font-size: 12px;\r\n  }\r\n  \r\n  .topbar {\r\n    height: 30px;\r\n    background-color: #cfcfcf;\r\n    font-size: 14px;\r\n    font-family: 'Ubuntu Mono', monospace;\r\n    color:rgb(0, 136, 255);\r\n    padding: 5px;\r\n    width: 100%;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    text-align: left;\r\n    }\r\n\r\n  a {\r\n    color: black;\r\n    text-decoration: none;\r\n  }\r\n  \r\n  @media only screen and (max-width: 600px) {\r\n    .sidebar {\r\n      width: 5px;\r\n      background: rgb(123, 125, 123);\r\n      height: 100%;\r\n      width: 100%;\r\n      display: flex;\r\n      align-items: flex-end;\r\n    }\r\n  }\r\n  \r\n  .divider {\r\n    width: 100%;\r\n    height: 1px;\r\n    background: rgb(8, 8, 8);\r\n    border-bottom: rgb(0, 0, 0) solid 1px;\r\n  }\r\n  \r\n  .socials {\r\n    flex-grow: 3;\r\n    width: 100%;\r\n  }\r\n  \r\n  .social-image {\r\n    width: 30px;\r\n    height: 30px;\r\n    margin-right: 10px;\r\n    border-radius: 6px;\r\n  }\r\n  \r\n  .bar {\r\n    display: flex;\r\n    flex-direction: row;\r\n    padding: 5px 10px 5px 10px;\r\n    align-items: center;\r\n  }\r\n  \r\n  .bar:hover {\r\n    background: #d9d9d9;\r\n    color: #fc7a00;\r\n  }\r\n  </style>\r\n  <script>\r\n  export default {};\r\n  </script>\r\n  "
+        ]
+      }
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "order": "pre"
+    },
+    {
+      "name": "server-only-component-transform",
+      "start": 1714315495667,
+      "end": 1714315495667,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "result": "@font-face{font-family:Proto Mono;font-weight:700;src:url(__VITE_ASSET__FAdNab_o__) format(\"truetype\")}.menu{align-items:flex-end;align-items:flex-start;background:#fff;border-color:#222 #5a5a5a #5a5a5a #222;border-radius:1%;border-style:solid;border-width:2px 1.5px 1.5px 2px;box-shadow:1.5px 1.5px #000;display:flex;flex-direction:column;font-family:Impact,Haettenschweiler,Arial Narrow Bold,sans-serif;font-size:12px;height:320px;max-height:100%;max-width:100%;outline:1px solid #dedede;overflow:hidden;width:175px}.topbar{background-color:#cfcfcf;border-bottom:1.5px solid #5a5a5a;color:#08f;font-family:Ubuntu Mono,monospace;font-size:14px;height:30px;padding:5px;text-align:left;width:100%}a{color:#000;text-decoration:none}@media only screen and (max-width:600px){.sidebar{align-items:flex-end;background:#7b7d7b;display:flex;height:100%;width:5px;width:100%}}.divider{background:#080808;border-bottom:1px solid #000;height:1px;width:100%}.socials{flex-grow:3;width:100%}.social-image{border-radius:6px;height:30px;margin-right:10px;width:30px}.bar{align-items:center;display:flex;flex-direction:row;padding:5px 10px}.bar:hover{background:#d9d9d9;color:#fc7a00}",
+      "start": 1714315495667,
+      "end": 1714315495673,
+      "order": "normal",
+      "sourcemaps": {
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue",
+        "mappings": "AACE,WACE,sBAAyB,CAEzB,eAAgB,CADhB,oDAEA,CACF,MAaE,oBAAqB,CAIrB,sBAAuB,CAdvB,eAA8B,CAM9B,sCAA0C,CAJ1C,gBAAiB,CAIjB,kBAA0C,CAA1C,gCAA0C,CAC1C,2BAA6B,CAK7B,YAAa,CACb,qBAAsB,CAEtB,gEAAsE,CACtE,cAAe,CAjBf,YAAa,CASb,eAAgB,CAChB,cAAe,CAEf,yBAAqC,CAVrC,eAAgB,CAHhB,WAmBF,CAEA,QAEE,wBAAyB,CAMzB,iCAA0C,CAH1C,UAAsB,CADtB,iCAAqC,CADrC,cAAe,CAFf,WAAY,CAKZ,WAAY,CAGZ,eAAgB,CAFhB,UAGA,CAEF,EACE,UAAY,CACZ,oBACF,CAEA,yCACE,SAME,oBAAqB,CAJrB,kBAA8B,CAG9B,YAAa,CAFb,WAAY,CAFZ,SAAU,CAGV,UAGF,CACF,CAEA,SAGE,kBAAwB,CACxB,4BAAqC,CAFrC,UAAW,CADX,UAIF,CAEA,SACE,WAAY,CACZ,UACF,CAEA,cAIE,iBAAkB,CAFlB,WAAY,CACZ,iBAAkB,CAFlB,UAIF,CAEA,KAIE,kBAAmB,CAHnB,YAAa,CACb,kBAAmB,CACnB,gBAEF,CAEA,WACE,kBAAmB,CACnB,aACF",
+        "names": [],
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue"
+        ],
+        "sourcesContent": [
+          "\r\n  @font-face {\r\n    font-family: 'Proto Mono';\r\n    src: url('/assets/fonts/proto_mono_regular.ttf') format('truetype');\r\n    font-weight: 700;\r\n    }\r\n  .menu {\r\n    width: 175px;\r\n    height: 320px;\r\n    background: rgb(255, 255, 255);\r\n    overflow: hidden;\r\n    border-radius: 1%;\r\n    border-top: solid #222222 2px;\r\n    border-left: solid #222222 2px;\r\n    border-right: solid rgb(90, 90, 90) 1.5px;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    box-shadow: 1.5px 1.5px black;\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n    align-items: flex-end;\r\n    outline: rgb(222, 222, 222) 1px solid;\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: flex-start;\r\n    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;\r\n    font-size: 12px;\r\n  }\r\n  \r\n  .topbar {\r\n    height: 30px;\r\n    background-color: #cfcfcf;\r\n    font-size: 14px;\r\n    font-family: 'Ubuntu Mono', monospace;\r\n    color:rgb(0, 136, 255);\r\n    padding: 5px;\r\n    width: 100%;\r\n    border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n    text-align: left;\r\n    }\r\n\r\n  a {\r\n    color: black;\r\n    text-decoration: none;\r\n  }\r\n  \r\n  @media only screen and (max-width: 600px) {\r\n    .sidebar {\r\n      width: 5px;\r\n      background: rgb(123, 125, 123);\r\n      height: 100%;\r\n      width: 100%;\r\n      display: flex;\r\n      align-items: flex-end;\r\n    }\r\n  }\r\n  \r\n  .divider {\r\n    width: 100%;\r\n    height: 1px;\r\n    background: rgb(8, 8, 8);\r\n    border-bottom: rgb(0, 0, 0) solid 1px;\r\n  }\r\n  \r\n  .socials {\r\n    flex-grow: 3;\r\n    width: 100%;\r\n  }\r\n  \r\n  .social-image {\r\n    width: 30px;\r\n    height: 30px;\r\n    margin-right: 10px;\r\n    border-radius: 6px;\r\n  }\r\n  \r\n  .bar {\r\n    display: flex;\r\n    flex-direction: row;\r\n    padding: 5px 10px 5px 10px;\r\n    align-items: center;\r\n  }\r\n  \r\n  .bar:hover {\r\n    background: #d9d9d9;\r\n    color: #fc7a00;\r\n  }\r\n  "
+        ],
+        "version": 3
+      }
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315495673,
+      "end": 1714315495673,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315495673,
+      "end": 1714315495673,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315495673,
+      "end": 1714315495673,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": "@font-face{font-family:Proto Mono;font-weight:700;src:url(__VITE_ASSET__FAdNab_o__) format(\"truetype\")}.menu[data-v-2e3bcba4]{align-items:flex-end;align-items:flex-start;background:#fff;border-color:#222 #5a5a5a #5a5a5a #222;border-radius:1%;border-style:solid;border-width:2px 1.5px 1.5px 2px;box-shadow:1.5px 1.5px #000;display:flex;flex-direction:column;font-family:Impact,Haettenschweiler,Arial Narrow Bold,sans-serif;font-size:12px;height:320px;max-height:100%;max-width:100%;outline:1px solid #dedede;overflow:hidden;width:175px}.topbar[data-v-2e3bcba4]{background-color:#cfcfcf;border-bottom:1.5px solid #5a5a5a;color:#08f;font-family:Ubuntu Mono,monospace;font-size:14px;height:30px;padding:5px;text-align:left;width:100%}a[data-v-2e3bcba4]{color:#000;text-decoration:none}@media only screen and (max-width:600px){.sidebar[data-v-2e3bcba4]{align-items:flex-end;background:#7b7d7b;display:flex;height:100%;width:5px;width:100%}}.divider[data-v-2e3bcba4]{background:#080808;border-bottom:1px solid #000;height:1px;width:100%}.socials[data-v-2e3bcba4]{flex-grow:3;width:100%}.social-image[data-v-2e3bcba4]{border-radius:6px;height:30px;margin-right:10px;width:30px}.bar[data-v-2e3bcba4]{align-items:center;display:flex;flex-direction:row;padding:5px 10px}.bar[data-v-2e3bcba4]:hover{background:#d9d9d9;color:#fc7a00}",
+      "start": 1714315495673,
+      "end": 1714315495674,
+      "order": "normal",
+      "sourcemaps": {
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue",
+        "mappings": "AAAA,WAAW,sBAAsB,CAAC,eAAe,CAAC,oDAAoD,CAAC,uBAAM,oBAAoB,CAAC,sBAAsB,CAAC,eAAe,CAAC,sCAAsC,CAAC,gBAAgB,CAAC,kBAAkB,CAAC,gCAAgC,CAAC,2BAA2B,CAAC,YAAY,CAAC,qBAAqB,CAAC,gEAAgE,CAAC,cAAc,CAAC,YAAY,CAAC,eAAe,CAAC,cAAc,CAAC,yBAAyB,CAAC,eAAe,CAAC,WAAW,CAAC,yBAAQ,wBAAwB,CAAC,iCAAiC,CAAC,UAAU,CAAC,iCAAiC,CAAC,cAAc,CAAC,WAAW,CAAC,WAAW,CAAC,eAAe,CAAC,UAAU,CAAC,mBAAE,UAAU,CAAC,oBAAoB,CAAC,yCAAyC,0BAAS,oBAAoB,CAAC,kBAAkB,CAAC,YAAY,CAAC,WAAW,CAAC,SAAS,CAAC,UAAU,CAAC,CAAC,0BAAS,kBAAkB,CAAC,4BAA4B,CAAC,UAAU,CAAC,UAAU,CAAC,0BAAS,WAAW,CAAC,UAAU,CAAC,+BAAc,iBAAiB,CAAC,WAAW,CAAC,iBAAiB,CAAC,UAAU,CAAC,sBAAK,kBAAkB,CAAC,YAAY,CAAC,kBAAkB,CAAC,gBAAgB,CAAC,4BAAW,kBAAkB,CAAC,aAAa",
+        "names": [],
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/templates/StartMenu.vue"
+        ],
+        "sourcesContent": [
+          null
+        ],
+        "version": 3
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495674,
+      "end": 1714315495674,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315495674,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "result": "",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495675,
+      "end": 1714315495675,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-template",
+      "start": 1714315495675,
+      "end": 1714315495676,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315495676,
+      "end": 1714315495676,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315495676,
+      "end": 1714315495676,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315495676,
+      "end": 1714315495676,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495676,
+      "end": 1714315495676,
+      "order": "normal"
+    }
+  ]
+}

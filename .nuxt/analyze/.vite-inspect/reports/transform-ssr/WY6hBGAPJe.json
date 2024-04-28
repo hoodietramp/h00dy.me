@@ -1,0 +1,290 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/app.vue?vue&type=style&index=0&lang.css",
+  "transforms": [
+    {
+      "name": "vite:vue",
+      "result": "\r\n@import \"./assets/css/utils/normalize.css\";\r\n@import \"./assets/css/windows/app.css\";\r\n@import \"./assets/css/windows/window.css\";\r\n@import \"./assets/css/windows/appgrid.css\";\r\n\r\n@font-face {\r\n  font-family: \"MS Sans Serif\";\r\n  src: url(\"@/assets/fonts/MS-Sans-Serif.ttf\");\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Utilities\r\n\\*-------------------------------------------*/\r\n\r\nhtml {\r\n  overflow: hidden;\r\n}\r\n\r\nh6 {\r\n  margin-top: 5px !important;\r\n}\r\n\r\n#app {\r\n  /* font-family: \"Trebuchet MS\", Arial, Helvetica, sans-serif; */\r\n  font-family: 'MS Sans Serif', monospace;\r\n  font-weight: 300;\r\n  font-size: 1rem;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  display: flex;\r\n  width: 100%;\r\n  height: calc(var(--vh, 1vh) * 100);\r\n  flex-direction: column;\r\n}\r\n\r\n.screen {\r\n  width: 100%;\r\n  position: relative;\r\n  z-index: 999;\r\n}\r\n\r\n::-webkit-scrollbar {\r\n  width: 15px;\r\n  background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,\r\n      rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n  background: rgb(189, 190, 189);\r\n  /* box-shadow: 1.5px 1.5px black; */\r\n  border-top: solid rgb(250, 250, 250) 1.5px;\r\n  border-left: solid rgb(250, 250, 250) 1.5px;\r\n  border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n  border-right: solid rgb(90, 90, 90) 1.5px;\r\n  outline: rgb(219, 219, 219);\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Fullscreen\r\n\\*-------------------------------------------*/\r\n\r\n.fullscreen {\r\n  left: 0 !important;\r\n  position: relative;\r\n  display: block;\r\n  top: 0 !important;\r\n  right: 0 !important;\r\n}\r\n",
+      "start": 1714315495482,
+      "end": 1714315495483,
+      "sourcemaps": {
+        "version": 3,
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/app.vue"
+        ],
+        "names": [],
+        "mappings": ";AA+FA,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AAC1C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACtC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACzC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;;AAE1C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE;EACT,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;EAC5B,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CA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AAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC;EAC1C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC;EAC3C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC;EAC1C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC;EACzC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC;AAC7B;;AAEA,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;IAC1C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACb,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;;AAE9C,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE;EACV,CAAC,CAAC,CAAC,CAAC,EAAE,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;EAClB,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;EAClB,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC;EACd,CAAC,CAAC,CAAC,EAAE,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;EACjB,CAAC,CAAC,CAAC,CAAC,CAAC,EAAE,EAAE,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC;AACrB",
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/app.vue",
+        "sourceRoot": "",
+        "sourcesContent": [
+          "<script setup>\r\nimport FileWindow from './templates/FileWindow.vue'\r\nimport Window from './templates/Window.vue'\r\nimport Navbar from './templates/Navbar.vue'\r\nimport AppGrid from './templates/AppGrid.vue'\r\nimport Bio from './views/Bio.vue'\r\nimport Resume from './views/Resume.vue'\r\nimport ImagePreviewWindow from './templates/ImagePreviewWindow.vue'\r\nimport StartMenu from './templates/StartMenu.vue'\r\nimport {\r\n  useWindowsStore\r\n} from './stores/windows'\r\nconst windowsStore = useWindowsStore()\r\nconst windows = windowsStore.windows\r\n\r\nconst windowComponents = [\r\n  { name: 'window', comp: Window },\r\n  { name: 'ImagePreviewWindow', comp: ImagePreviewWindow },\r\n  { name: 'FilesWindow', comp: FileWindow }\r\n]\r\n\r\nconst slotViews = [\r\n  { name: 'bio', comp: Bio },\r\n  { name: 'resume', comp: Resume },\r\n]\r\n\r\nconst windowCheck = (windowId) => {\r\n  if (windowsStore.getWindowById(windowId).windowState == \"open\") {\r\n    return true\r\n  }\r\n}\r\n\r\nconst deinitWindows = () => {\r\n  if (windowsStore.activeWindow == \"Menu\") {\r\n    windowsStore.setActiveWindow(\"\")\r\n    windowsStore.zIndexIncrement(\"\")\r\n  }\r\n}\r\n\r\nconst openWindow = (windowId) => {\r\n  const payload = {\r\n    windowState: \"open\",\r\n    windowId: windowId\r\n  }\r\n  windowsStore.setWindowState(payload)\r\n}\r\n\r\nonMounted(() => {\r\n  let navbar = document.getElementById(\"navbar\");\r\n  let navbarHeight = navbar.clientHeight;\r\n\r\n  document.getElementById(\"screen\").style.height =\r\n    window.innerHeight - navbarHeight + \"px\";\r\n\r\n  window.addEventListener(\"resize\", () => {\r\n    let vh = window.innerHeight * 0.01;\r\n    document.documentElement.style.setProperty(\"--vh\", `${vh}px`);\r\n  });\r\n  openWindow('BiographyWindow')\r\n})\r\n\r\n</script>\r\n\r\n<template>\r\n  <title>Kunal Jaglan - h00dy</title>\r\n  <meta name=\"author\" content=\"Kunal Jaglan\">\r\n  <meta name=\"description\" content=\"Kunal Jaglan, also know by his alias h00dy, is a seasoned cybersecurity expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. His love for CTFs and dedication brings a blend of experience, wisdom, and adaptability to his work. Rooted in strong ethical principles and passion for working tirelessly, Kunal proves to be an invaluable asset in any cybersecurity endeavor.\">\r\n  <div id=\"app\">\r\n    <div class=\"screen\" id=\"screen\" @click=\"deinitWindows\">\r\n      <div v-for=\"window in windows\" :key=\"window.key\" :aria-label=\"window.displayName\">\r\n        <component :is=\"windowComponents.find(comp => comp.name === window.windowComponent).comp\"\r\n          :nameOfWindow=\"window.windowId\" :content_padding_bottom=\"window.windowContentPadding['bottom']\"\r\n          :content_padding_left=\"window.windowContentPadding['left']\"\r\n          :content_padding_right=\"window.windowContentPadding['right']\"\r\n          :content_padding_top=\"window.windowContentPadding['top']\" :id=\"window.windowId\" :style=\"{\r\n            position: window.position,\r\n            left: window.positionX,\r\n            top: window.positionY,\r\n          }\" :folderContent=\"window.folderContent\" :folderSize=\"window.folderSize\"\r\n          v-if=\"windowCheck(window.windowId)\">\r\n          <template v-slot:content>\r\n            <component :is=\"slotViews.find(comp => comp.name === window.windowContent).comp\"></component>\r\n          </template>\r\n        </component>\r\n      </div>\r\n      <AppGrid />\r\n    </div>\r\n    <StartMenu v-if=\"windowsStore.activeWindow == 'Menu'\"\r\n      style=\"position: absolute; z-index: 9999; left: 0; bottom: 36px\">\r\n    </StartMenu>\r\n    <navbar style=\"position: absolute; bottom: 0; z-index: 9999\" id=\"navbar\" />\r\n  </div>\r\n</template>\r\n\r\n<style>\r\n@import \"./assets/css/utils/normalize.css\";\r\n@import \"./assets/css/windows/app.css\";\r\n@import \"./assets/css/windows/window.css\";\r\n@import \"./assets/css/windows/appgrid.css\";\r\n\r\n@font-face {\r\n  font-family: \"MS Sans Serif\";\r\n  src: url(\"@/assets/fonts/MS-Sans-Serif.ttf\");\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Utilities\r\n\\*-------------------------------------------*/\r\n\r\nhtml {\r\n  overflow: hidden;\r\n}\r\n\r\nh6 {\r\n  margin-top: 5px !important;\r\n}\r\n\r\n#app {\r\n  /* font-family: \"Trebuchet MS\", Arial, Helvetica, sans-serif; */\r\n  font-family: 'MS Sans Serif', monospace;\r\n  font-weight: 300;\r\n  font-size: 1rem;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  display: flex;\r\n  width: 100%;\r\n  height: calc(var(--vh, 1vh) * 100);\r\n  flex-direction: column;\r\n}\r\n\r\n.screen {\r\n  width: 100%;\r\n  position: relative;\r\n  z-index: 999;\r\n}\r\n\r\n::-webkit-scrollbar {\r\n  width: 15px;\r\n  background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,\r\n      rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n  background: rgb(189, 190, 189);\r\n  /* box-shadow: 1.5px 1.5px black; */\r\n  border-top: solid rgb(250, 250, 250) 1.5px;\r\n  border-left: solid rgb(250, 250, 250) 1.5px;\r\n  border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n  border-right: solid rgb(90, 90, 90) 1.5px;\r\n  outline: rgb(219, 219, 219);\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Fullscreen\r\n\\*-------------------------------------------*/\r\n\r\n.fullscreen {\r\n  left: 0 !important;\r\n  position: relative;\r\n  display: block;\r\n  top: 0 !important;\r\n  right: 0 !important;\r\n}\r\n</style>\r\n\r\n<script>\r\nexport default {\r\n  data() {\r\n    const jsonld = {\r\n      \"@context\": \"http://schema.org\",\r\n      \"@type\": \"Person\",\r\n      \"name\": [\"Kunal Jaglan\", \"h00dy\", \"hoodietramp\", \"Kunal Jaglan h00dy\"],\r\n      \"image\": \"img/avatar.png\",\r\n      \"jobTitle\": [\"Pentester\", \"Red Teamer\", \"Cyber Security\"],\r\n      \"description\": \"Kunal Jaglan, also know by his alias h00dy, is a seasoned expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. He brings a blend of experience, wisdom, and adaptability to the work, ethics making him a valuable asset in any cybersecurity endeavor.\",\r\n      \"url\": \"https://h00dy.me\",\r\n      \"sameAs\": [\r\n        \"https://facebook.com/0xh00dy\",\r\n        \"https://twitter.com/hoodietramp\",\r\n        \"https://instagram.com/hoodietramp\",\r\n        \"https://youtube.com/@hoodietramp\",\r\n        \"https://twitch.tv/hoodietramp\",\r\n        \"https://linkedin.com/in/h00dy\",\r\n        \"https://github.com/hoodietramp\",\r\n      ],\r\n      \"birthDate\": \"2004-02-14\"\r\n    }\r\n\r\n    return {\r\n      jsonld\r\n    }\r\n  }\r\n}\r\n</script>"
+        ]
+      }
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495483,
+      "end": 1714315495483,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495483,
+      "end": 1714315495483,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495483,
+      "end": 1714315495483,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495483,
+      "end": 1714315495483,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315495483,
+      "end": 1714315495483,
+      "order": "pre"
+    },
+    {
+      "name": "server-only-component-transform",
+      "start": 1714315495483,
+      "end": 1714315495483,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "result": "normalize.css v8\\.0\\.1|MIT License|github.com/necolas/normalize.css html{line-height:1.15;-webkit-text-size-adjust:100%}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0;padding:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}[hidden],template{display:none}body{background:#000;background-image:url(__VITE_ASSET__nopfhLPd__);background-position:50%;background-size:cover;margin:0;overflow:hidden;padding:0}.window-style{background:#c3c3c3;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:2px 1.5px 1.5px 2px;box-shadow:1.5px 1.5px #000;max-height:100vh!important;max-width:100vw!important;min-height:80vh;min-width:50vw;outline:1px solid #dedede}@media only screen and (max-width:600px){.window-style{min-height:70vh;min-width:100vw}}.close-button,.expand-button,.minimize-button{align-items:center;background:#c3c3c3;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:1px;box-shadow:1px 1px #000;display:flex;font-size:20px;font-weight:700;height:16px;justify-content:center;margin-left:2px;width:16px}.close-button:active,.expand-button:active,.minimize-button:active{background:silver;border-color:#000 #fafafa #fafafa #000;border-radius:0;border-style:solid;border-width:1.5px;box-shadow:none}.triple-button{align-items:center;display:flex;justify-content:space-between}.button:hover{cursor:pointer}.top-bar:hover{cursor:default}.window-name{align-items:center;color:#fff;display:flex;font-weight:700;margin:0 0 0 3px;padding:0}p{margin:0}.grid-container{flex-wrap:wrap;margin-top:10px;width:0}.grid-container,.icon{display:flex;flex-direction:column}.icon{align-items:center;color:#000;margin:1rem;text-align:center;width:60%}.icon-text{color:#fff;font-size:smaller;margin:1px}.icon-image{height:30px;margin-bottom:5px;width:30px}.icon:focus .icon-image{filter:grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(.9)}.icon:focus .icon-text{background:#000076;color:#fff;margin:0}.icon:focus .border-box{border:1px dotted #ffff94}p{margin:1vw 0 0}li,p{padding:0}li{list-style-type:none;margin:0}button{background:none;border:none;color:inherit;font:inherit;outline:inherit}@font-face{font-family:\"MS Sans Serif\";src:url(__VITE_ASSET__B13HPOzX__)}html{overflow:hidden}h6{margin-top:5px!important}#app{font-family:\"MS Sans Serif\",monospace;font-size:1rem;font-weight:300;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:flex;flex-direction:column;height:calc(var(--vh, 1vh)*100);width:100%}.screen{position:relative;width:100%;z-index:999}::-webkit-scrollbar{background:repeating-conic-gradient(#bdbebd 0 25%,#fff 0 50%) 50% /2px 2px;width:15px}::-webkit-scrollbar-thumb{background:#bdbebd;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:1.5px;outline:#dbdbdb}.fullscreen{display:block;left:0!important;position:relative;right:0!important;top:0!important}",
+      "start": 1714315495483,
+      "end": 1714315495921,
+      "order": "normal",
+      "sourcemaps": {
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/app.vue",
+        "mappings": "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",
+        "names": [],
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/assets/css/utils/normalize.css",
+          "C:/Users/h00dy/Documents/github/h00dy.me/assets/css/windows/app.css",
+          "C:/Users/h00dy/Documents/github/h00dy.me/assets/css/windows/window.css",
+          "C:/Users/h00dy/Documents/github/h00dy.me/assets/css/windows/appgrid.css",
+          "C:/Users/h00dy/Documents/github/h00dy.me/app.vue"
+        ],
+        "sourcesContent": [
+          "normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css\r\n\r\n/* Document\r\n   ========================================================================== */\r\n\r\n/**\r\n * 1. Correct the line height in all browsers.\r\n * 2. Prevent adjustments of font size after orientation changes in iOS.\r\n */\r\n\r\n html {\r\n    line-height: 1.15; /* 1 */\r\n    -webkit-text-size-adjust: 100%; /* 2 */\r\n  }\r\n  \r\n  /* Sections\r\n       ========================================================================== */\r\n  \r\n  /**\r\n     * Remove the margin in all browsers.\r\n     */\r\n  \r\n  body {\r\n    margin: 0;\r\n  }\r\n  \r\n  /**\r\n     * Render the `main` element consistently in IE.\r\n     */\r\n  \r\n  main {\r\n    display: block;\r\n  }\r\n  \r\n  /**\r\n     * Correct the font size and margin on `h1` elements within `section` and\r\n     * `article` contexts in Chrome, Firefox, and Safari.\r\n     */\r\n  \r\n  h1 {\r\n    font-size: 2em;\r\n    margin: 0.67em 0;\r\n  }\r\n  \r\n  /* Grouping content\r\n       ========================================================================== */\r\n  \r\n  /**\r\n     * 1. Add the correct box sizing in Firefox.\r\n     * 2. Show the overflow in Edge and IE.\r\n     */\r\n  \r\n  hr {\r\n    box-sizing: content-box; /* 1 */\r\n    height: 0; /* 1 */\r\n    overflow: visible; /* 2 */\r\n  }\r\n  \r\n  /**\r\n     * 1. Correct the inheritance and scaling of font size in all browsers.\r\n     * 2. Correct the odd `em` font sizing in all browsers.\r\n     */\r\n  \r\n  pre {\r\n    font-family: monospace, monospace; /* 1 */\r\n    font-size: 1em; /* 2 */\r\n  }\r\n  \r\n  /* Text-level semantics\r\n       ========================================================================== */\r\n  \r\n  /**\r\n     * Remove the gray background on active links in IE 10.\r\n     */\r\n  \r\n  a {\r\n    background-color: transparent;\r\n  }\r\n  \r\n  /**\r\n     * 1. Remove the bottom border in Chrome 57-\r\n     * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\r\n     */\r\n  \r\n  abbr[title] {\r\n    border-bottom: none; /* 1 */\r\n    text-decoration: underline; /* 2 */\r\n    text-decoration: underline dotted; /* 2 */\r\n  }\r\n  \r\n  /**\r\n     * Add the correct font weight in Chrome, Edge, and Safari.\r\n     */\r\n  \r\n  b,\r\n  strong {\r\n    font-weight: bolder;\r\n  }\r\n  \r\n  /**\r\n     * 1. Correct the inheritance and scaling of font size in all browsers.\r\n     * 2. Correct the odd `em` font sizing in all browsers.\r\n     */\r\n  \r\n  code,\r\n  kbd,\r\n  samp {\r\n    font-family: monospace, monospace; /* 1 */\r\n    font-size: 1em; /* 2 */\r\n  }\r\n  \r\n  /**\r\n     * Add the correct font size in all browsers.\r\n     */\r\n  \r\n  small {\r\n    font-size: 80%;\r\n  }\r\n  \r\n  /**\r\n     * Prevent `sub` and `sup` elements from affecting the line height in\r\n     * all browsers.\r\n     */\r\n  \r\n  sub,\r\n  sup {\r\n    font-size: 75%;\r\n    line-height: 0;\r\n    position: relative;\r\n    vertical-align: baseline;\r\n  }\r\n  \r\n  sub {\r\n    bottom: -0.25em;\r\n  }\r\n  \r\n  sup {\r\n    top: -0.5em;\r\n  }\r\n  \r\n  /* Embedded content\r\n       ========================================================================== */\r\n  \r\n  /**\r\n     * Remove the border on images inside links in IE 10.\r\n     */\r\n  \r\n  img {\r\n    border-style: none;\r\n  }\r\n  \r\n  /* Forms\r\n       ========================================================================== */\r\n  \r\n  /**\r\n     * 1. Change the font styles in all browsers.\r\n     * 2. Remove the margin in Firefox and Safari.\r\n     */\r\n  \r\n  button,\r\n  input,\r\n  optgroup,\r\n  select,\r\n  textarea {\r\n    font-family: inherit; /* 1 */\r\n    font-size: 100%; /* 1 */\r\n    line-height: 1.15; /* 1 */\r\n    margin: 0; /* 2 */\r\n    padding: 0;\r\n  }\r\n  \r\n  /**\r\n     * Show the overflow in IE.\r\n     * 1. Show the overflow in Edge.\r\n     */\r\n  \r\n  button,\r\n  input {\r\n    /* 1 */\r\n    overflow: visible;\r\n  }\r\n  \r\n  /**\r\n     * Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n     * 1. Remove the inheritance of text transform in Firefox.\r\n     */\r\n  \r\n  button,\r\n  select {\r\n    /* 1 */\r\n    text-transform: none;\r\n  }\r\n  \r\n  /**\r\n     * Correct the inability to style clickable types in iOS and Safari.\r\n     */\r\n  \r\n  button,\r\n  [type=\"button\"],\r\n  [type=\"reset\"],\r\n  [type=\"submit\"] {\r\n    -webkit-appearance: button;\r\n  }\r\n  \r\n  /**\r\n     * Remove the inner border and padding in Firefox.\r\n     */\r\n  \r\n  button::-moz-focus-inner,\r\n  [type=\"button\"]::-moz-focus-inner,\r\n  [type=\"reset\"]::-moz-focus-inner,\r\n  [type=\"submit\"]::-moz-focus-inner {\r\n    border-style: none;\r\n    padding: 0;\r\n  }\r\n  \r\n  /**\r\n     * Restore the focus styles unset by the previous rule.\r\n     */\r\n  \r\n  button:-moz-focusring,\r\n  [type=\"button\"]:-moz-focusring,\r\n  [type=\"reset\"]:-moz-focusring,\r\n  [type=\"submit\"]:-moz-focusring {\r\n    outline: 1px dotted ButtonText;\r\n  }\r\n  \r\n  /**\r\n     * Correct the padding in Firefox.\r\n     */\r\n  \r\n  fieldset {\r\n    padding: 0.35em 0.75em 0.625em;\r\n  }\r\n  \r\n  /**\r\n     * 1. Correct the text wrapping in Edge and IE.\r\n     * 2. Correct the color inheritance from `fieldset` elements in IE.\r\n     * 3. Remove the padding so developers are not caught out when they zero out\r\n     *    `fieldset` elements in all browsers.\r\n     */\r\n  \r\n  legend {\r\n    box-sizing: border-box; /* 1 */\r\n    color: inherit; /* 2 */\r\n    display: table; /* 1 */\r\n    max-width: 100%; /* 1 */\r\n    padding: 0; /* 3 */\r\n    white-space: normal; /* 1 */\r\n  }\r\n  \r\n  /**\r\n     * Add the correct vertical alignment in Chrome, Firefox, and Opera.\r\n     */\r\n  \r\n  progress {\r\n    vertical-align: baseline;\r\n  }\r\n  \r\n  /**\r\n     * Remove the default vertical scrollbar in IE 10+.\r\n     */\r\n  \r\n  textarea {\r\n    overflow: auto;\r\n  }\r\n  \r\n  /**\r\n     * 1. Add the correct box sizing in IE 10.\r\n     * 2. Remove the padding in IE 10.\r\n     */\r\n  \r\n  [type=\"checkbox\"],\r\n  [type=\"radio\"] {\r\n    box-sizing: border-box; /* 1 */\r\n    padding: 0; /* 2 */\r\n  }\r\n  \r\n  /**\r\n     * Correct the cursor style of increment and decrement buttons in Chrome.\r\n     */\r\n  \r\n  [type=\"number\"]::-webkit-inner-spin-button,\r\n  [type=\"number\"]::-webkit-outer-spin-button {\r\n    height: auto;\r\n  }\r\n  \r\n  /**\r\n     * 1. Correct the odd appearance in Chrome and Safari.\r\n     * 2. Correct the outline style in Safari.\r\n     */\r\n  \r\n  [type=\"search\"] {\r\n    -webkit-appearance: textfield; /* 1 */\r\n    outline-offset: -2px; /* 2 */\r\n  }\r\n  \r\n  /**\r\n     * Remove the inner padding in Chrome and Safari on macOS.\r\n     */\r\n  \r\n  [type=\"search\"]::-webkit-search-decoration {\r\n    -webkit-appearance: none;\r\n  }\r\n  \r\n  /**\r\n     * 1. Correct the inability to style clickable types in iOS and Safari.\r\n     * 2. Change font properties to `inherit` in Safari.\r\n     */\r\n  \r\n  ::-webkit-file-upload-button {\r\n    -webkit-appearance: button; /* 1 */\r\n    font: inherit; /* 2 */\r\n  }\r\n  \r\n  /* Interactive\r\n       ========================================================================== */\r\n  \r\n  /*\r\n     * Add the correct display in Edge, IE 10+, and Firefox.\r\n     */\r\n  \r\n  details {\r\n    display: block;\r\n  }\r\n  \r\n  /*\r\n     * Add the correct display in all browsers.\r\n     */\r\n  \r\n  summary {\r\n    display: list-item;\r\n  }\r\n  \r\n  /* Misc\r\n       ========================================================================== */\r\n  \r\n  /**\r\n     * Add the correct display in IE 10+.\r\n     */\r\n  \r\n  template {\r\n    display: none;\r\n  }\r\n  \r\n  /**\r\n     * Add the correct display in IE 10.\r\n     */\r\n  \r\n  [hidden] {\r\n    display: none;\r\n  }\r\n  ",
+          "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    background: #000000;\r\n    background-image: url('/assets/anonymous.jpeg');\r\n    background-size: cover;\r\n    background-position: center;\r\n  }\r\n  ",
+          "/*-------------------------------------------*\\\r\n    Windows/Display\r\n\\*-------------------------------------------*/\r\n\r\n.window-style {\r\n  background: #c3c3c3;\r\n  border-top: solid rgb(250, 250, 250) 2px;\r\n  border-left: solid rgb(250, 250, 250) 2px;\r\n  border-right: solid rgb(90, 90, 90) 1.5px;\r\n  border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n  box-shadow: 1.5px 1.5px black;\r\n  outline: rgb(222, 222, 222) 1px solid;\r\n  min-height: 80vh;\r\n  min-width: 50vw;\r\n  max-width: 100vw !important;\r\n  max-height: 100vh !important;\r\n}\r\n\r\n.window {\r\n  \r\n}\r\n\r\n@media only screen and (max-width: 600px) {\r\n  .window-style {\r\n    min-height: 70vh;\r\n    min-width: 100vw;\r\n  }\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Buttons \r\n\\*-------------------------------------------*/\r\n\r\n.expand-button,\r\n.minimize-button,\r\n.close-button {\r\n  background: rgb(195, 195, 195);\r\n  border-top: solid rgb(250, 250, 250) 1px;\r\n  border-left: solid rgb(250, 250, 250) 1px;\r\n  border-right: solid rgb(90, 90, 90) 1px;\r\n  border-bottom: solid rgb(90, 90, 90) 1px;\r\n  box-shadow: 1px 1px black;\r\n  height: 16px;\r\n  width: 16px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  margin-left: 2px;\r\n}\r\n\r\n.expand-button:active,\r\n.minimize-button:active,\r\n.close-button:active {\r\n  border-radius: 0px;\r\n  background: rgb(192, 192, 192);\r\n  box-shadow: none;\r\n  border-top: solid rgb(0, 0, 0) 1.5px;\r\n  border-left: solid rgb(0, 0, 0) 1.5px;\r\n  border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n  border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.triple-button {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button:hover {\r\n  cursor: pointer;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Top Bar\r\n\\*-------------------------------------------*/\r\n\r\n.top-bar:hover {\r\n  cursor: default;\r\n}\r\n\r\n.window-name {\r\n  color: white;\r\n  display: flex;\r\n  align-items: center;\r\n  font-weight: 700;\r\n  padding: 0;\r\n  margin: 0 0 0 3px;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    CSS Normalisation \r\n\\*-------------------------------------------*/\r\n\r\nbutton {\r\n  background: none;\r\n  color: inherit;\r\n  border: none;\r\n  font: inherit;\r\n  outline: inherit;\r\n}\r\n\r\np {\r\n  margin: 0 0 0 0;\r\n  padding: 0 0 0 0;\r\n}\r\n",
+          "/*-------------------------------------------*\\\r\n    Grid \r\n\\*-------------------------------------------*/\r\n\r\n.grid-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  flex-wrap: wrap;\r\n  width: 0;\r\n  margin-top: 10px;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Icons\r\n\\*-------------------------------------------*/\r\n\r\n.icon {\r\n  color: black;\r\n  display: flex;\r\n  flex-direction: column;\r\n  margin: 1rem;\r\n  align-items: center;\r\n  text-align: center;\r\n  width: 60%;\r\n}\r\n\r\n.icon-text {\r\n  color: white;\r\n  margin: 1px;\r\n  font-size: smaller;\r\n}\r\n\r\n.border-box {\r\n}\r\n\r\n.icon-image {\r\n  width: 30px;\r\n  height: 30px;\r\n  margin-bottom: 5px;\r\n}\r\n\r\n.icon:focus .icon-image {\r\n  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg)\r\n    saturate(400%) contrast(0.9);\r\n}\r\n\r\n.icon:focus .icon-text {\r\n  background: rgb(0, 0, 118);\r\n  color: white;\r\n  margin: 0px;\r\n}\r\n\r\n.icon:focus .border-box {\r\n  border: rgb(255, 255, 148) dotted 1px;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    CSS Normalisation \r\n\\*-------------------------------------------*/\r\n\r\np {\r\n  margin: 1vw 0 0 0;\r\n  padding: 0 0 0 0;\r\n}\r\n\r\nli {\r\n  list-style-type: none;\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\nbutton {\r\n  background: none;\r\n  color: inherit;\r\n  border: none;\r\n  font: inherit;\r\n  outline: inherit;\r\n}\r\n",
+          "\r\n@import \"./assets/css/utils/normalize.css\";\r\n@import \"./assets/css/windows/app.css\";\r\n@import \"./assets/css/windows/window.css\";\r\n@import \"./assets/css/windows/appgrid.css\";\r\n\r\n@font-face {\r\n  font-family: \"MS Sans Serif\";\r\n  src: url(\"@/assets/fonts/MS-Sans-Serif.ttf\");\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Utilities\r\n\\*-------------------------------------------*/\r\n\r\nhtml {\r\n  overflow: hidden;\r\n}\r\n\r\nh6 {\r\n  margin-top: 5px !important;\r\n}\r\n\r\n#app {\r\n  /* font-family: \"Trebuchet MS\", Arial, Helvetica, sans-serif; */\r\n  font-family: 'MS Sans Serif', monospace;\r\n  font-weight: 300;\r\n  font-size: 1rem;\r\n  -webkit-font-smoothing: antialiased;\r\n  -moz-osx-font-smoothing: grayscale;\r\n  display: flex;\r\n  width: 100%;\r\n  height: calc(var(--vh, 1vh) * 100);\r\n  flex-direction: column;\r\n}\r\n\r\n.screen {\r\n  width: 100%;\r\n  position: relative;\r\n  z-index: 999;\r\n}\r\n\r\n::-webkit-scrollbar {\r\n  width: 15px;\r\n  background: repeating-conic-gradient(rgb(189, 190, 189) 0% 25%,\r\n      rgb(255, 255, 255) 0% 50%) 50% / 2px 2px;\r\n}\r\n\r\n::-webkit-scrollbar-thumb {\r\n  background: rgb(189, 190, 189);\r\n  /* box-shadow: 1.5px 1.5px black; */\r\n  border-top: solid rgb(250, 250, 250) 1.5px;\r\n  border-left: solid rgb(250, 250, 250) 1.5px;\r\n  border-bottom: solid rgb(90, 90, 90) 1.5px;\r\n  border-right: solid rgb(90, 90, 90) 1.5px;\r\n  outline: rgb(219, 219, 219);\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Fullscreen\r\n\\*-------------------------------------------*/\r\n\r\n.fullscreen {\r\n  left: 0 !important;\r\n  position: relative;\r\n  display: block;\r\n  top: 0 !important;\r\n  right: 0 !important;\r\n}\r\n"
+        ],
+        "version": 3
+      }
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315495921,
+      "end": 1714315495921,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315495921,
+      "end": 1714315495921,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315495921,
+      "end": 1714315495921,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": "normalize.css v8\\.0\\.1|MIT License|github.com/necolas/normalize.css html{line-height:1.15;-webkit-text-size-adjust:100%}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0;padding:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}[hidden],template{display:none}body{background:#000;background-image:url(__VITE_ASSET__nopfhLPd__);background-position:50%;background-size:cover;margin:0;overflow:hidden;padding:0}.window-style{background:#c3c3c3;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:2px 1.5px 1.5px 2px;box-shadow:1.5px 1.5px #000;max-height:100vh!important;max-width:100vw!important;min-height:80vh;min-width:50vw;outline:1px solid #dedede}@media only screen and (max-width:600px){.window-style{min-height:70vh;min-width:100vw}}.close-button,.expand-button,.minimize-button{align-items:center;background:#c3c3c3;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:1px;box-shadow:1px 1px #000;display:flex;font-size:20px;font-weight:700;height:16px;justify-content:center;margin-left:2px;width:16px}.close-button:active,.expand-button:active,.minimize-button:active{background:silver;border-color:#000 #fafafa #fafafa #000;border-radius:0;border-style:solid;border-width:1.5px;box-shadow:none}.triple-button{align-items:center;display:flex;justify-content:space-between}.button:hover{cursor:pointer}.top-bar:hover{cursor:default}.window-name{align-items:center;color:#fff;display:flex;font-weight:700;margin:0 0 0 3px;padding:0}p{margin:0}.grid-container{flex-wrap:wrap;margin-top:10px;width:0}.grid-container,.icon{display:flex;flex-direction:column}.icon{align-items:center;color:#000;margin:1rem;text-align:center;width:60%}.icon-text{color:#fff;font-size:smaller;margin:1px}.icon-image{height:30px;margin-bottom:5px;width:30px}.icon:focus .icon-image{filter:grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(.9)}.icon:focus .icon-text{background:#000076;color:#fff;margin:0}.icon:focus .border-box{border:1px dotted #ffff94}p{margin:1vw 0 0}li,p{padding:0}li{list-style-type:none;margin:0}button{background:none;border:none;color:inherit;font:inherit;outline:inherit}@font-face{font-family:\"MS Sans Serif\";src:url(__VITE_ASSET__B13HPOzX__)}html{overflow:hidden}h6{margin-top:5px!important}#app{font-family:\"MS Sans Serif\",monospace;font-size:1rem;font-weight:300;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:flex;flex-direction:column;height:calc(var(--vh, 1vh)*100);width:100%}.screen{position:relative;width:100%;z-index:999}::-webkit-scrollbar{background:repeating-conic-gradient(#bdbebd 0 25%,#fff 0 50%) 50% /2px 2px;width:15px}::-webkit-scrollbar-thumb{background:#bdbebd;border-color:#fafafa #5a5a5a #5a5a5a #fafafa;border-style:solid;border-width:1.5px;outline:#dbdbdb}.fullscreen{display:block;left:0!important;position:relative;right:0!important;top:0!important}",
+      "start": 1714315495921,
+      "end": 1714315495922,
+      "order": "normal",
+      "sourcemaps": {
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/app.vue",
+        "mappings": "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",
+        "names": [],
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/app.vue"
+        ],
+        "sourcesContent": [
+          null
+        ],
+        "version": 3
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495922,
+      "end": 1714315495922,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315495922,
+      "end": 1714315495923,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315495923,
+      "end": 1714315495923,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "result": "",
+      "start": 1714315495923,
+      "end": 1714315495923,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315495923,
+      "end": 1714315495923,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315495923,
+      "end": 1714315495923,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315495923,
+      "end": 1714315495923,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315495923,
+      "end": 1714315495924,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-template",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495924,
+      "end": 1714315495924,
+      "order": "normal"
+    }
+  ]
+}

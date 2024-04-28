@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/devalue/src/parse.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import {\r\n\tHOLE,\r\n\tNAN,\r\n\tNEGATIVE_INFINITY,\r\n\tNEGATIVE_ZERO,\r\n\tPOSITIVE_INFINITY,\r\n\tUNDEFINED\r\n} from './constants.js';\r\n\r\n/**\r\n * Revive a value serialized with `devalue.stringify`\r\n * @param {string} serialized\r\n * @param {Record<string, (value: any) => any>} [revivers]\r\n */\r\nexport function parse(serialized, revivers) {\r\n\treturn unflatten(JSON.parse(serialized), revivers);\r\n}\r\n\r\n/**\r\n * Revive a value flattened with `devalue.stringify`\r\n * @param {number | any[]} parsed\r\n * @param {Record<string, (value: any) => any>} [revivers]\r\n */\r\nexport function unflatten(parsed, revivers) {\r\n\tif (typeof parsed === 'number') return hydrate(parsed, true);\r\n\r\n\tif (!Array.isArray(parsed) || parsed.length === 0) {\r\n\t\tthrow new Error('Invalid input');\r\n\t}\r\n\r\n\tconst values = /** @type {any[]} */ (parsed);\r\n\r\n\tconst hydrated = Array(values.length);\r\n\r\n\t/**\r\n\t * @param {number} index\r\n\t * @returns {any}\r\n\t */\r\n\tfunction hydrate(index, standalone = false) {\r\n\t\tif (index === UNDEFINED) return undefined;\r\n\t\tif (index === NAN) return NaN;\r\n\t\tif (index === POSITIVE_INFINITY) return Infinity;\r\n\t\tif (index === NEGATIVE_INFINITY) return -Infinity;\r\n\t\tif (index === NEGATIVE_ZERO) return -0;\r\n\r\n\t\tif (standalone) throw new Error(`Invalid input`);\r\n\r\n\t\tif (index in hydrated) return hydrated[index];\r\n\r\n\t\tconst value = values[index];\r\n\r\n\t\tif (!value || typeof value !== 'object') {\r\n\t\t\thydrated[index] = value;\r\n\t\t} else if (Array.isArray(value)) {\r\n\t\t\tif (typeof value[0] === 'string') {\r\n\t\t\t\tconst type = value[0];\r\n\r\n\t\t\t\tconst reviver = revivers?.[type];\r\n\t\t\t\tif (reviver) {\r\n\t\t\t\t\treturn (hydrated[index] = reviver(hydrate(value[1])));\r\n\t\t\t\t}\r\n\r\n\t\t\t\tswitch (type) {\r\n\t\t\t\t\tcase 'Date':\r\n\t\t\t\t\t\thydrated[index] = new Date(value[1]);\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tcase 'Set':\r\n\t\t\t\t\t\tconst set = new Set();\r\n\t\t\t\t\t\thydrated[index] = set;\r\n\t\t\t\t\t\tfor (let i = 1; i < value.length; i += 1) {\r\n\t\t\t\t\t\t\tset.add(hydrate(value[i]));\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tcase 'Map':\r\n\t\t\t\t\t\tconst map = new Map();\r\n\t\t\t\t\t\thydrated[index] = map;\r\n\t\t\t\t\t\tfor (let i = 1; i < value.length; i += 2) {\r\n\t\t\t\t\t\t\tmap.set(hydrate(value[i]), hydrate(value[i + 1]));\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tcase 'RegExp':\r\n\t\t\t\t\t\thydrated[index] = new RegExp(value[1], value[2]);\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tcase 'Object':\r\n\t\t\t\t\t\thydrated[index] = Object(value[1]);\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tcase 'BigInt':\r\n\t\t\t\t\t\thydrated[index] = BigInt(value[1]);\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tcase 'null':\r\n\t\t\t\t\t\tconst obj = Object.create(null);\r\n\t\t\t\t\t\thydrated[index] = obj;\r\n\t\t\t\t\t\tfor (let i = 1; i < value.length; i += 2) {\r\n\t\t\t\t\t\t\tobj[value[i]] = hydrate(value[i + 1]);\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\t\tdefault:\r\n\t\t\t\t\t\tthrow new Error(`Unknown type ${type}`);\r\n\t\t\t\t}\r\n\t\t\t} else {\r\n\t\t\t\tconst array = new Array(value.length);\r\n\t\t\t\thydrated[index] = array;\r\n\r\n\t\t\t\tfor (let i = 0; i < value.length; i += 1) {\r\n\t\t\t\t\tconst n = value[i];\r\n\t\t\t\t\tif (n === HOLE) continue;\r\n\r\n\t\t\t\t\tarray[i] = hydrate(n);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t} else {\r\n\t\t\t/** @type {Record<string, any>} */\r\n\t\t\tconst object = {};\r\n\t\t\thydrated[index] = object;\r\n\r\n\t\t\tfor (const key in value) {\r\n\t\t\t\tconst n = value[key];\r\n\t\t\t\tobject[key] = hydrate(n);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn hydrated[index];\r\n\t}\r\n\r\n\treturn hydrate(0);\r\n}\r\n",
+      "start": 1714315493355,
+      "end": 1714315493562,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493562,
+      "end": 1714315493562,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493563,
+      "end": 1714315493563,
+      "order": "normal"
+    }
+  ]
+}

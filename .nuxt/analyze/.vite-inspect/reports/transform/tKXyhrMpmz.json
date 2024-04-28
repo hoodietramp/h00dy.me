@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/unenv/runtime/node/http/_response.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { Writable } from \"../stream/writable.mjs\";\r\nexport class ServerResponse extends Writable {\r\n  __unenv__ = true;\r\n  statusCode = 200;\r\n  statusMessage = \"\";\r\n  upgrading = false;\r\n  chunkedEncoding = false;\r\n  shouldKeepAlive = false;\r\n  useChunkedEncodingByDefault = false;\r\n  sendDate = false;\r\n  finished = false;\r\n  headersSent = false;\r\n  strictContentLength = false;\r\n  connection = null;\r\n  socket = null;\r\n  req;\r\n  _headers = {};\r\n  constructor(req) {\r\n    super();\r\n    this.req = req;\r\n  }\r\n  assignSocket(socket) {\r\n    socket._httpMessage = this;\r\n    this.socket = socket;\r\n    this.connection = socket;\r\n    this.emit(\"socket\", socket);\r\n    this._flush();\r\n  }\r\n  _flush() {\r\n    this.flushHeaders();\r\n  }\r\n  detachSocket(_socket) {\r\n  }\r\n  writeContinue(_callback) {\r\n  }\r\n  writeHead(statusCode, arg1, arg2) {\r\n    if (statusCode) {\r\n      this.statusCode = statusCode;\r\n    }\r\n    if (typeof arg1 === \"string\") {\r\n      this.statusMessage = arg1;\r\n      arg1 = void 0;\r\n    }\r\n    const headers = arg2 || arg1;\r\n    if (headers) {\r\n      if (Array.isArray(headers)) {\r\n      } else {\r\n        for (const key in headers) {\r\n          this.setHeader(key, headers[key]);\r\n        }\r\n      }\r\n    }\r\n    this.headersSent = true;\r\n    return this;\r\n  }\r\n  writeProcessing() {\r\n  }\r\n  setTimeout(_msecs, _callback) {\r\n    return this;\r\n  }\r\n  appendHeader(name, value) {\r\n    name = name.toLowerCase();\r\n    const current = this._headers[name];\r\n    const all = [\r\n      ...Array.isArray(current) ? current : [current],\r\n      ...Array.isArray(value) ? value : [value]\r\n    ].filter(Boolean);\r\n    this._headers[name] = all.length > 1 ? all : all[0];\r\n    return this;\r\n  }\r\n  setHeader(name, value) {\r\n    this._headers[name.toLowerCase()] = value;\r\n    return this;\r\n  }\r\n  getHeader(name) {\r\n    return this._headers[name.toLowerCase()];\r\n  }\r\n  getHeaders() {\r\n    return this._headers;\r\n  }\r\n  getHeaderNames() {\r\n    return Object.keys(this._headers);\r\n  }\r\n  hasHeader(name) {\r\n    return name.toLowerCase() in this._headers;\r\n  }\r\n  removeHeader(name) {\r\n    delete this._headers[name.toLowerCase()];\r\n  }\r\n  addTrailers(_headers) {\r\n  }\r\n  flushHeaders() {\r\n  }\r\n  writeEarlyHints(_headers, cb) {\r\n    if (typeof cb === \"function\") {\r\n      cb();\r\n    }\r\n  }\r\n}\r\n",
+      "start": 1714315493011,
+      "end": 1714315493245,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493245,
+      "end": 1714315493245,
+      "order": "normal"
+    }
+  ]
+}

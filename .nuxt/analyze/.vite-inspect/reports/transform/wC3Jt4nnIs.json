@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/node_modules/hookable/dist/index.mjs",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "function flatHooks(configHooks, hooks = {}, parentName) {\r\n  for (const key in configHooks) {\r\n    const subHook = configHooks[key];\r\n    const name = parentName ? `${parentName}:${key}` : key;\r\n    if (typeof subHook === \"object\" && subHook !== null) {\r\n      flatHooks(subHook, hooks, name);\r\n    } else if (typeof subHook === \"function\") {\r\n      hooks[name] = subHook;\r\n    }\r\n  }\r\n  return hooks;\r\n}\r\nfunction mergeHooks(...hooks) {\r\n  const finalHooks = {};\r\n  for (const hook of hooks) {\r\n    const flatenHook = flatHooks(hook);\r\n    for (const key in flatenHook) {\r\n      if (finalHooks[key]) {\r\n        finalHooks[key].push(flatenHook[key]);\r\n      } else {\r\n        finalHooks[key] = [flatenHook[key]];\r\n      }\r\n    }\r\n  }\r\n  for (const key in finalHooks) {\r\n    if (finalHooks[key].length > 1) {\r\n      const array = finalHooks[key];\r\n      finalHooks[key] = (...arguments_) => serial(array, (function_) => function_(...arguments_));\r\n    } else {\r\n      finalHooks[key] = finalHooks[key][0];\r\n    }\r\n  }\r\n  return finalHooks;\r\n}\r\nfunction serial(tasks, function_) {\r\n  return tasks.reduce(\r\n    (promise, task) => promise.then(() => function_(task)),\r\n    Promise.resolve()\r\n  );\r\n}\r\nconst defaultTask = { run: (function_) => function_() };\r\nconst _createTask = () => defaultTask;\r\nconst createTask = typeof console.createTask !== \"undefined\" ? console.createTask : _createTask;\r\nfunction serialTaskCaller(hooks, args) {\r\n  const name = args.shift();\r\n  const task = createTask(name);\r\n  return hooks.reduce(\r\n    (promise, hookFunction) => promise.then(() => task.run(() => hookFunction(...args))),\r\n    Promise.resolve()\r\n  );\r\n}\r\nfunction parallelTaskCaller(hooks, args) {\r\n  const name = args.shift();\r\n  const task = createTask(name);\r\n  return Promise.all(hooks.map((hook) => task.run(() => hook(...args))));\r\n}\r\nfunction serialCaller(hooks, arguments_) {\r\n  return hooks.reduce(\r\n    (promise, hookFunction) => promise.then(() => hookFunction(...arguments_ || [])),\r\n    Promise.resolve()\r\n  );\r\n}\r\nfunction parallelCaller(hooks, args) {\r\n  return Promise.all(hooks.map((hook) => hook(...args || [])));\r\n}\r\nfunction callEachWith(callbacks, arg0) {\r\n  for (const callback of [...callbacks]) {\r\n    callback(arg0);\r\n  }\r\n}\r\n\r\nclass Hookable {\r\n  constructor() {\r\n    this._hooks = {};\r\n    this._before = void 0;\r\n    this._after = void 0;\r\n    this._deprecatedMessages = void 0;\r\n    this._deprecatedHooks = {};\r\n    this.hook = this.hook.bind(this);\r\n    this.callHook = this.callHook.bind(this);\r\n    this.callHookWith = this.callHookWith.bind(this);\r\n  }\r\n  hook(name, function_, options = {}) {\r\n    if (!name || typeof function_ !== \"function\") {\r\n      return () => {\r\n      };\r\n    }\r\n    const originalName = name;\r\n    let dep;\r\n    while (this._deprecatedHooks[name]) {\r\n      dep = this._deprecatedHooks[name];\r\n      name = dep.to;\r\n    }\r\n    if (dep && !options.allowDeprecated) {\r\n      let message = dep.message;\r\n      if (!message) {\r\n        message = `${originalName} hook has been deprecated` + (dep.to ? `, please use ${dep.to}` : \"\");\r\n      }\r\n      if (!this._deprecatedMessages) {\r\n        this._deprecatedMessages = /* @__PURE__ */ new Set();\r\n      }\r\n      if (!this._deprecatedMessages.has(message)) {\r\n        console.warn(message);\r\n        this._deprecatedMessages.add(message);\r\n      }\r\n    }\r\n    if (!function_.name) {\r\n      try {\r\n        Object.defineProperty(function_, \"name\", {\r\n          get: () => \"_\" + name.replace(/\\W+/g, \"_\") + \"_hook_cb\",\r\n          configurable: true\r\n        });\r\n      } catch {\r\n      }\r\n    }\r\n    this._hooks[name] = this._hooks[name] || [];\r\n    this._hooks[name].push(function_);\r\n    return () => {\r\n      if (function_) {\r\n        this.removeHook(name, function_);\r\n        function_ = void 0;\r\n      }\r\n    };\r\n  }\r\n  hookOnce(name, function_) {\r\n    let _unreg;\r\n    let _function = (...arguments_) => {\r\n      if (typeof _unreg === \"function\") {\r\n        _unreg();\r\n      }\r\n      _unreg = void 0;\r\n      _function = void 0;\r\n      return function_(...arguments_);\r\n    };\r\n    _unreg = this.hook(name, _function);\r\n    return _unreg;\r\n  }\r\n  removeHook(name, function_) {\r\n    if (this._hooks[name]) {\r\n      const index = this._hooks[name].indexOf(function_);\r\n      if (index !== -1) {\r\n        this._hooks[name].splice(index, 1);\r\n      }\r\n      if (this._hooks[name].length === 0) {\r\n        delete this._hooks[name];\r\n      }\r\n    }\r\n  }\r\n  deprecateHook(name, deprecated) {\r\n    this._deprecatedHooks[name] = typeof deprecated === \"string\" ? { to: deprecated } : deprecated;\r\n    const _hooks = this._hooks[name] || [];\r\n    delete this._hooks[name];\r\n    for (const hook of _hooks) {\r\n      this.hook(name, hook);\r\n    }\r\n  }\r\n  deprecateHooks(deprecatedHooks) {\r\n    Object.assign(this._deprecatedHooks, deprecatedHooks);\r\n    for (const name in deprecatedHooks) {\r\n      this.deprecateHook(name, deprecatedHooks[name]);\r\n    }\r\n  }\r\n  addHooks(configHooks) {\r\n    const hooks = flatHooks(configHooks);\r\n    const removeFns = Object.keys(hooks).map(\r\n      (key) => this.hook(key, hooks[key])\r\n    );\r\n    return () => {\r\n      for (const unreg of removeFns.splice(0, removeFns.length)) {\r\n        unreg();\r\n      }\r\n    };\r\n  }\r\n  removeHooks(configHooks) {\r\n    const hooks = flatHooks(configHooks);\r\n    for (const key in hooks) {\r\n      this.removeHook(key, hooks[key]);\r\n    }\r\n  }\r\n  removeAllHooks() {\r\n    for (const key in this._hooks) {\r\n      delete this._hooks[key];\r\n    }\r\n  }\r\n  callHook(name, ...arguments_) {\r\n    arguments_.unshift(name);\r\n    return this.callHookWith(serialTaskCaller, name, ...arguments_);\r\n  }\r\n  callHookParallel(name, ...arguments_) {\r\n    arguments_.unshift(name);\r\n    return this.callHookWith(parallelTaskCaller, name, ...arguments_);\r\n  }\r\n  callHookWith(caller, name, ...arguments_) {\r\n    const event = this._before || this._after ? { name, args: arguments_, context: {} } : void 0;\r\n    if (this._before) {\r\n      callEachWith(this._before, event);\r\n    }\r\n    const result = caller(\r\n      name in this._hooks ? [...this._hooks[name]] : [],\r\n      arguments_\r\n    );\r\n    if (result instanceof Promise) {\r\n      return result.finally(() => {\r\n        if (this._after && event) {\r\n          callEachWith(this._after, event);\r\n        }\r\n      });\r\n    }\r\n    if (this._after && event) {\r\n      callEachWith(this._after, event);\r\n    }\r\n    return result;\r\n  }\r\n  beforeEach(function_) {\r\n    this._before = this._before || [];\r\n    this._before.push(function_);\r\n    return () => {\r\n      if (this._before !== void 0) {\r\n        const index = this._before.indexOf(function_);\r\n        if (index !== -1) {\r\n          this._before.splice(index, 1);\r\n        }\r\n      }\r\n    };\r\n  }\r\n  afterEach(function_) {\r\n    this._after = this._after || [];\r\n    this._after.push(function_);\r\n    return () => {\r\n      if (this._after !== void 0) {\r\n        const index = this._after.indexOf(function_);\r\n        if (index !== -1) {\r\n          this._after.splice(index, 1);\r\n        }\r\n      }\r\n    };\r\n  }\r\n}\r\nfunction createHooks() {\r\n  return new Hookable();\r\n}\r\n\r\nconst isBrowser = typeof window !== \"undefined\";\r\nfunction createDebugger(hooks, _options = {}) {\r\n  const options = {\r\n    inspect: isBrowser,\r\n    group: isBrowser,\r\n    filter: () => true,\r\n    ..._options\r\n  };\r\n  const _filter = options.filter;\r\n  const filter = typeof _filter === \"string\" ? (name) => name.startsWith(_filter) : _filter;\r\n  const _tag = options.tag ? `[${options.tag}] ` : \"\";\r\n  const logPrefix = (event) => _tag + event.name + \"\".padEnd(event._id, \"\\0\");\r\n  const _idCtr = {};\r\n  const unsubscribeBefore = hooks.beforeEach((event) => {\r\n    if (filter !== void 0 && !filter(event.name)) {\r\n      return;\r\n    }\r\n    _idCtr[event.name] = _idCtr[event.name] || 0;\r\n    event._id = _idCtr[event.name]++;\r\n    console.time(logPrefix(event));\r\n  });\r\n  const unsubscribeAfter = hooks.afterEach((event) => {\r\n    if (filter !== void 0 && !filter(event.name)) {\r\n      return;\r\n    }\r\n    if (options.group) {\r\n      console.groupCollapsed(event.name);\r\n    }\r\n    if (options.inspect) {\r\n      console.timeLog(logPrefix(event), event.args);\r\n    } else {\r\n      console.timeEnd(logPrefix(event));\r\n    }\r\n    if (options.group) {\r\n      console.groupEnd();\r\n    }\r\n    _idCtr[event.name]--;\r\n  });\r\n  return {\r\n    /** Stop debugging and remove listeners */\r\n    close: () => {\r\n      unsubscribeBefore();\r\n      unsubscribeAfter();\r\n    }\r\n  };\r\n}\r\n\r\nexport { Hookable, createDebugger, createHooks, flatHooks, mergeHooks, parallelCaller, serial, serialCaller };\r\n",
+      "start": 1714315492837,
+      "end": 1714315493106,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493106,
+      "end": 1714315493106,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493106,
+      "end": 1714315493107,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493107,
+      "end": 1714315493107,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493107,
+      "end": 1714315493107,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493107,
+      "end": 1714315493107,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493107,
+      "end": 1714315493107,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493107,
+      "end": 1714315493107,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493107,
+      "end": 1714315493107,
+      "order": "normal"
+    }
+  ]
+}

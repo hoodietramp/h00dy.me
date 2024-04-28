@@ -1,0 +1,198 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/stores/windows.js",
+  "transforms": [
+    {
+      "name": "vite:load-fallback",
+      "result": "import { defineStore } from \"pinia\";\r\n\r\nexport const useWindowsStore = defineStore(\"windows\", {\r\n  state: () => ({\r\n    // Height of Fullscreen Window\r\n    // fullscreenWindowHeight: window.innerHeight + \"px\",\r\n\r\n    activeWindow: \"\",\r\n\r\n    // Active Windows Array State\r\n    activeWindows: [],\r\n\r\n    // Z-index State\r\n    zIndex: 2,\r\n\r\n    windows: [\r\n      {\r\n        windowId: \"BiographyWindow\", // Unique ID\r\n        windowState: \"close\", // Window State [open, close, minimize]\r\n        displayName: \"Biography\", // Display Name (title under icon)\r\n        windowComponent: \"window\", // Window Component (can be changed to use modified windows)\r\n        windowContent: \"bio\", // Window Content (used under slots)\r\n        windowContentPadding: {\r\n          top: null,\r\n          right: null,\r\n          bottom: null,\r\n          left: null,\r\n        }, // Window Content Padding\r\n        position: \"absolute\", // Window Position\r\n        positionX: \"5vw\", // Window Position X (when first opened)\r\n        positionY: \"5%\", // Window Position Y (when first opened)\r\n        iconImage: \"bio.png\", // Window Icon Image\r\n        altText: \"Biography\", // Window Icon Alt Text\r\n        fullscreen: false, // Window Fullscreen State [true, false]\r\n        showInAppGrid: true,\r\n        showInNavbar: true,\r\n      },\r\n      {\r\n        windowId: \"ResumeWindow\", // Unique ID\r\n        windowState: \"close\", // Window State [open, close, minimize]\r\n        displayName: \"Résumé\", // Display Name (title under icon)\r\n        windowComponent: \"window\", // Window Component (can be changed to use modified windows)\r\n        windowContent: \"resume\", // Window Content (used under slots)\r\n        windowContentPadding: {\r\n          top: \"0\",\r\n          right: \"0\",\r\n          bottom: \"0\",\r\n          left: \"0\",\r\n        }, // Window Content Padding\r\n        position: \"absolute\", // Window Position\r\n        positionX: \"10vw\", // Window Position X (when first opened)\r\n        positionY: \"15vh\", // Window Position Y (when first opened)\r\n        iconImage: \"resume.png\", // Window Icon Image\r\n        altText: \"Résumé\", // Window Icon Alt Text\r\n        fullscreen: false, // Window Fullscreen State [true, false]\r\n        showInAppGrid: true,\r\n        showInNavbar: true,\r\n      },\r\n    //   {\r\n    //     windowId: \"MailWindow\",\r\n    //     windowState: \"close\",\r\n    //     displayName: \"Mail\",\r\n    //     windowComponent: \"mail\",\r\n    //     windowContent: \"\",\r\n    //     windowContentPadding: {\r\n    //       top: \"0\",\r\n    //       right: \"0\",\r\n    //       bottom: \"0\",\r\n    //       left: \"0\",\r\n    //     },\r\n    //     position: \"absolute\",\r\n    //     positionX: \"6vw\",\r\n    //     positionY: \"12vh\",\r\n    //     iconImage: \"mail.png\",\r\n    //     altText: \"Mail\",\r\n    //     fullscreen: false,\r\n    //     showInAppGrid: true,\r\n    //     showInNavbar: true,\r\n    //   },\r\n    ],\r\n  }),\r\n\r\n  getters: {\r\n    getFullscreenWindowHeight() {\r\n      let height = \"0px\";\r\n      if (typeof window !== \"undefined\") {\r\n        height = window.innerHeight + \"px\";\r\n      }\r\n      return height;\r\n    },\r\n  },\r\n\r\n  actions: {\r\n        getWindowById(windowId) {\r\n            return this.windows.find((window) => window.windowId === windowId)\r\n        },\r\n\r\n        getWindowFullscreen(windowId) {\r\n            return this.windows.find((window) => window.windowId === windowId).fullscreen\r\n        },\r\n\r\n        getActiveWindow() {\r\n            return this.activeWindow\r\n        },\r\n\r\n        setActiveWindow(windowId) {\r\n            this.activeWindow = windowId\r\n        },\r\n\r\n        setFullscreen(payload) {\r\n            const getArrItem = () => {\r\n                return this.windows.find(\r\n                    (windows) => windows.windowId === payload.windowId\r\n                );\r\n            }\r\n            const window = getArrItem();\r\n            window.fullscreen = payload.fullscreen;\r\n        },\r\n\r\n        zIndexIncrement(windowId) {\r\n            this.zIndex++\r\n            if (document.getElementById(windowId)) {\r\n                document.getElementById(windowId).style.zIndex = this.zIndex\r\n            }\r\n        },\r\n\r\n        // Push Active Window\r\n        pushActiveWindow(window) {\r\n            this.activeWindows.push(window)\r\n        },\r\n\r\n        // Pop Active Window\r\n        popActiveWindow(window) {\r\n            const windowIndex = this.activeWindows.indexOf(window)\r\n            if (windowIndex !== -1) {\r\n                this.activeWindows.splice(windowIndex, 1)\r\n            }\r\n        },\r\n\r\n        pushNewWindow(window) {\r\n            this.windows.push(window)\r\n        },\r\n\r\n        setPhotoFolderContent(payload) {\r\n            this.photoFolderContent = payload\r\n        },\r\n\r\n        setWindowState(payload) {\r\n            // payload = {'windowState': 'open', 'windowId': 'WindowOne'}\r\n\r\n            const getArrItem = () => {\r\n                return this.windows.find(\r\n                    (windows) => windows.windowId === payload.windowId\r\n                );\r\n            }\r\n\r\n            const window = getArrItem();\r\n\r\n            let preventAppendingOpenWindow = false;\r\n            if (window.windowState == \"open\" || window.windowState == \"minimize\") {\r\n                preventAppendingOpenWindow = true;\r\n            }\r\n\r\n            if (payload.windowState == \"open\") {\r\n                window.windowState = payload.windowState;\r\n                setTimeout(() => {\r\n                    this.zIndexIncrement(payload.windowId);\r\n                }, 0);\r\n                setTimeout(() => {\r\n                    this.setActiveWindow(payload.windowId);\r\n                }, 0);\r\n                if (preventAppendingOpenWindow == false) {\r\n                    this.pushActiveWindow(window);\r\n                }\r\n            } else if (payload.windowState == \"close\") {\r\n                setTimeout(() => {\r\n                    window.windowState = payload.windowState;\r\n                }, 0);\r\n                setTimeout(() => {\r\n                    this.popActiveWindow(window);\r\n                }, 0)\r\n                setTimeout(() => {\r\n                    this.setActiveWindow(\"nil\");\r\n                }, 0)\r\n            } else if (payload.windowState == \"minimize\") {\r\n                setTimeout(() => {\r\n                    window.windowState = payload.windowState;\r\n                }, 0)\r\n                setTimeout(() => {\r\n                    this.setActiveWindow(\"nil\");\r\n                }, 0)\r\n                \r\n            } else {\r\n                console.log(\"Error: windowState not found or invalid\");\r\n            }\r\n        },\r\n    }\r\n});\r\n",
+      "start": 1714315493110,
+      "end": 1714315493280,
+      "sourcemaps": null
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:chunk-error",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315493280,
+      "end": 1714315493280,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315493280,
+      "end": 1714315493282,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:runtime-paths-dep",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315493282,
+      "end": 1714315493282,
+      "order": "normal"
+    }
+  ]
+}

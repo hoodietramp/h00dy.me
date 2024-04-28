@@ -1,0 +1,282 @@
+{
+  "resolvedId": "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue?vue&type=style&index=0&scoped=c4b84f44&lang.css",
+  "transforms": [
+    {
+      "name": "vite:vue",
+      "result": "\r\n.icon-text {\r\n    display: block;\r\n    overflow: hidden;\r\n    width: 60px !important;\r\n    font-size: 12px;\r\n    font-weight: 300;\r\n    color: black;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.icon-photos {\r\n    color: black;\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin: 1rem;\r\n    align-items: center;\r\n    text-align: center;\r\n    width: 60px;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.icon-photos:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.icon-photos:focus .icon-image-photos {\r\n    filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(0.9);\r\n}\r\n\r\n.icon-photos:focus .icon-text {\r\n    background: rgb(0, 0, 118);\r\n    color: white;\r\n    margin: 0px;\r\n}\r\n\r\n.icon-photos:focus .border-box {\r\n    border: rgb(0, 0, 0) dotted 1px;\r\n}\r\n\r\n.icon-image-photos {\r\n    width: 30px;\r\n    height: 30px;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.iframe-container {\r\n    \r\n}\r\n\r\n.responsive-iframe {\r\n   \r\n}\r\n\r\n.grid-container-photos {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    /* height: 0 !important; */\r\n}\r\n\r\n.file-explorer {\r\n    background: gray;\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n    height: calc(100% - 30px);\r\n    width: auto;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    /* padding: 2px 2px 2px 2px; */\r\n    overflow-y: hidden;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Windows/Display\r\n\\*-------------------------------------------*/\r\n\r\n.minimize {\r\n    display: none;\r\n}\r\n\r\n.window {\r\n    box-sizing: border-box;\r\n    padding: 0px;\r\n    margin: 0px;\r\n    user-select: none;\r\n    -ms-touch-action: none;\r\n    touch-action: none;\r\n    flex-flow: column;\r\n    display: flex;\r\n}\r\n\r\n.fullscreen {\r\n    width: 100% !important;\r\n    height: var(--fullscreen) !important;\r\n    margin: 0;\r\n    transition: all 0.5s ease;\r\n    padding: 0;\r\n}\r\n\r\n.content {\r\n    flex-grow: 1;\r\n    overflow-x: hidden;\r\n    padding-right: var(--content-padding-right);\r\n    padding-left: var(--content-padding-left);\r\n    padding-top: var(--content-padding-top);\r\n    padding-bottom: var(--content-padding-bottom);\r\n}\r\n\r\n.bottom-bar {\r\n    height: 22px;\r\n    display: flex;\r\n    width: 100%;\r\n}\r\n\r\n.bar {\r\n    height: 100%;\r\n    margin: 2px 2px 2px 2px;\r\n    padding: 0px 2px 1px 0px;\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.left-bar {\r\n    width: 100%;\r\n    padding-left: 2px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.right-bar {\r\n    width: 100%;\r\n    padding-left: 2px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Top Bar\r\n\\*-------------------------------------------*/\r\n\r\n.top-bar {\r\n    background: rgb(0, 0, 124);\r\n}\r\n\r\n.top-bar-nav {\r\n    display: flex;\r\n    height: 22px;\r\n    width: 100%;\r\n}\r\n\r\n.top-bar-text {\r\n    height: 100%;\r\n    padding-left: 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.top-bar-window {\r\n    display: flex;\r\n    width: auto;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    flex-direction: row;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    padding: 2px 2px 2px 2px;\r\n}\r\n\r\n.top-bar-deactivated {\r\n    background: rgb(123, 125, 123);\r\n}\r\n\r\n.top-bar:hover {\r\n    cursor: default;\r\n}\r\n\r\n.window-name {\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    font-weight: 500;\r\n    padding: 0;\r\n    font-size: 16px;\r\n    margin: 0 0 0 3px;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n}\r\n",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "sourcemaps": {
+        "version": 3,
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue"
+        ],
+        "names": [],
+        "mappings": "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",
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue",
+        "sourceRoot": "",
+        "sourcesContent": [
+          "<script setup>\r\nimport interact from 'interactjs';\r\nimport {\r\n    onMounted,\r\n    ref,\r\n    defineProps,\r\n    computed\r\n} from 'vue';\r\nimport {\r\n    useWindowsStore\r\n} from '@/stores/windows'\r\n\r\nconst props = defineProps({\r\n    windowId: String,\r\n    nameOfWindow: String,\r\n    content_padding_left: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_right: {\r\n        required: false,\r\n        type: String,\r\n        default: \"15%\",\r\n    },\r\n    content_padding_top: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    },\r\n    content_padding_bottom: {\r\n        required: false,\r\n        type: String,\r\n        default: \"5%\",\r\n    }\r\n})\r\n\r\nconst position = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst tempPosition = ref({\r\n    x: 0,\r\n    y: 0\r\n})\r\nconst windowsStore = useWindowsStore()\r\nconst window = ref({})\r\nconst ComponentName = props.nameOfWindow\r\nconst w = ref(0)\r\nconst h = ref(0)\r\nconst gridHeight = ref(\"\")\r\nconst fileExplorer = ref(null)\r\nconst files = ref(windowsStore.photoFolderContent)\r\nconst currentIndex = 0\r\nconst file = ref(files.value[currentIndex])\r\n\r\nonMounted(() => {\r\n    let gridH = fileExplorer.value.clientHeight\r\n    gridHeight.value = gridH + \"px\"\r\n    console.log(gridHeight.value)\r\n})\r\n\r\nconst style = computed(() => ({\r\n    height: `${h.value}px`,\r\n    width: `${w.value}px`,\r\n    transform: `translate(${position.value.x}px, ${position.value.y}px)`,\r\n    \"--content-padding-left\": props.content_padding_left || \"15%\",\r\n    \"--content-padding-right\": props.content_padding_right || \"15%\",\r\n    \"--content-padding-top\": props.content_padding_top || \"5%\",\r\n    \"--content-padding-bottom\": props.content_padding_bottom || \"5%\",\r\n    \"--fullscreen\": windowsStore.getFullscreenWindowHeight, // assuming this is a method in your store\r\n}));\r\n\r\nconst setActiveWindow = () => {\r\n    windowsStore.setActiveWindow(window.value.windowId)\r\n    windowsStore.zIndexIncrement(window.value.windowId)\r\n}\r\n\r\nconst toggleWindowSize = () => {\r\n    if (windowsStore.getWindowFullscreen(window.value.windowId) == true) {\r\n        const payload = {\r\n            fullscreen: false,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        position.value.x = tempPosition.value.x\r\n        position.value.y = tempPosition.value.y\r\n    } else if (\r\n        windowsStore.getWindowFullscreen(window.value.windowId) == false\r\n    ) {\r\n        const payload = {\r\n            fullscreen: true,\r\n            windowId: window.value.windowId,\r\n        };\r\n        windowsStore.setFullscreen(payload)\r\n        const tempX = position.value.x\r\n        const tempY = position.value.y\r\n        tempPosition.value.x = tempX\r\n        tempPosition.value.y = tempY\r\n        position.value.x = 0\r\n        position.value.y = 0\r\n    }\r\n}\r\n\r\nconst minimizeWindow = () => {\r\n    const payload = {\r\n        windowState: \"minimize\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst closeWindow = () => {\r\n    const payload = {\r\n        windowState: \"close\",\r\n        windowId: window.value.windowId,\r\n    };\r\n    windowsStore.setWindowState(payload)\r\n}\r\n\r\nconst getImagePath = (iconImage) => {\r\n    const path = `../assets/win95Icons/${iconImage}`;\r\n    const modules =\r\n        import.meta.glob(\"../assets/win95Icons/*\", {\r\n            eager: true\r\n        });\r\n    const mod = modules[path]\r\n    if (mod == undefined) {\r\n        return \"\"\r\n    } else {\r\n        return mod.default;\r\n    }\r\n};\r\n\r\nlet isDragging = false;\r\n\r\nonMounted(() => {\r\n    window.value = windowsStore.getWindowById(ComponentName)\r\n    const draggableWindow = interact(\"#\" + window.value.windowId)\r\n    draggableWindow\r\n        .draggable({\r\n            listeners: {\r\n                move(event) {\r\n                    position.value.x += event.dx\r\n                    position.value.y += event.dy\r\n                    // event.target.style.transform = `translate(${position.value.x}px, ${position.value.y}px)`\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictRect({\r\n                    restriction: '#screen',\r\n                    endOnly: true\r\n                }),\r\n            ],\r\n            allowFrom: '#top-bar'\r\n        })\r\n        .on('dragstart', () => {\r\n            isDragging = true;\r\n        })\r\n        .on('dragmove', () => {\r\n            if (isDragging) {\r\n                setActiveWindow();\r\n                // windowsStore.zIndexIncrement(window.value.windowId);\r\n                isDragging = false;\r\n            }\r\n        })\r\n        .on('dragend', () => {\r\n            isDragging = false;\r\n        })\r\n        .resizable({\r\n            edges: {\r\n                left: true,\r\n                right: true,\r\n                bottom: true,\r\n                top: false\r\n            },\r\n            listeners: {\r\n                move(event) {\r\n                    const target = event.target\r\n                    w.value = event.rect.width\r\n                    h.value = event.rect.height\r\n                    target.style.width = `${w.value}px`\r\n                    target.style.height = `${h.value}px`\r\n                    position.value.x += event.deltaRect.left\r\n                    position.value.y += event.deltaRect.top\r\n                }\r\n            },\r\n            modifiers: [\r\n                interact.modifiers.restrictSize({\r\n                    min: {\r\n                        width: 400,\r\n                        height: 400\r\n                    },\r\n                    max: {\r\n                        width: document.getElementById('screen').clientWidth - position.value.x,\r\n                        height: document.getElementById('screen').clientHeight - position.value.y\r\n                    }\r\n                }),\r\n            ],\r\n        })\r\n})\r\n</script>\r\n\r\n<template>\r\n<div :id=\"window.windowId\" :style=\"style\" class=\"window window-style\" :class=\"{\r\n        'fullscreen': window.fullscreen == true,\r\n        'minimize': window.fullscreen == 'minimize',\r\n    }\" @click=\"setActiveWindow\" @dragstart=\"setActiveWindow\" @click.native=\"setActiveWindow\">\r\n    <div id=\"top-bar\" class=\"top-bar-window\" :class=\"\r\n        windowsStore.activeWindow == window.windowId\r\n            ? 'top-bar'\r\n            : 'top-bar-deactivated'\r\n        \" @dblclick=\"toggleWindowSize\">\r\n        <div class=\"window-name\">\r\n            <img v-if=\"file.type == 'photo'\" class=\"icon-image\" src=\"@/assets/win95Icons/photos.png\" :alt=\"window.altText\" />\r\n            <img v-else class=\"icon-image\" src=\"@/assets/win95Icons/file.png\" :alt=\"window.altText\" />\r\n            <span>{{ file.title }}</span>\r\n        </div>\r\n        <div class=\"triple-button\">\r\n            <button class=\"minimize-button button\" @click=\"minimizeWindow\">\r\n                <span style=\"\r\n                height: 2px;\r\n                width: 6px;\r\n                background: black;\r\n                margin-top: 8px;\r\n                margin-right: 2px;\r\n            \">\r\n                </span>\r\n            </button>\r\n            <button class=\"expand-button button\" @click=\"toggleWindowSize\">\r\n                <span style=\"\r\n                height: 8px;\r\n                width: 9px;\r\n                border-left: black 1px solid;\r\n                border-right: black 1px solid;\r\n                border-left: black 1px solid;\r\n                border-bottom: black 1px solid;\r\n                border-top: black 2px solid;\r\n            \">\r\n                </span>\r\n            </button>\r\n            <button class=\"close-button button\" style=\"margin-right: 3px; padding-left: 1px\" @click=\"closeWindow\">\r\n                ×\r\n            </button>\r\n        </div>\r\n    </div>\r\n    <div class=\"content\">\r\n        <div class=\"top-bar-nav\">\r\n            <div class=\"top-bar-text\">\r\n                <span style=\"margin-right: 12px\"><u>F</u>ile </span>\r\n                <span style=\"margin-right: 12px\"><u>E</u>dit </span>\r\n                <span style=\"margin-right: 12px\"><u>V</u>iew </span>\r\n                <span style=\"margin-right: 12px\"><u>H</u>elp </span>\r\n            </div>\r\n        </div>\r\n\r\n        <div v-if=\"file.type == 'file'\" class=\"file-explorer !h-[95%] !w-[100%]\" style=\"width: 100%;\"  ref=\"fileExplorer\" :style=\"{ height: gridHeight }\">\r\n            <!-- <div class=\"iframe-container\"> -->\r\n                <iframe class=\"mx-auto responsive-iframe w-[100%]\" height=\"100%\" :src=\"file.content.src\"  />\r\n            <!-- </div> -->\r\n            <!-- <VuePdfEmbed height=\"100%\" width=\"100%\" :source=\"file.content.src\" /> -->\r\n            <!-- <VuePDF :pdf=\"file.content.src\" /> -->\r\n        </div>\r\n\r\n        <div v-else class=\"file-explorer\" ref=\"fileExplorer\">\r\n            <div class=\"grid-container-photos\" :style=\"{ height: gridHeight }\">\r\n                <img :src=\"file.src\" />\r\n            </div>\r\n        </div>\r\n\r\n        <!-- <div class=\"bottom-bar\">\r\n            <div class=\"left-bar bar\">{{ files.length }} object(s)</div>\r\n            <div class=\"right-bar bar\">\r\n                {{ convertBytestoMegabytes(size) }}\r\n            </div>\r\n        </div> -->\r\n    </div>\r\n</div>\r\n</template>\r\n\r\n<style scoped>\r\n.icon-text {\r\n    display: block;\r\n    overflow: hidden;\r\n    width: 60px !important;\r\n    font-size: 12px;\r\n    font-weight: 300;\r\n    color: black;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.icon-photos {\r\n    color: black;\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin: 1rem;\r\n    align-items: center;\r\n    text-align: center;\r\n    width: 60px;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.icon-photos:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.icon-photos:focus .icon-image-photos {\r\n    filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(0.9);\r\n}\r\n\r\n.icon-photos:focus .icon-text {\r\n    background: rgb(0, 0, 118);\r\n    color: white;\r\n    margin: 0px;\r\n}\r\n\r\n.icon-photos:focus .border-box {\r\n    border: rgb(0, 0, 0) dotted 1px;\r\n}\r\n\r\n.icon-image-photos {\r\n    width: 30px;\r\n    height: 30px;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.iframe-container {\r\n    \r\n}\r\n\r\n.responsive-iframe {\r\n   \r\n}\r\n\r\n.grid-container-photos {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    /* height: 0 !important; */\r\n}\r\n\r\n.file-explorer {\r\n    background: gray;\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n    height: calc(100% - 30px);\r\n    width: auto;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    /* padding: 2px 2px 2px 2px; */\r\n    overflow-y: hidden;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Windows/Display\r\n\\*-------------------------------------------*/\r\n\r\n.minimize {\r\n    display: none;\r\n}\r\n\r\n.window {\r\n    box-sizing: border-box;\r\n    padding: 0px;\r\n    margin: 0px;\r\n    user-select: none;\r\n    -ms-touch-action: none;\r\n    touch-action: none;\r\n    flex-flow: column;\r\n    display: flex;\r\n}\r\n\r\n.fullscreen {\r\n    width: 100% !important;\r\n    height: var(--fullscreen) !important;\r\n    margin: 0;\r\n    transition: all 0.5s ease;\r\n    padding: 0;\r\n}\r\n\r\n.content {\r\n    flex-grow: 1;\r\n    overflow-x: hidden;\r\n    padding-right: var(--content-padding-right);\r\n    padding-left: var(--content-padding-left);\r\n    padding-top: var(--content-padding-top);\r\n    padding-bottom: var(--content-padding-bottom);\r\n}\r\n\r\n.bottom-bar {\r\n    height: 22px;\r\n    display: flex;\r\n    width: 100%;\r\n}\r\n\r\n.bar {\r\n    height: 100%;\r\n    margin: 2px 2px 2px 2px;\r\n    padding: 0px 2px 1px 0px;\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.left-bar {\r\n    width: 100%;\r\n    padding-left: 2px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.right-bar {\r\n    width: 100%;\r\n    padding-left: 2px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Top Bar\r\n\\*-------------------------------------------*/\r\n\r\n.top-bar {\r\n    background: rgb(0, 0, 124);\r\n}\r\n\r\n.top-bar-nav {\r\n    display: flex;\r\n    height: 22px;\r\n    width: 100%;\r\n}\r\n\r\n.top-bar-text {\r\n    height: 100%;\r\n    padding-left: 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.top-bar-window {\r\n    display: flex;\r\n    width: auto;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    flex-direction: row;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    padding: 2px 2px 2px 2px;\r\n}\r\n\r\n.top-bar-deactivated {\r\n    background: rgb(123, 125, 123);\r\n}\r\n\r\n.top-bar:hover {\r\n    cursor: default;\r\n}\r\n\r\n.window-name {\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    font-weight: 500;\r\n    padding: 0;\r\n    font-size: 16px;\r\n    margin: 0 0 0 3px;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n}\r\n</style>\r\n"
+        ]
+      }
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:layer-aliasing",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:server-devonly:transform",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "order": "pre"
+    },
+    {
+      "name": "nuxt:client-fallback-auto-id",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "order": "pre"
+    },
+    {
+      "name": "server-only-component-transform",
+      "start": 1714315495831,
+      "end": 1714315495831,
+      "order": "pre"
+    },
+    {
+      "name": "vite:css",
+      "result": ".icon-text{display:block;font-size:12px;font-weight:300;overflow:hidden;width:60px!important}.icon-photos,.icon-text{color:#000;text-overflow:ellipsis}.icon-photos{align-items:center;display:flex;flex-direction:column;margin:1rem;text-align:center;width:60px}.icon-photos:hover{cursor:pointer}.icon-photos:focus .icon-image-photos{filter:grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(.9)}.icon-photos:focus .icon-text{background:#000076;color:#fff;margin:0}.icon-photos:focus .border-box{border:1px dotted #000}.icon-image-photos{height:30px;margin-bottom:5px;width:30px}.grid-container-photos{align-items:center;display:flex;justify-content:center}.file-explorer{background:gray;border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none;height:calc(100% - 30px);margin:2px;overflow-y:hidden;width:auto;z-index:10}.minimize{display:none}.window{box-sizing:border-box;display:flex;flex-flow:column;margin:0;padding:0;touch-action:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.fullscreen{height:var(--fullscreen)!important;margin:0;padding:0;transition:all .5s ease;width:100%!important}.content{flex-grow:1;overflow-x:hidden;padding:var(--content-padding-top) var(--content-padding-right) var(--content-padding-bottom) var(--content-padding-left)}.bottom-bar{display:flex;height:22px;width:100%}.bar{border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none;height:100%;margin:2px;padding:0 2px 1px 0}.left-bar,.right-bar{align-items:center;display:flex;justify-content:flex-start;padding-left:2px;width:100%}.top-bar{background:#00007c}.top-bar-nav{display:flex;height:22px;width:100%}.top-bar-text{height:100%;justify-content:flex-start;padding-left:12px}.top-bar-text,.top-bar-window{align-items:center;display:flex}.top-bar-window{flex-direction:row;justify-content:space-between;margin:2px;padding:2px;width:auto;z-index:10}.top-bar-deactivated{background:#7b7d7b}.top-bar:hover{cursor:default}.window-name{align-items:center;color:#fff;display:flex;font-size:16px;font-weight:500;margin:0 0 0 3px;padding:0}.icon-image{height:15px;margin-bottom:0;margin-right:5px;margin-top:0;width:15px}",
+      "start": 1714315495831,
+      "end": 1714315495841,
+      "order": "normal",
+      "sourcemaps": {
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue",
+        "mappings": "AACA,WACI,aAAc,CAGd,cAAe,CACf,eAAgB,CAHhB,eAAgB,CAChB,oBAKJ,CAEA,wBAJI,UAAY,CACZ,sBAYJ,CATA,aAKI,kBAAmB,CAHnB,YAAa,CACb,qBAAsB,CACtB,WAAY,CAEZ,iBAAkB,CAClB,UAEJ,CAEA,mBACI,cACJ,CAEA,sCACI,kGACJ,CAEA,8BACI,kBAA0B,CAC1B,UAAY,CACZ,QACJ,CAEA,+BACI,sBACJ,CAEA,mBAEI,WAAY,CACZ,iBAAkB,CAFlB,UAGJ,CAUA,uBAGI,kBAAmB,CAFnB,YAAa,CACb,sBAGJ,CAEA,eACI,eAAgB,CAKhB,sCAA4C,CAA5C,kBAA4C,CAA5C,kBAA4C,CAJ5C,eAAgB,CAKhB,wBAAyB,CAGzB,UAAW,CAEX,iBAAkB,CAJlB,UAAW,CACX,UAIJ,CAMA,UACI,YACJ,CAEA,QACI,qBAAsB,CAOtB,YAAa,CADb,gBAAiB,CAJjB,QAAW,CADX,SAAY,CAIZ,iBAAkB,CAFlB,wBAAiB,CAAjB,qBAAiB,CAAjB,gBAKJ,CAEA,YAEI,kCAAoC,CACpC,QAAS,CAET,SAAU,CADV,uBAAyB,CAHzB,oBAKJ,CAEA,SACI,WAAY,CACZ,iBAAkB,CAIlB,yHACJ,CAEA,YAEI,YAAa,CADb,WAAY,CAEZ,UACJ,CAEA,KAQI,sCAA4C,CAA5C,kBAA4C,CAA5C,kBAA4C,CAJ5C,eAAgB,CAHhB,WAAY,CACZ,UAAuB,CACvB,mBAMJ,CAUA,qBAII,kBAAmB,CADnB,YAAa,CAEb,0BAA2B,CAH3B,gBAAiB,CADjB,UAKJ,CAMA,SACI,kBACJ,CAEA,aACI,YAAa,CACb,WAAY,CACZ,UACJ,CAEA,cACI,WAAY,CAIZ,0BAA2B,CAH3B,iBAIJ,CAQA,8BAVI,kBAAmB,CADnB,YAoBJ,CATA,gBAKI,kBAAmB,CADnB,6BAA8B,CAG9B,UAAW,CACX,WAAwB,CANxB,UAAW,CAIX,UAGJ,CAEA,qBACI,kBACJ,CAEA,eACI,cACJ,CAEA,aAGI,kBAAmB,CAFnB,UAAY,CACZ,YAAa,CAIb,cAAe,CAFf,eAAgB,CAGhB,gBAAiB,CAFjB,SAGJ,CAEA,YAEI,WAAY,CAGZ,eAAgB,CAFhB,gBAAiB,CACjB,YAAa,CAHb,UAKJ",
+        "names": [],
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue"
+        ],
+        "sourcesContent": [
+          "\r\n.icon-text {\r\n    display: block;\r\n    overflow: hidden;\r\n    width: 60px !important;\r\n    font-size: 12px;\r\n    font-weight: 300;\r\n    color: black;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.icon-photos {\r\n    color: black;\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin: 1rem;\r\n    align-items: center;\r\n    text-align: center;\r\n    width: 60px;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.icon-photos:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n.icon-photos:focus .icon-image-photos {\r\n    filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(0.9);\r\n}\r\n\r\n.icon-photos:focus .icon-text {\r\n    background: rgb(0, 0, 118);\r\n    color: white;\r\n    margin: 0px;\r\n}\r\n\r\n.icon-photos:focus .border-box {\r\n    border: rgb(0, 0, 0) dotted 1px;\r\n}\r\n\r\n.icon-image-photos {\r\n    width: 30px;\r\n    height: 30px;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.iframe-container {\r\n    \r\n}\r\n\r\n.responsive-iframe {\r\n   \r\n}\r\n\r\n.grid-container-photos {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    /* height: 0 !important; */\r\n}\r\n\r\n.file-explorer {\r\n    background: gray;\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n    height: calc(100% - 30px);\r\n    width: auto;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    /* padding: 2px 2px 2px 2px; */\r\n    overflow-y: hidden;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Windows/Display\r\n\\*-------------------------------------------*/\r\n\r\n.minimize {\r\n    display: none;\r\n}\r\n\r\n.window {\r\n    box-sizing: border-box;\r\n    padding: 0px;\r\n    margin: 0px;\r\n    user-select: none;\r\n    -ms-touch-action: none;\r\n    touch-action: none;\r\n    flex-flow: column;\r\n    display: flex;\r\n}\r\n\r\n.fullscreen {\r\n    width: 100% !important;\r\n    height: var(--fullscreen) !important;\r\n    margin: 0;\r\n    transition: all 0.5s ease;\r\n    padding: 0;\r\n}\r\n\r\n.content {\r\n    flex-grow: 1;\r\n    overflow-x: hidden;\r\n    padding-right: var(--content-padding-right);\r\n    padding-left: var(--content-padding-left);\r\n    padding-top: var(--content-padding-top);\r\n    padding-bottom: var(--content-padding-bottom);\r\n}\r\n\r\n.bottom-bar {\r\n    height: 22px;\r\n    display: flex;\r\n    width: 100%;\r\n}\r\n\r\n.bar {\r\n    height: 100%;\r\n    margin: 2px 2px 2px 2px;\r\n    padding: 0px 2px 1px 0px;\r\n    box-shadow: none;\r\n    border-top: solid rgb(0, 0, 0) 1.5px;\r\n    border-left: solid rgb(0, 0, 0) 1.5px;\r\n    border-bottom: solid rgb(250, 250, 250) 1.5px;\r\n    border-right: solid rgb(250, 250, 250) 1.5px;\r\n}\r\n\r\n.left-bar {\r\n    width: 100%;\r\n    padding-left: 2px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.right-bar {\r\n    width: 100%;\r\n    padding-left: 2px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n/*-------------------------------------------*\\\r\n    Top Bar\r\n\\*-------------------------------------------*/\r\n\r\n.top-bar {\r\n    background: rgb(0, 0, 124);\r\n}\r\n\r\n.top-bar-nav {\r\n    display: flex;\r\n    height: 22px;\r\n    width: 100%;\r\n}\r\n\r\n.top-bar-text {\r\n    height: 100%;\r\n    padding-left: 12px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: flex-start;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n}\r\n\r\n.top-bar-window {\r\n    display: flex;\r\n    width: auto;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    flex-direction: row;\r\n    z-index: 10;\r\n    margin: 2px;\r\n    padding: 2px 2px 2px 2px;\r\n}\r\n\r\n.top-bar-deactivated {\r\n    background: rgb(123, 125, 123);\r\n}\r\n\r\n.top-bar:hover {\r\n    cursor: default;\r\n}\r\n\r\n.window-name {\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    font-weight: 500;\r\n    padding: 0;\r\n    font-size: 16px;\r\n    margin: 0 0 0 3px;\r\n}\r\n\r\n.icon-image {\r\n    width: 15px;\r\n    height: 15px;\r\n    margin-right: 5px;\r\n    margin-top: 0;\r\n    margin-bottom: 0;\r\n}\r\n"
+        ],
+        "version": 3
+      }
+    },
+    {
+      "name": "vite:esbuild",
+      "start": 1714315495841,
+      "end": 1714315495841,
+      "order": "normal"
+    },
+    {
+      "name": "vite:json",
+      "start": 1714315495841,
+      "end": 1714315495841,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker",
+      "start": 1714315495841,
+      "end": 1714315495841,
+      "order": "normal"
+    },
+    {
+      "name": "vite:vue",
+      "result": ".icon-text[data-v-c4b84f44]{display:block;font-size:12px;font-weight:300;overflow:hidden;width:60px!important}.icon-photos[data-v-c4b84f44],.icon-text[data-v-c4b84f44]{color:#000;text-overflow:ellipsis}.icon-photos[data-v-c4b84f44]{align-items:center;display:flex;flex-direction:column;margin:1rem;text-align:center;width:60px}.icon-photos[data-v-c4b84f44]:hover{cursor:pointer}.icon-photos:focus .icon-image-photos[data-v-c4b84f44]{filter:grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(400%) contrast(.9)}.icon-photos:focus .icon-text[data-v-c4b84f44]{background:#000076;color:#fff;margin:0}.icon-photos:focus .border-box[data-v-c4b84f44]{border:1px dotted #000}.icon-image-photos[data-v-c4b84f44]{height:30px;margin-bottom:5px;width:30px}.grid-container-photos[data-v-c4b84f44]{align-items:center;display:flex;justify-content:center}.file-explorer[data-v-c4b84f44]{background:gray;border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none;height:calc(100% - 30px);margin:2px;overflow-y:hidden;width:auto;z-index:10}.minimize[data-v-c4b84f44]{display:none}.window[data-v-c4b84f44]{box-sizing:border-box;display:flex;flex-flow:column;margin:0;padding:0;touch-action:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.fullscreen[data-v-c4b84f44]{height:var(--fullscreen)!important;margin:0;padding:0;transition:all .5s ease;width:100%!important}.content[data-v-c4b84f44]{flex-grow:1;overflow-x:hidden;padding:var(--content-padding-top) var(--content-padding-right) var(--content-padding-bottom) var(--content-padding-left)}.bottom-bar[data-v-c4b84f44]{display:flex;height:22px;width:100%}.bar[data-v-c4b84f44]{border-color:#000 #fafafa #fafafa #000;border-style:solid;border-width:1.5px;box-shadow:none;height:100%;margin:2px;padding:0 2px 1px 0}.left-bar[data-v-c4b84f44],.right-bar[data-v-c4b84f44]{align-items:center;display:flex;justify-content:flex-start;padding-left:2px;width:100%}.top-bar[data-v-c4b84f44]{background:#00007c}.top-bar-nav[data-v-c4b84f44]{display:flex;height:22px;width:100%}.top-bar-text[data-v-c4b84f44]{height:100%;justify-content:flex-start;padding-left:12px}.top-bar-text[data-v-c4b84f44],.top-bar-window[data-v-c4b84f44]{align-items:center;display:flex}.top-bar-window[data-v-c4b84f44]{flex-direction:row;justify-content:space-between;margin:2px;padding:2px;width:auto;z-index:10}.top-bar-deactivated[data-v-c4b84f44]{background:#7b7d7b}.top-bar[data-v-c4b84f44]:hover{cursor:default}.window-name[data-v-c4b84f44]{align-items:center;color:#fff;display:flex;font-size:16px;font-weight:500;margin:0 0 0 3px;padding:0}.icon-image[data-v-c4b84f44]{height:15px;margin-bottom:0;margin-right:5px;margin-top:0;width:15px}",
+      "start": 1714315495841,
+      "end": 1714315495844,
+      "order": "normal",
+      "sourcemaps": {
+        "file": "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue",
+        "mappings": "AAAA,4BAAW,aAAa,CAAC,cAAc,CAAC,eAAe,CAAC,eAAe,CAAC,oBAAoB,CAAC,0DAAwB,UAAU,CAAC,sBAAsB,CAAC,8BAAa,kBAAkB,CAAC,YAAY,CAAC,qBAAqB,CAAC,WAAW,CAAC,iBAAiB,CAAC,UAAU,CAAC,oCAAmB,cAAc,CAAC,uDAAsC,kGAAkG,CAAC,+CAA8B,kBAAkB,CAAC,UAAU,CAAC,QAAQ,CAAC,gDAA+B,sBAAsB,CAAC,oCAAmB,WAAW,CAAC,iBAAiB,CAAC,UAAU,CAAC,wCAAuB,kBAAkB,CAAC,YAAY,CAAC,sBAAsB,CAAC,gCAAe,eAAe,CAAC,sCAAsC,CAAC,kBAAkB,CAAC,kBAAkB,CAAC,eAAe,CAAC,wBAAwB,CAAC,UAAU,CAAC,iBAAiB,CAAC,UAAU,CAAC,UAAU,CAAC,2BAAU,YAAY,CAAC,yBAAQ,qBAAqB,CAAC,YAAY,CAAC,gBAAgB,CAAC,QAAQ,CAAC,SAAS,CAAC,iBAAiB,CAAC,wBAAwB,CAAC,qBAAqB,CAAC,gBAAgB,CAAC,6BAAY,kCAAkC,CAAC,QAAQ,CAAC,SAAS,CAAC,uBAAuB,CAAC,oBAAoB,CAAC,0BAAS,WAAW,CAAC,iBAAiB,CAAC,yHAAyH,CAAC,6BAAY,YAAY,CAAC,WAAW,CAAC,UAAU,CAAC,sBAAK,sCAAsC,CAAC,kBAAkB,CAAC,kBAAkB,CAAC,eAAe,CAAC,WAAW,CAAC,UAAU,CAAC,mBAAmB,CAAC,uDAAqB,kBAAkB,CAAC,YAAY,CAAC,0BAA0B,CAAC,gBAAgB,CAAC,UAAU,CAAC,0BAAS,kBAAkB,CAAC,8BAAa,YAAY,CAAC,WAAW,CAAC,UAAU,CAAC,+BAAc,WAAW,CAAC,0BAA0B,CAAC,iBAAiB,CAAC,gEAA8B,kBAAkB,CAAC,YAAY,CAAC,iCAAgB,kBAAkB,CAAC,6BAA6B,CAAC,UAAU,CAAC,WAAW,CAAC,UAAU,CAAC,UAAU,CAAC,sCAAqB,kBAAkB,CAAC,gCAAe,cAAc,CAAC,8BAAa,kBAAkB,CAAC,UAAU,CAAC,YAAY,CAAC,cAAc,CAAC,eAAe,CAAC,gBAAgB,CAAC,SAAS,CAAC,6BAAY,WAAW,CAAC,eAAe,CAAC,gBAAgB,CAAC,YAAY,CAAC,UAAU",
+        "names": [],
+        "sources": [
+          "C:/Users/h00dy/Documents/github/h00dy.me/templates/ImagePreviewWindow.vue"
+        ],
+        "sourcesContent": [
+          null
+        ],
+        "version": 3
+      }
+    },
+    {
+      "name": "vite:vue-jsx",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:remove-plugin-metadata",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:components:imports",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "replace",
+      "start": 1714315495844,
+      "end": 1714315495844,
+      "order": "normal"
+    },
+    {
+      "name": "ssr-styles",
+      "start": 1714315495844,
+      "end": 1714315495845,
+      "order": "normal"
+    },
+    {
+      "name": "vite:define",
+      "start": 1714315495845,
+      "end": 1714315495845,
+      "order": "normal"
+    },
+    {
+      "name": "vite:css-post",
+      "result": "",
+      "start": 1714315495845,
+      "end": 1714315495845,
+      "order": "normal",
+      "sourcemaps": {
+        "mappings": ""
+      }
+    },
+    {
+      "name": "vite:build-html",
+      "start": 1714315495845,
+      "end": 1714315495845,
+      "order": "normal"
+    },
+    {
+      "name": "vite:worker-import-meta-url",
+      "start": 1714315495845,
+      "end": 1714315495845,
+      "order": "normal"
+    },
+    {
+      "name": "vite:asset-import-meta-url",
+      "start": 1714315495845,
+      "end": 1714315495845,
+      "order": "normal"
+    },
+    {
+      "name": "commonjs",
+      "start": 1714315495845,
+      "end": 1714315495846,
+      "order": "normal"
+    },
+    {
+      "name": "vite:dynamic-import-vars",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "normal"
+    },
+    {
+      "name": "vite:import-glob",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "normal"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:composable-keys",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:imports-transform",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "unctx:transform",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-template",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:components-loader",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "nuxt:tree-shake-composables:transform",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "post"
+    },
+    {
+      "name": "vite:build-import-analysis",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "normal"
+    },
+    {
+      "name": "vite:reporter",
+      "start": 1714315495846,
+      "end": 1714315495846,
+      "order": "normal"
+    }
+  ]
+}
