@@ -172,7 +172,7 @@ export default {
       "name": ["Kunal Jaglan", "h00dy", "hoodietramp", "Kunal Jaglan h00dy"],
       "image": "img/avatar.png",
       "jobTitle": ["Pentester", "Red Teamer", "Cyber Security"],
-      "description": "Kunal Jaglan, also know by his alias h00dy, is a seasoned expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. He brings a blend of experience, wisdom, and adaptability to the work, ethics making him a valuable asset in any cybersecurity endeavor.",
+      "description": "Kunal Jaglan, also know by his alias h00dy, is a seasoned cybersecurity expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. His love for CTFs and dedication brings a blend of experience, wisdom, and adaptability to his work. Rooted in strong ethical principles and passion for working tirelessly, Kunal proves to be an invaluable asset in any cybersecurity endeavor.",
       "url": "https://h00dy.me",
       "sameAs": [
         "https://facebook.com/0xh00dy",
