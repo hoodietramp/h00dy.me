@@ -19,6 +19,15 @@
             <div class="social-text"><u>I</u>nstagram</div>
           </div>
         </a>
+        <a href="https://youtube.com/@hoodietramp/" target="_blank">
+          <div class="bar">
+            <img
+              class="social-image"
+              src="@/assets/iPhone-Icons/youtube.webp"
+            />
+            <div class="social-text"><u>Y</u>outube</div>
+          </div>
+        </a>
         <a href="https://www.reddit.com/user/_kunaljaglan" target="_blank">
           <div class="bar">
             <img class="social-image" src="@/assets/iPhone-Icons/Reddit.webp" />
