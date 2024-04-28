@@ -1,0 +1,1 @@
+"use strict";const json5=require("./json5.cjs"),jsonc=require("./jsonc.cjs"),yaml=require("./yaml.cjs"),toml=require("./toml.cjs");exports.parseJSON5=json5.parseJSON5,exports.parseJSONC=jsonc.parseJSONC,exports.parseYAML=yaml.parseYAML,exports.stringifyYAML=yaml.stringifyYAML,exports.parseTOML=toml.parseTOML;

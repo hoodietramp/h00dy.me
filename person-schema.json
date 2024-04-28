@@ -1,0 +1,18 @@
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": ["Kunal Jaglan", "h00dy", "Kunal Jaglan 0day", "hoodietramp"],
+  "image": "img/avatar.png",
+  "jobTitle": ["Pentester", "Child Safety Warrior", "Entrepreneur", "Cyber Security"],
+  "description": "Ryan M. Montgomery, also known by his alias 0day, stands as a pillar in organizational development and innovation. With a proven track record of leadership, he serves as a guiding force at Pentester LLC and the Sentinel Foundation. Working closely with his esteemed leadership team, Ryan offers cutting-edge expertise in cybersecurity. His innovative approaches are geared towards safeguarding digital landscapes, thereby ensuring online safety for both adults and children. Dedicated to combating cyber threats, Ryan and his team at Pentester and the Sentinel Foundation work tirelessly to elevate cybersecurity standards and protect vulnerable online spaces.",
+  "url": "https://ryanmontgomery.me",
+  "sameAs": [
+    "https://facebook.com/RyanMMontgomery",
+    "https://instagram.com/0day",
+    "https://twitch.tv/0day",
+    "https://linkedin.com/in/rapper",
+    "https://github.com/0dayCTF",
+    "https://tiktok.com/@0dayCTF"
+  ],
+  "birthDate": "1993-07-23"
+}

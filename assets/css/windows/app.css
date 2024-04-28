@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #000000;
+    background-image: url('/assets/anonymous.jpeg');
+    background-size: cover;
+    background-position: center;
+  }
+  
