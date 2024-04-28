@@ -67,7 +67,7 @@
     }
   .menu {
     width: 175px;
-    height: 282px;
+    height: 320px;
     background: rgb(255, 255, 255);
     overflow: hidden;
     border-radius: 1%;
@@ -97,7 +97,6 @@
     width: 100%;
     border-bottom: solid rgb(90, 90, 90) 1.5px;
     text-align: left;
-    font-weight: bold;
     }
 
   a {
@@ -144,7 +143,6 @@
   
   .bar:hover {
     background: #d9d9d9;
-    font-weight: bold;
     color: #fc7a00;
   }
   </style>
