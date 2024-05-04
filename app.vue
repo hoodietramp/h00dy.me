@@ -59,12 +59,18 @@ onMounted(() => {
   openWindow('BiographyWindow')
 })
 
+window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6HWN4KNL8G');
+
 </script>
 
 <template>
   <title>Kunal Jaglan - h00dy</title>
   <meta name="author" content="Kunal Jaglan">
-  <meta name="description" content="Kunal Jaglan, also know by his alias h00dy, is a seasoned cybersecurity expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. His love for CTFs and dedication brings a blend of experience, wisdom, and adaptability to his work. Rooted in strong ethical principles and passion for working tirelessly, Kunal proves to be an invaluable asset in any cybersecurity endeavor.">
+  <meta name="description"
+    content="Kunal Jaglan, also know by his alias h00dy, is a seasoned cybersecurity expert who is witnessing the evolution of cybersecurity from its alluring days to the complexities of the modern digital landscape. His love for CTFs and dedication brings a blend of experience, wisdom, and adaptability to his work. Rooted in strong ethical principles and passion for working tirelessly, Kunal proves to be an invaluable asset in any cybersecurity endeavor.">
   <div id="app">
     <div class="screen" id="screen" @click="deinitWindows">
       <div v-for="window in windows" :key="window.key" :aria-label="window.displayName">
@@ -76,8 +82,7 @@ onMounted(() => {
             position: window.position,
             left: window.positionX,
             top: window.positionY,
-          }" :folderContent="window.folderContent" :folderSize="window.folderSize"
-          v-if="windowCheck(window.windowId)">
+          }" :folderContent="window.folderContent" :folderSize="window.folderSize" v-if="windowCheck(window.windowId)">
           <template v-slot:content>
             <component :is="slotViews.find(comp => comp.name === window.windowContent).comp"></component>
           </template>
