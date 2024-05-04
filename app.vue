@@ -59,11 +59,6 @@ onMounted(() => {
   openWindow('BiographyWindow')
 })
 
-window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6HWN4KNL8G');
-
 </script>
 
 <template>
