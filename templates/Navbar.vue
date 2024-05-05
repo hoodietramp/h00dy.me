@@ -31,6 +31,19 @@ const openWindow = (windowId) => {
     windowsStore.setWindowState(payload)
 }
 
+const userIp = ref('');
+
+async function fetchUserIp() {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    userIp.value = data.ip;
+  } catch (error) {
+    console.error('Error fetching user IP:', error);
+  }
+}
+
+
 onBeforeMount(() => {
     setInterval(() => {
         time.value = moment().format("hh:mm A");
@@ -38,7 +51,9 @@ onBeforeMount(() => {
     setInterval(() => {
         date.value = moment().format("ddd DD MMMM");
     }, 1000);
+    fetchUserIp();
 })
+
 </script>
 
 <template>
@@ -74,6 +89,9 @@ onBeforeMount(() => {
         </button>
     </div>
     </div>
+    <div class="loic">
+    <p> -- {{ userIp }}</p>
+    </div>
     <div class="spacer"></div>
     <div alt="time" class="time">
         <img src="../assets/speakers.png" class="icon-image" />
@@ -88,6 +106,11 @@ onBeforeMount(() => {
 /*-------------------------------------------*\
       Container
   \*-------------------------------------------*/
+
+@font-face {
+  font-family: "Proto-Mono";
+  src: url("@/assets/fonts/proto_mono_regular.ttf");
+}
 
 .navbar-container {
     width: 100%;
@@ -298,5 +321,11 @@ p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.loic{
+    color: #000;
+    font-family: 'Proto-Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: bold;
 }
 </style>
