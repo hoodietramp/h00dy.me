@@ -14,13 +14,13 @@
 
         </p>
         <p class="font-thin text-sm pb-2.5">
-            I am my own worst critic. As a result, I allow myself the space to navigate burnouts and re-writing internet privacy rights when they're still left, and recently, probing the whimsy of the IoT Sphere, all from the comfort of my cubicle.
+            I am my own worst critic. As a result, I allow myself the space to navigate burnouts by hacking even more. I love doing it so much i just keep hacking! It's the best decision I've ever made, all from the comfort of my cubicle.
         </p>
     </div>
 
     <div class="pt-7">
         <h3 class="pb-1"><b>Résumé</b></h3>
-        <a style="color: #ff5733" href="/files/Kunal_SecurityEngineer_Apr.pdf" class="font-thin text-sm pb-2.5">Check out my résumé here.</a>
+        <a style="color: #ff5733" href="/files/Kunal_SecurityEngineer_May.pdf" class="font-thin text-sm pb-2.5">Check out my résumé here.</a>
     </div>
 </div>
 </template>
