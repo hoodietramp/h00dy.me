@@ -21,7 +21,7 @@ const windowComponents = [
 
 const slotViews = [
   { name: 'bio', comp: Bio },
-  { name: 'resume', comp: Resume },
+  { name: 'resume', comp: Resume }
 ]
 
 const windowCheck = (windowId) => {
