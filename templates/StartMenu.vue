@@ -40,6 +40,12 @@
             <u>R</u>eddit
           </div>
         </a>
+        <a href="https://facebook.com/0xh00dy" target="_blank">
+          <div class="bar">
+            <img class="social-image" src="@/assets/iPhone-Icons/fb.png" />
+            <u>F</u>acebook
+          </div>
+        </a>
         <a
           href="https://www.linkedin.com/in/h00dy"
           target="_blank"
@@ -53,6 +59,12 @@
           <div class="bar">
             <img class="social-image" src="@/assets/iPhone-Icons/github.png" />
             <u>G</u>itHub
+          </div>
+        </a>
+        <a href="https://hackersarcade.com" target="_blank">
+          <div class="bar">
+            <img class="social-image" src="@/assets/iPhone-Icons/hackersarcade.png" />
+            <u>H</u>ackers&nbsp;<u>A</u>rcade
           </div>
         </a>
         <div class="divider"></div>
@@ -73,7 +85,7 @@
     }
   .menu {
     width: 175px;
-    height: 360px;
+    height: 390px;
     background: rgb(255, 255, 255);
     overflow: hidden;
     border-radius: 1%;
@@ -134,8 +146,8 @@
   }
   
   .social-image {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     margin-right: 10px;
     border-radius: 6px;
   }
